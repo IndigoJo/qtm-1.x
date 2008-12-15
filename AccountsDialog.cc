@@ -324,8 +324,8 @@ void AccountsDialog::on_leBlogURI_returnPressed()
   for( i = 0; i <= wpmuHosts.count(); i++ ) {
     if( i < wpmuHosts.count() ) {
       if( uris.contains( wpmuHosts.at( i ) ) ) {
-        leServer->setText( uris.remove( "http://" ) );
-        accountList[currentRow].server = uris.remove( "http://" );
+        leServer->setText( uri.host() );
+        accountList[currentRow].server = uri.host();
         leLocation->setText( "/xmlrpc.php" );
         accountList[currentRow].location = "/xmlrpc.php";
         lePort->clear();
@@ -410,7 +410,9 @@ void AccountsDialog::handleHttpDone( bool error )
                 url = QUrl( apis.at( i ).toElement().attribute( "apiLink" ) );
                 if( url.isValid() ) {
                   leServer->setText( url.host() );
+                  accountList[currentRow].server = url.host();
                   leLocation->setText( url.path() );
+                  accountList[currentRow].location = url.path();
                   break;
                 }
               }

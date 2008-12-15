@@ -904,6 +904,7 @@ void EditingWindow::checkForEmptySettings()
                                QMessageBox::Yes | QMessageBox::Default,
                                QMessageBox::No ) == QMessageBox::Yes )
       getPreferences();
+      getAccounts();
   }
 }
 

@@ -37,6 +37,7 @@
 #include <QPoint>
 #include <QColor>
 #include <QPalette>
+#include <QLabel>
 #include <QStackedWidget>
 #include <QTextBrowser>
 #include <QPushButton>
@@ -1480,25 +1481,23 @@ void EditingWindow::getPreferences()
   prefsDialog.sbConsole->setValue( consoleFont.pointSize() );
 
   // Set editor colours
-  palette = prefsDialog.tbEditorBgColor->palette();
-  palette.setColor( QPalette::Button, editorBgColor );
-  palette.setColor( QPalette::ButtonText, editorFgColor );
-  prefsDialog.tbEditorBgColor->setPalette( palette );
-  prefsDialog.tbEditorFgColor->setPalette( palette );
+  palette = prefsDialog.lEditorExampleText->palette();
+  palette.setColor( QPalette::Window, editorBgColor );
+  palette.setColor( QPalette::WindowText, editorFgColor );
+  prefsDialog.lEditorExampleText->setPalette( palette );
 
   // Set preview colours
-  palette = prefsDialog.tbPreviewBgColor->palette();
-  palette.setColor( QPalette::Button, previewBgColor );
-  palette.setColor( QPalette::ButtonText, previewFgColor );
-  prefsDialog.tbEditorBgColor->setPalette( palette );
-  prefsDialog.tbEditorFgColor->setPalette( palette );
+  palette = prefsDialog.lPreviewExampleText->palette();
+  palette.setColor( QPalette::Window, previewBgColor );
+  palette.setColor( QPalette::WindowText, previewFgColor );
+  prefsDialog.lPreviewExampleText->setPalette( palette );
 
   // Set console colours
-  palette = prefsDialog.tbConsoleBgColor->palette();
-  palette.setColor( QPalette::Button, consoleBgColor );
-  palette.setColor( QPalette::ButtonText, consoleFgColor );
-  prefsDialog.tbEditorBgColor->setPalette( palette );
-  prefsDialog.tbEditorFgColor->setPalette( palette );
+  palette = prefsDialog.lConsoleExampleText->palette();
+  palette.setColor( QPalette::Window, consoleBgColor );
+  palette.setColor( QPalette::WindowText, consoleFgColor );
+  prefsDialog.lConsoleExampleText->setPalette( palette );
+
 #ifdef USE_SYSTRAYICON
   prefsDialog.cbSTI2ClickFunction->setCurrentIndex( STI2ClickFunction );
 #else
@@ -1542,17 +1541,17 @@ void EditingWindow::getPreferences()
     console->setFont( cf );
 
     // Set colours
-    palette = prefsDialog.tbEditorBgColor->palette();
-    editorBgColor = palette.color( QPalette::Button );
-    editorFgColor = palette.color( QPalette::ButtonText );
+    palette = prefsDialog.lEditorExampleText->palette();
+    editorBgColor = palette.color( QPalette::Window );
+    editorFgColor = palette.color( QPalette::WindowText );
 
-    palette = prefsDialog.tbPreviewFgColor->palette();
-    previewBgColor = palette.color( QPalette::Button );
-    previewFgColor = palette.color( QPalette::ButtonText );
+    palette = prefsDialog.lPreviewExampleText->palette();
+    previewBgColor = palette.color( QPalette::Window );
+    previewFgColor = palette.color( QPalette::WindowText );
 
-    palette = prefsDialog.tbConsoleBgColor->palette();
-    consoleBgColor = palette.color( QPalette::Button );
-    consoleFgColor = palette.color( QPalette::ButtonText );
+    palette = prefsDialog.lConsoleExampleText->palette();
+    consoleBgColor = palette.color( QPalette::Window );
+    consoleFgColor = palette.color( QPalette::WindowText );
 
     setEditorColors();
 #endif

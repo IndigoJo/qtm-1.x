@@ -25,10 +25,12 @@
 #include <QWidget>
 #include <QDialog>
 #include <QFileDialog>
+#include <QColorDialog>
 #include <QString>
 #include <QHostInfo>
 #include <QMessageBox>
 #include <QWhatsThis>
+#include <QLabel>
 
 PrefsDialog::PrefsDialog( QWidget *parent )
   : QDialog( parent )
@@ -62,6 +64,54 @@ void PrefsDialog::on_pbBrowse_clicked()
 void PrefsDialog::on_pbWhatsThis_clicked() // slot
 {
   QWhatsThis::enterWhatsThisMode();
+}
+
+void PrefsDialog::on_tbEditorBgColor_clicked() // slot
+{
+  QPalette palette = lEditorExampleText->palette();
+  QColor color = QColorDialog::getColor( palette.color( QPalette::Window ), this );
+  palette.setColor( QPalette::Window, color );
+  lEditorExampleText->setPalette( palette );
+}
+
+void PrefsDialog::on_tbEditorFgColor_clicked() // slot
+{
+  QPalette palette = lEditorExampleText->palette();
+  QColor color = QColorDialog::getColor( palette.color( QPalette::WindowText ), this );
+  palette.setColor( QPalette::WindowText, color );
+  lEditorExampleText->setPalette( palette );
+}
+
+void PrefsDialog::on_tbPreviewBgColor_clicked() // slot
+{
+  QPalette palette = lPreviewExampleText->palette();
+  QColor color = QColorDialog::getColor( palette.color( QPalette::Window ), this );
+  palette.setColor( QPalette::Window, color );
+  lPreviewExampleText->setPalette( palette );
+}
+
+void PrefsDialog::on_tbPreviewFgColor_clicked() // slot
+{
+  QPalette palette = lPreviewExampleText->palette();
+  QColor color = QColorDialog::getColor( palette.color( QPalette::WindowText ), this );
+  palette.setColor( QPalette::WindowText, color );
+  lPreviewExampleText->setPalette( palette );
+}
+
+void PrefsDialog::on_tbConsoleBgColor_clicked() // slot
+{
+  QPalette palette = lConsoleExampleText->palette();
+  QColor color = QColorDialog::getColor( palette.color( QPalette::Window ), this );
+  palette.setColor( QPalette::Window, color );
+  lConsoleExampleText->setPalette( palette );
+}
+
+void PrefsDialog::on_tbConsoleFgColor_clicked() // slot
+{
+  QPalette palette = lConsoleExampleText->palette();
+  QColor color = QColorDialog::getColor( palette.color( QPalette::WindowText ), this );
+  palette.setColor( QPalette::WindowText, color );
+  lConsoleExampleText->setPalette( palette );
 }
 
 /*

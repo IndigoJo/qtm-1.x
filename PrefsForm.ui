@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>514</width>
-    <height>330</height>
+    <height>357</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -296,11 +296,11 @@
            <property name="whatsThis" >
             <string>Background colour for the main editor</string>
            </property>
-           <property name="text" >
-            <string>Back</string>
-           </property>
            <property name="autoFillBackground" >
             <bool>true</bool>
+           </property>
+           <property name="text" >
+            <string>Back</string>
            </property>
           </widget>
          </item>
@@ -312,24 +312,24 @@
            <property name="whatsThis" >
             <string>Background colour for entry preview</string>
            </property>
-           <property name="text" >
-            <string>Back</string>
-           </property>
            <property name="autoFillBackground" >
             <bool>true</bool>
            </property>
-           </widget>
+           <property name="text" >
+            <string>Back</string>
+           </property>
+          </widget>
          </item>
          <item row="2" column="3" >
           <widget class="QToolButton" name="tbConsoleBgColor" >
            <property name="whatsThis" >
             <string>Background colour for the console</string>
            </property>
-           <property name="text" >
-            <string>Back</string>
-           </property>
            <property name="autoFillBackground" >
             <bool>true</bool>
+           </property>
+           <property name="text" >
+            <string>Back</string>
            </property>
           </widget>
          </item>
@@ -341,11 +341,11 @@
            <property name="whatsThis" >
             <string>Foreground colour for the main editor</string>
            </property>
-           <property name="text" >
-            <string>Fore</string>
-           </property>
            <property name="autoFillBackground" >
             <bool>true</bool>
+           </property>
+           <property name="text" >
+            <string>Fore</string>
            </property>
           </widget>
          </item>
@@ -357,11 +357,11 @@
            <property name="whatsThis" >
             <string>Foreground colour for entry preview</string>
            </property>
-           <property name="text" >
-            <string>Fore</string>
-           </property>
            <property name="autoFillBackground" >
             <bool>true</bool>
+           </property>
+           <property name="text" >
+            <string>Fore</string>
            </property>
           </widget>
          </item>
@@ -373,13 +373,70 @@
            <property name="whatsThis" >
             <string>Foreground colour for the console</string>
            </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
            <property name="text" >
             <string>Fore</string>
            </property>
-            <property name="autoFillBackground" >
-             <bool>true</bool>
-            </property>
-           </widget>
+          </widget>
+         </item>
+         <item row="0" column="5" >
+          <widget class="QLabel" name="lEditorExampleText" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text" >
+            <string>Text</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="5" >
+          <widget class="QLabel" name="lPreviewExampleText" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text" >
+            <string>Text</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="5" >
+          <widget class="QLabel" name="lConsoleExampleText" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text" >
+            <string>Text</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

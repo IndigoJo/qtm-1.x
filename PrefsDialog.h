@@ -45,6 +45,12 @@ public:
 private slots:
   void on_pbBrowse_clicked();
   void on_pbWhatsThis_clicked();
+  void on_tbEditorBgColor_clicked();
+  void on_tbEditorFgColor_clicked();
+  void on_tbPreviewBgColor_clicked();
+  void on_tbPreviewFgColor_clicked();
+  void on_tbConsoleBgColor_clicked();
+  void on_tbConsoleFgColor_clicked();
   //void on_okButton_clicked();
   //void handleHostInfo( const QHostInfo & );
   /*

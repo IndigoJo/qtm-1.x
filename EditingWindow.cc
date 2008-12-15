@@ -36,9 +36,11 @@
 #include <QSize>
 #include <QPoint>
 #include <QColor>
+#include <QPalette>
 #include <QStackedWidget>
 #include <QTextBrowser>
 #include <QPushButton>
+#include <QToolButton>
 #include <QVBoxLayout>
 #include <QAction>
 #include <QIcon>
@@ -1404,6 +1406,7 @@ void EditingWindow::getAccounts()
 void EditingWindow::getPreferences()
 {
   QSettings settings;
+  QPalette palette, widgetPalette;
 
   PrefsDialog prefsDialog( this );
   if( localStorageDirectory.isEmpty() ) {
@@ -1452,6 +1455,27 @@ void EditingWindow::getPreferences()
   prefsDialog.sbPreview->setValue( previewFont.pointSize() );
   prefsDialog.fcbConsole->setCurrentFont( consoleFont );
   prefsDialog.sbConsole->setValue( consoleFont.pointSize() );
+
+  // Set editor colours
+  palette = prefsDialog.tbEditorBgColor->palette();
+  palette.setColor( QPalette::Button, editorBgColor );
+  palette.setColor( QPalette::ButtonText, editorFgColor );
+  prefsDialog.tbEditorBgColor->setPalette( palette );
+  prefsDialog.tbEditorFgColor->setPalette( palette );
+
+  // Set preview colours
+  palette = prefsDialog.tbPreviewBgColor->palette();
+  palette.setColor( QPalette::Button, previewBgColor );
+  palette.setColor( QPalette::ButtonText, previewFgColor );
+  prefsDialog.tbEditorBgColor->setPalette( palette );
+  prefsDialog.tbEditorFgColor->setPalette( palette );
+
+  // Set console colours
+  palette = prefsDialog.tbConsoleBgColor->palette();
+  palette.setColor( QPalette::Button, consoleBgColor );
+  palette.setColor( QPalette::ButtonText, consoleFgColor );
+  prefsDialog.tbEditorBgColor->setPalette( palette );
+  prefsDialog.tbEditorFgColor->setPalette( palette );
 #ifdef USE_SYSTRAYICON
   prefsDialog.cbSTI2ClickFunction->setCurrentIndex( STI2ClickFunction );
 #else
@@ -1493,6 +1517,31 @@ void EditingWindow::getPreferences()
     cf.setPointSize( prefsDialog.sbConsole->value() );
     consoleFontString = cf.toString();
     console->setFont( cf );
+
+    // Set colours
+    palette = prefsDialog.tbEditorBgColor->palette();
+    editorBgColor = palette.color( QPalette::Button );
+    editorFgColor = palette.color( QPalette::ButtonText );
+    widgetPalette = EDITOR->palette();
+    widgetPalette.setColor( QPalette::Base, editorBgColor );
+    widgetPalette.setColor( QPalette::Text, editorFgColor );
+    EDITOR->setPalette( widgetPalette );
+
+    palette = prefsDialog.tbPreviewFgColor->palette();
+    previewBgColor = palette.color( QPalette::Button );
+    previewFgColor = palette.color( QPalette::ButtonText );
+    widgetPalette = previewWindow->palette();
+    widgetPalette.setColor( QPalette::Base, previewBgColor );
+    widgetPalette.setColor( QPalette::Text, previewFgColor );
+    previewWindow->setPalette( widgetPalette );
+
+    palette = prefsDialog.tbConsoleBgColor->palette();
+    consoleBgColor = palette.color( QPalette::Button );
+    consoleFgColor = palette.color( QPalette::ButtonText );
+    widgetPalette = console->palette();
+    widgetPalette.setColor( QPalette::Base, previewBgColor );
+    widgetPalette.setColor( QPalette::Text, consoleFgColor );
+    console->setPalette( widgetPalette );
 #endif
 #if defined USE_SYSTRAYICON
     STI2ClickFunction = prefsDialog.cbSTI2ClickFunction->currentIndex();
@@ -1566,7 +1615,7 @@ void EditingWindow::getPreferences()
     settings.setValue( "previewBgColor", previewBgColor.name() );
     settings.setValue( "previewFgColor", previewFgColor.name() );
     settings.setValue( "consoleBgColor", consoleBgColor.name() );
-    settings.setValue( "consoleFgColor", consoleFgColor.name() ):
+    settings.setValue( "consoleFgColor", consoleFgColor.name() );
     settings.endGroup();
 #ifdef USE_SYSTRAYICON
     settings.beginGroup( "sysTrayIcon" );

@@ -289,7 +289,7 @@
           </widget>
          </item>
          <item row="0" column="3" >
-          <widget class="QToolButton" name="tbEditBackCol" >
+          <widget class="QToolButton" name="tbEditorBgColor" >
            <property name="toolTip" >
             <string>Background colour</string>
            </property>
@@ -302,7 +302,7 @@
           </widget>
          </item>
          <item row="1" column="3" >
-          <widget class="QToolButton" name="tbPrevBackCol" >
+          <widget class="QToolButton" name="tbPreviewBgColor" >
            <property name="toolTip" >
             <string>Background colour</string>
            </property>
@@ -315,7 +315,7 @@
           </widget>
          </item>
          <item row="2" column="3" >
-          <widget class="QToolButton" name="tbConsBackCol" >
+          <widget class="QToolButton" name="tbConsoleBgColor" >
            <property name="whatsThis" >
             <string>Background colour for the console</string>
            </property>
@@ -325,7 +325,7 @@
           </widget>
          </item>
          <item row="0" column="4" >
-          <widget class="QToolButton" name="tbEditForeCol" >
+          <widget class="QToolButton" name="tbEditorFgColor" >
            <property name="toolTip" >
             <string>Foreground colour</string>
            </property>
@@ -338,7 +338,7 @@
           </widget>
          </item>
          <item row="1" column="4" >
-          <widget class="QToolButton" name="tbPrevForeCol" >
+          <widget class="QToolButton" name="tbPreviewFgColor" >
            <property name="toolTip" >
             <string>Foreground colour</string>
            </property>
@@ -351,7 +351,7 @@
           </widget>
          </item>
          <item row="2" column="4" >
-          <widget class="QToolButton" name="tbConsForeCol" >
+          <widget class="QToolButton" name="tbConsoleFgColor" >
            <property name="toolTip" >
             <string>Foreground colour</string>
            </property>

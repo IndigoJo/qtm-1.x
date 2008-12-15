@@ -132,7 +132,6 @@
   doUiSetup();
 
   readSettings();
-  checkForEmptySettings();
   setEditorColors();
 
   if( editorFontString != "" ) {
@@ -234,6 +233,7 @@
     }
   }
 
+  checkForEmptySettings();
   mainStack->setCurrentIndex( edID );
 }
 
@@ -248,7 +248,6 @@
   doUiSetup();
 
   readSettings();
-  checkForEmptySettings();
   setEditorColors();
 
   if( editorFontString != "" ) {
@@ -351,6 +350,7 @@
     }
   }
 
+  checkForEmptySettings();
   EDITOR->setPlainText( newPost );
   mainStack->setCurrentIndex( edID );
 
@@ -985,7 +985,7 @@ void EditingWindow::setInitialAccount()
                                      accountsList.at( i ).toElement().attribute( "id" ) );
   }
 
-  // qDebug() << "checking for last account ID";
+  // Check if the last account is in the accounts list, and if so, make it current
   for( i = 0; i < accountsList.count(); i++ ) {
     if( accountsList.at( i ).toElement().attribute( "id" ) == lastAccountID ) {
       // qDebug() << "found it";
@@ -994,6 +994,7 @@ void EditingWindow::setInitialAccount()
       cw.cbAccountSelector->setCurrentIndex( i );
       extractAccountDetails();
       populateBlogList();
+      setNetworkActionsEnabled( true );
       connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
                this, SLOT( changeAccount( int ) ) );
       break;
@@ -1005,6 +1006,7 @@ void EditingWindow::setInitialAccount()
         .firstChildElement( "account" );
       extractAccountDetails();
       populateBlogList();
+      setNetworkActionsEnabled( true );
       connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
                this, SLOT( changeAccount( int ) ) );
     }
@@ -1430,6 +1432,7 @@ void EditingWindow::getAccounts()
         currentAccountId = currentAccountElement.attribute( "id" );
         extractAccountDetails();
         refreshBlogList();
+        setNetworkActionsEnabled( true );
       }
     }
     connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
@@ -2028,16 +2031,9 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
   }
   else {
     if( !i ) {
-#ifndef NO_DEBUG_OUTPUT
-      // qDebug() << "No blogs";
-#endif
       statusBar()->showMessage( tr( "No blogs found" ), 2000 );
     }
     else {
-#ifndef NO_DEBUG_OUTPUT
-      // qDebug() << "Blogs found";
-#endif
-
       currentAccountElement.removeChild( currentAccountElement.firstChildElement( "blogs" ) );
       currentAccountElement.appendChild( accountsDom.importNode( importedBlogList.firstChildElement( "blogs" ), true ) );
 

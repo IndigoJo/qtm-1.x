@@ -923,7 +923,7 @@ void EditingWindow::setEditorColors()
   previewWindow->setPalette( widgetPalette );
 
   widgetPalette = console->palette();
-  widgetPalette.setColor( QPalette::Base, previewBgColor );
+  widgetPalette.setColor( QPalette::Base, consoleBgColor );
   widgetPalette.setColor( QPalette::Text, consoleFgColor );
   console->setPalette( widgetPalette );
 }

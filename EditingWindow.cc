@@ -1561,6 +1561,12 @@ void EditingWindow::getPreferences()
     settings.setValue( "editorFontString", editorFontString );
     settings.setValue( "previewFontString", previewFontString );
     settings.setValue( "consoleFontString", consoleFontString );
+    settings.setValue( "editorBgColor", editorBgColor.name() );
+    settings.setValue( "editorFgColor", editorFgColor.name() );
+    settings.setValue( "previewBgColor", previewBgColor.name() );
+    settings.setValue( "previewFgColor", previewFgColor.name() );
+    settings.setValue( "consoleBgColor", consoleBgColor.name() );
+    settings.setValue( "consoleFgColor", consoleFgColor.name() ):
     settings.endGroup();
 #ifdef USE_SYSTRAYICON
     settings.beginGroup( "sysTrayIcon" );

@@ -1424,7 +1424,11 @@ void EditingWindow::getAccounts()
         break;
       }
       if( i == accountsList.count()-1 ) {
+        qDebug() << "reached end of account list";
         cw.cbAccountSelector->setCurrentIndex( 0 );
+        currentAccountElement = accountsList.at( 0 ).toElement();
+        currentAccountId = currentAccountElement.attribute( "id" );
+        extractAccountDetails();
         refreshBlogList();
       }
     }

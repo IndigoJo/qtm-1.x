@@ -132,6 +132,7 @@
 
   readSettings();
   checkForEmptySettings();
+  setEditorColors();
 
   if( editorFontString != "" ) {
     f.fromString( editorFontString );
@@ -247,6 +248,7 @@
 
   readSettings();
   checkForEmptySettings();
+  setEditorColors();
 
   if( editorFontString != "" ) {
     f.fromString( editorFontString );
@@ -904,6 +906,27 @@ void EditingWindow::checkForEmptySettings()
   }
 }
 
+void EditingWindow::setEditorColors()
+{
+  QPalette widgetPalette;
+
+  // Set colours
+  widgetPalette = EDITOR->palette();
+  widgetPalette.setColor( QPalette::Base, editorBgColor );
+  widgetPalette.setColor( QPalette::Text, editorFgColor );
+  EDITOR->setPalette( widgetPalette );
+
+  widgetPalette = previewWindow->palette();
+  widgetPalette.setColor( QPalette::Base, previewBgColor );
+  widgetPalette.setColor( QPalette::Text, previewFgColor );
+  previewWindow->setPalette( widgetPalette );
+
+  widgetPalette = console->palette();
+  widgetPalette.setColor( QPalette::Base, previewBgColor );
+  widgetPalette.setColor( QPalette::Text, consoleFgColor );
+  console->setPalette( widgetPalette );
+}
+
 void EditingWindow::setInitialAccount()
 {
   int i;
@@ -1522,26 +1545,16 @@ void EditingWindow::getPreferences()
     palette = prefsDialog.tbEditorBgColor->palette();
     editorBgColor = palette.color( QPalette::Button );
     editorFgColor = palette.color( QPalette::ButtonText );
-    widgetPalette = EDITOR->palette();
-    widgetPalette.setColor( QPalette::Base, editorBgColor );
-    widgetPalette.setColor( QPalette::Text, editorFgColor );
-    EDITOR->setPalette( widgetPalette );
 
     palette = prefsDialog.tbPreviewFgColor->palette();
     previewBgColor = palette.color( QPalette::Button );
     previewFgColor = palette.color( QPalette::ButtonText );
-    widgetPalette = previewWindow->palette();
-    widgetPalette.setColor( QPalette::Base, previewBgColor );
-    widgetPalette.setColor( QPalette::Text, previewFgColor );
-    previewWindow->setPalette( widgetPalette );
 
     palette = prefsDialog.tbConsoleBgColor->palette();
     consoleBgColor = palette.color( QPalette::Button );
     consoleFgColor = palette.color( QPalette::ButtonText );
-    widgetPalette = console->palette();
-    widgetPalette.setColor( QPalette::Base, previewBgColor );
-    widgetPalette.setColor( QPalette::Text, consoleFgColor );
-    console->setPalette( widgetPalette );
+
+    setEditorColors();
 #endif
 #if defined USE_SYSTRAYICON
     STI2ClickFunction = prefsDialog.cbSTI2ClickFunction->currentIndex();

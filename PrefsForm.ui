@@ -299,6 +299,9 @@
            <property name="text" >
             <string>Back</string>
            </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item row="1" column="3" >
@@ -312,7 +315,10 @@
            <property name="text" >
             <string>Back</string>
            </property>
-          </widget>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
+           </widget>
          </item>
          <item row="2" column="3" >
           <widget class="QToolButton" name="tbConsoleBgColor" >
@@ -321,6 +327,9 @@
            </property>
            <property name="text" >
             <string>Back</string>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -335,6 +344,9 @@
            <property name="text" >
             <string>Fore</string>
            </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item row="1" column="4" >
@@ -347,6 +359,9 @@
            </property>
            <property name="text" >
             <string>Fore</string>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -361,7 +376,10 @@
            <property name="text" >
             <string>Fore</string>
            </property>
-          </widget>
+            <property name="autoFillBackground" >
+             <bool>true</bool>
+            </property>
+           </widget>
          </item>
         </layout>
        </item>
@@ -442,16 +460,16 @@
   <tabstop>cbSTI2ClickFunction</tabstop>
   <tabstop>fcbComposer</tabstop>
   <tabstop>sbComposer</tabstop>
-  <tabstop>tbEditBackCol</tabstop>
-  <tabstop>tbEditForeCol</tabstop>
+  <tabstop>tbEditorBgColor</tabstop>
+  <tabstop>tbEditorFgColor</tabstop>
   <tabstop>fcbPreview</tabstop>
   <tabstop>sbPreview</tabstop>
-  <tabstop>tbPrevBackCol</tabstop>
-  <tabstop>tbPrevForeCol</tabstop>
+  <tabstop>tbPreviewBgColor</tabstop>
+  <tabstop>tbPreviewFgColor</tabstop>
   <tabstop>fcbConsole</tabstop>
   <tabstop>sbConsole</tabstop>
-  <tabstop>tbConsBackCol</tabstop>
-  <tabstop>tbConsForeCol</tabstop>
+  <tabstop>tbConsoleBgColor</tabstop>
+  <tabstop>tbConsoleFgColor</tabstop>
   <tabstop>pbWhatsThis</tabstop>
   <tabstop>okButton</tabstop>
   <tabstop>cancelButton</tabstop>

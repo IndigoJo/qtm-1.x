@@ -94,6 +94,7 @@ class EditingWindow : public QMainWindow
   Ui::CategoryWidget cw;
   void doUiSetup();
   void checkForEmptySettings();
+  void setEditorColors();
   void setInitialAccount();
   void positionWidget( QWidget *, QWidget * );
   void readSettings();

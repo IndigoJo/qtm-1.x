@@ -1,5 +1,10 @@
 Changelog:
 
+0.7-rc1:
+
+New feature: Ability to set background and text colours in the editor,
+preview and console
+
 0.7 (22nd Oct 2008):
 
 New feature: Ability to specify "no categories" for a post, via a checkbox

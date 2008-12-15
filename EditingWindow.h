@@ -40,6 +40,7 @@
 #include "Application.h"
 
 #include <QHash>
+#include <QColor>
 #include <QtXml>
 
 class QWidget;
@@ -162,6 +163,9 @@ class EditingWindow : public QMainWindow
   QString otherCatsList;
   QRegExpValidator *tagValidator;
   QString editorFontString, previewFontString, consoleFontString;
+  QColor editorBgColor, editorFgColor,
+         previewBgColor, previewFgColor,
+         consoleBgColor, consoleFgColor;
   bool useBloggerTitleFormatting;
   int bloggerTitleFormat;
   QStringList bloggerTitleFormatStrings;

@@ -35,8 +35,8 @@
 #include <QCloseEvent>
 #include <QSize>
 #include <QPoint>
+#include <QColor>
 #include <QStackedWidget>
-// #include <QSplitter>
 #include <QTextBrowser>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -1023,6 +1023,12 @@ void EditingWindow::readSettings()
   editorFontString = settings.value( "editorFontString", "" ).toString();
   previewFontString = settings.value( "previewFontString", "" ).toString();
   consoleFontString = settings.value( "consoleFontString", "" ).toString();
+  editorBgColor = QColor( settings.value( "editorBgColor", "#FFFFFF" ).toString() );
+  editorFgColor = QColor( settings.value( "editorFgColor", "#000000" ).toString() );
+  previewBgColor = QColor( settings.value( "previewBgColor", "#FFFFFF" ).toString() );
+  previewFgColor = QColor( settings.value( "previewFgColor", "#000000" ).toString() );
+  consoleBgColor = QColor( settings.value( "consoleBgColor", "#FFFFFF" ).toString() );
+  consoleFgColor = QColor( settings.value( "consoleFgColor", "#000000" ).toString() );
   settings.endGroup();
 
 #ifdef USE_SYSTRAYICON

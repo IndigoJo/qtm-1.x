@@ -434,14 +434,25 @@
   <tabstop>pbBrowse</tabstop>
   <tabstop>leFileExtn</tabstop>
   <tabstop>chUseNewWindows</tabstop>
+  <tabstop>cbPostAsSave</tabstop>
+  <tabstop>chCopyTitle</tabstop>
+  <tabstop>chAllowRegexSearch</tabstop>
   <tabstop>cbAllowComments</tabstop>
   <tabstop>cbAllowTB</tabstop>
+  <tabstop>cbSTI2ClickFunction</tabstop>
   <tabstop>fcbComposer</tabstop>
   <tabstop>sbComposer</tabstop>
+  <tabstop>tbEditBackCol</tabstop>
+  <tabstop>tbEditForeCol</tabstop>
   <tabstop>fcbPreview</tabstop>
   <tabstop>sbPreview</tabstop>
+  <tabstop>tbPrevBackCol</tabstop>
+  <tabstop>tbPrevForeCol</tabstop>
   <tabstop>fcbConsole</tabstop>
   <tabstop>sbConsole</tabstop>
+  <tabstop>tbConsBackCol</tabstop>
+  <tabstop>tbConsForeCol</tabstop>
+  <tabstop>pbWhatsThis</tabstop>
   <tabstop>okButton</tabstop>
   <tabstop>cancelButton</tabstop>
  </tabstops>

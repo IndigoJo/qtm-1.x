@@ -1015,6 +1015,12 @@ void EditingWindow::readSettings()
   QString crf;
   Application::recentFile currentRF;
 
+#ifdef Q_WS_WIN
+  QString defaultLocalStorageDir = QString( "%1\\QTM blog" ).arg( QDir::homePath() );
+#else
+  QString defaultLocalStorageDir = QString( "%1/qtm-blog" ).arg( QDir::homePath() );
+#endif
+
   QSettings settings;
   applicationVersion = settings.value( "application/version", "" ).toString();
   settings.beginGroup( "geometry" );
@@ -1026,7 +1032,7 @@ void EditingWindow::readSettings()
   location = settings.value( "location", "" ).toString();
   login = settings.value( "login", "" ).toString();
   password = settings.value( "password", "" ).toString();
-  localStorageDirectory = settings.value( "localStorageDirectory", "" ).toString();
+  localStorageDirectory = settings.value( "localStorageDirectory", defaultLocalStorageDir ).toString();
   if( localStorageDirectory.contains( "~/" ) ) {
     localStorageDirectory.replace( "~", QDir::homePath() );
     settings.setValue( "localStorageDirectory", localStorageDirectory );

@@ -147,7 +147,7 @@ class EditingWindow : public QMainWindow
     copyTitle, allowRegexSearch, useTwoNewlines;
   QHash<QString, bool *> accountAttributes;
   QHash<QString, QString *> accountStrings;
-  bool entryEverSaved, cleanSave, noAutoSave, noAlphaCats;
+  bool entryEverSaved, cleanSave, noAutoSave, noAlphaCats, networkActionsEnabled;
   QList<QString> usersBlogs;
   QList<QString> categoryList;
   QStringList usersBlogURIs, usersBlogNames, usersBlogIDs;
@@ -245,6 +245,7 @@ class EditingWindow : public QMainWindow
   void doViewExcerpt();
   void doViewTechTags();
   void doViewTBPings();
+  void handleSideWidgetPageSwitch( int );
   void addTechTag();
   void addClipTag();
   void addTechTagFromLineEdit();

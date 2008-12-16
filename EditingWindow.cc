@@ -385,6 +385,7 @@ void EditingWindow::doUiSetup()
   loadedEntryBlog = 999;
   noAutoSave = false;
   noAlphaCats = false;
+  networkActionsEnabled = false;
   setAttribute( Qt::WA_QuitOnClose );
 
   userAgentString = QString( "QTM/%1" ).arg( QTM_VERSION );
@@ -701,6 +702,8 @@ void EditingWindow::doUiSetup()
            this, SLOT( addTBPingFromLineEdit() ) );
   connect( cw.tbTBAdd, SIGNAL( clicked() ),
            this, SLOT( addTBPingFromLineEdit() ) );
+  connect( cw.stackedWidget, SIGNAL( currentChanged( int ) ),
+           this, SLOT( handleSideWidgetPageSwitch( int ) ) );
 
   // Initialise recent file actions
 
@@ -995,6 +998,7 @@ void EditingWindow::setInitialAccount()
       extractAccountDetails();
       populateBlogList();
       setNetworkActionsEnabled( true );
+
       connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
                this, SLOT( changeAccount( int ) ) );
       break;
@@ -3908,6 +3912,19 @@ void EditingWindow::doViewTBPings()
   cw.cbPageSelector->setCurrentIndex( 4 );
 }
 
+// This slot is to refresh categories automatically if there are none when the user
+// switches to the category page
+void EditingWindow::handleSideWidgetPageSwitch( int index )
+{
+  if( index == 1 ) {
+    if( cw.cbMainCat->count() == 0 && networkActionsEnabled 
+        && categoriesEnabled ) {
+      statusBar()->showMessage( tr( "Getting categories, please wait" ), 2000 );
+      refreshCategories();
+    }
+  }
+}
+
 void EditingWindow::addTechTag()
 {
   cw.cbPageSelector->setCurrentIndex( 3 );
@@ -4263,6 +4280,7 @@ QDomElement EditingWindow::XmlRpcArray( QDomDocument &doc, QString valueName,
 
 void EditingWindow::setNetworkActionsEnabled( bool a )
 {
+  networkActionsEnabled = a;
   ui.actionRefresh_blog_list->setEnabled( a );
   ui.actionRefresh_categories->setEnabled( categoriesEnabled ? a : false );
   ui.actionSend_categories->setEnabled( categoriesEnabled ? a : false );

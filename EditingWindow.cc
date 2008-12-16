@@ -182,11 +182,11 @@
 #endif
       accountsXmlFile.close();
       accountsElement = accountsDom.createElement( "QTMAccounts" );
-      currentAccountElement = accountsDom.createElement( "account" );
-      currentAccountElement.setAttribute( "id", "default" );
 
       if( !server.isEmpty() ) {
         // qDebug() << "copying details to new default element";
+        currentAccountElement = accountsDom.createElement( "account" );
+        currentAccountElement.setAttribute( "id", "default" );
         detailElem = accountsDom.createElement( "details" );
         nameElem = accountsDom.createElement( "title" );
         nameElem.appendChild( accountsDom.createTextNode( tr( "Default account" ) ) );
@@ -299,11 +299,11 @@
 #endif
       accountsXmlFile.close();
       accountsElement = accountsDom.createElement( "QTMAccounts" );
-      currentAccountElement = accountsDom.createElement( "account" );
-      currentAccountElement.setAttribute( "id", "default" );
 
       if( !server.isEmpty() ) {
         // qDebug() << "copying details to new default element";
+        currentAccountElement = accountsDom.createElement( "account" );
+        currentAccountElement.setAttribute( "id", "default" );
         detailElem = accountsDom.createElement( "details" );
         nameElem = accountsDom.createElement( "title" );
         nameElem.appendChild( accountsDom.createTextNode( tr( "Default account" ) ) );
@@ -905,9 +905,10 @@ void EditingWindow::checkForEmptySettings()
                                    "to store your data.\n\n"
                                    "Set these preferences now?" ),
                                QMessageBox::Yes | QMessageBox::Default,
-                               QMessageBox::No ) == QMessageBox::Yes )
+                               QMessageBox::No ) == QMessageBox::Yes ) {
       getPreferences( tr( "Stage 1 of 2: Preferences" ));
       getAccounts( tr( "Stage 2 of 2: Accounts" ) );
+    }
   }
 }
 

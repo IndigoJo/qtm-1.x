@@ -906,8 +906,8 @@ void EditingWindow::checkForEmptySettings()
                                    "Set these preferences now?" ),
                                QMessageBox::Yes | QMessageBox::Default,
                                QMessageBox::No ) == QMessageBox::Yes )
-      getPreferences();
-      getAccounts();
+      getPreferences( tr( "Stage 1 of 2: Preferences" ));
+      getAccounts( tr( "Stage 2 of 2: Accounts" ) );
   }
 }
 
@@ -1249,6 +1249,11 @@ void EditingWindow::refreshCategories()
 
 void EditingWindow::getAccounts()
 {
+  getAccounts( QString() );
+}
+
+void EditingWindow::getAccounts( const QString &title )
+{
   QList<AccountsDialog::Account> acctsList, returnedAccountsList;
   AccountsDialog::Account acct;
   QDomNodeList accountsList, thisAccountsAttribs;
@@ -1312,6 +1317,9 @@ void EditingWindow::getAccounts()
   //accountsList = accountsDom.documentElement().elementsByTagName( "account" );
 
   AccountsDialog acctsDialog( acctsList, oldCurrentBlog, this );
+
+  if( !title.isEmpty() )
+    acctsDialog.setWindowTitle( title );
 
   if( acctsDialog.exec() ) {
     returnedAccountsList = acctsDialog.accounts();
@@ -1447,6 +1455,11 @@ void EditingWindow::getAccounts()
 
 void EditingWindow::getPreferences()
 {
+  getPreferences( QString() );
+}
+
+void EditingWindow::getPreferences( const QString &title )
+{
   QSettings settings;
   QPalette palette, widgetPalette;
 
@@ -1525,6 +1538,9 @@ void EditingWindow::getPreferences()
 #endif
   prefsDialog.resize( QSize( prefsDialog.width(),
                              prefsDialog.minimumHeight() ) );
+  if( !title.isEmpty() )
+    prefsDialog.setWindowTitle( title );
+
   if( prefsDialog.exec() ) {
 #ifndef NO_DEBUG_OUTPUT
     // qDebug( "Setting account variables" );

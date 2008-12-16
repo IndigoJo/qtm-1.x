@@ -1,9 +1,21 @@
 Changelog:
 
-0.7-rc1:
+0.7.1:
 
 New feature: Ability to set background and text colours in the editor,
-preview and console
+preview and console (requires Qt 4.2 at present)
+Improvement: Auto-sets local storage directory if there isn't one
+Improvement: Runs the prefs then the accounts for a first-time user if they
+click "Yes" in the start-up dialog (and displays "Stage [1/2] of 2" on the
+dialog titles)
+Improvement: When the category selectors are displayed, searches for
+categories if there are already none
+Bug fix: Corrects start-up behaviour for new users, i.e. stops prompting
+them for prefs
+Bug fix: Now auto-refreshes blog list after using accounts dialog when 
+there is only one account
+Bug fix: Failed to store auto-filled server and location details (esp.
+on wordpress.com sites)
 
 0.7 (22nd Oct 2008):
 

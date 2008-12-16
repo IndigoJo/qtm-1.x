@@ -270,7 +270,9 @@ class EditingWindow : public QMainWindow
 
  public slots:
   void refreshCategories();
+  void getAccounts( const QString & );
   void getAccounts();
+  void getPreferences( const QString & );
   void getPreferences();
   void refreshBlogList();
   void changeCaptionAfterTitleChanged();

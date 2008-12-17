@@ -1,6 +1,6 @@
 Changelog:
 
-0.7.1:
+0.7.1 (17th December 2008):
 
 New feature: Ability to set background and text colours in the editor,
 preview and console (requires Qt 4.2 at present)
@@ -10,8 +10,10 @@ click "Yes" in the start-up dialog (and displays "Stage [1/2] of 2" on the
 dialog titles)
 Improvement: When the category selectors are displayed, searches for
 categories if there are already none
+Bug fix: Fixed crash which occurred in the accounts dialog after a new
+account was deleted and it was the only account
 Bug fix: Corrects start-up behaviour for new users, i.e. stops prompting
-them for prefs
+them for prefs even after they have specified their preferences
 Bug fix: Now auto-refreshes blog list after using accounts dialog when 
 there is only one account
 Bug fix: Failed to store auto-filled server and location details (esp.

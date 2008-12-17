@@ -1914,57 +1914,58 @@ void EditingWindow::changeAccount( int a ) // slot
   QString currentBlogText;
   int i;
 
-  currentAccount = a;
+  if( currentAccount != a ) {
+    currentAccount = a;
 
-  currentAccountElement = accountsDom.documentElement()
-    .elementsByTagName( "account" ).at( a ).toElement();
-  currentAccountId = currentAccountElement.toElement().attribute( "id" );
-  extractAccountDetails();
-  qDebug() << "Current account: " << currentAccountElement.firstChildElement( "details" )
-    .firstChildElement( "title" ).text();
+    currentAccountElement = accountsDom.documentElement()
+      .elementsByTagName( "account" ).at( a ).toElement();
+    currentAccountId = currentAccountElement.toElement().attribute( "id" );
+    extractAccountDetails();
+    qDebug() << "Current account: " << currentAccountElement.firstChildElement( "details" )
+      .firstChildElement( "title" ).text();
 
-  QStringList accountStringNames( accountStrings.keys() );
-  QStringList accountAttribNames( accountAttributes.keys() );
-  QDomNodeList attribNodes = currentAccountElement.firstChildElement( "details" )
-    .elementsByTagName( "attribute" );
+    QStringList accountStringNames( accountStrings.keys() );
+    QStringList accountAttribNames( accountAttributes.keys() );
+    QDomNodeList attribNodes = currentAccountElement.firstChildElement( "details" )
+      .elementsByTagName( "attribute" );
 
-  Q_FOREACH( QString s, accountStringNames )
-    *(accountStrings[s]) = currentAccountElement.firstChildElement( "details" )
-    .firstChildElement( s ).text();
+    Q_FOREACH( QString s, accountStringNames )
+      *(accountStrings[s]) = currentAccountElement.firstChildElement( "details" )
+      .firstChildElement( s ).text();
 
-  Q_FOREACH( QString t, accountAttribNames ) {
-    *(accountAttributes[t]) = false;
-    for( i = 0; i < attribNodes.count(); i++ ) {
-      if( attribNodes.at( i ).toElement().attribute( "name" ) == t )
-        *(accountAttributes[t]) = true;
+    Q_FOREACH( QString t, accountAttribNames ) {
+      *(accountAttributes[t]) = false;
+      for( i = 0; i < attribNodes.count(); i++ ) {
+        if( attribNodes.at( i ).toElement().attribute( "name" ) == t )
+          *(accountAttributes[t]) = true;
+      }
     }
-  }
 
-  QDomElement blogsElement = currentAccountElement.firstChildElement( "blogs" );
-  if( !blogsElement.isNull() ) {
-    QDomNodeList blogsList = blogsElement.elementsByTagName( "blog" );
-    int b = blogsList.count();
-    if( b ) {
-      // qDebug() << "Blogs: " << b;
-      cw.cbBlogSelector->clear();
-      for( int i = 0; i < b; i++ )
-        cw.cbBlogSelector->addItem( blogsList.at( i ).firstChildElement( "blogName" ).text(),
-                                    blogsList.at( i ).firstChildElement( "blogid" ).text() );
-      cw.cbBlogSelector->setEnabled( true );
-      changeBlog( 0 );
-      cw.cbBlogSelector->disconnect( this, SLOT( changeBlog( int ) ) ); // eliminate duplicate connections
-      connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
-               this, SLOT( changeBlog( int ) ) );
-      emit blogRefreshFinished();
-      if( QApplication::overrideCursor() != 0 )
-        QApplication::restoreOverrideCursor();
+    QDomElement blogsElement = currentAccountElement.firstChildElement( "blogs" );
+    if( !blogsElement.isNull() ) {
+      QDomNodeList blogsList = blogsElement.elementsByTagName( "blog" );
+      int b = blogsList.count();
+      if( b ) {
+        // qDebug() << "Blogs: " << b;
+        cw.cbBlogSelector->clear();
+        for( int i = 0; i < b; i++ )
+          cw.cbBlogSelector->addItem( blogsList.at( i ).firstChildElement( "blogName" ).text(),
+                                      blogsList.at( i ).firstChildElement( "blogid" ).text() );
+        cw.cbBlogSelector->setEnabled( true );
+        changeBlog( 0 );
+        cw.cbBlogSelector->disconnect( this, SLOT( changeBlog( int ) ) ); // eliminate duplicate connections
+        connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
+                 this, SLOT( changeBlog( int ) ) );
+        emit blogRefreshFinished();
+        if( QApplication::overrideCursor() != 0 )
+          QApplication::restoreOverrideCursor();
+      }
+      else
+        refreshBlogList();
     }
     else
       refreshBlogList();
   }
-  else
-    refreshBlogList();
-
 }
 
 void EditingWindow::extractAccountDetails() // slot
@@ -1983,42 +1984,44 @@ void EditingWindow::changeBlog( int b ) // slot
   QString currentCategoryText;
   // qDebug() << "Starting changeblog" << b;
 
-  currentBlog = b;
+  if( currentBlog != b ) {
+    currentBlog = b;
 
-  currentBlogElement = currentAccountElement.elementsByTagName( "blog" ).at( currentBlog ).toElement();
-  currentBlogid = currentBlogElement.firstChildElement( "blogid" ).text();
+    currentBlogElement = currentAccountElement.elementsByTagName( "blog" ).at( currentBlog ).toElement();
+    currentBlogid = currentBlogElement.firstChildElement( "blogid" ).text();
 #ifndef NO_DEBUG_OUTPUT
-  // qDebug() << currentBlogid;
+    // qDebug() << currentBlogid;
 #endif
-  QDomElement catsElement = currentBlogElement.firstChildElement( "categories" );
-  if( !catsElement.isNull() ) {
-    QDomNodeList catsList = catsElement.elementsByTagName( "category" );
-    int c = catsList.count();
-    if( c ) {
+    QDomElement catsElement = currentBlogElement.firstChildElement( "categories" );
+    if( !catsElement.isNull() ) {
+      QDomNodeList catsList = catsElement.elementsByTagName( "category" );
+      int c = catsList.count();
+      if( c ) {
 #ifndef NO_DEBUG_OUTPUT
-      // qDebug() << "Categories: " << c;
+        // qDebug() << "Categories: " << c;
 #endif
-      cw.cbMainCat->clear();
-      cw.lwOtherCats->clear();
-      for( int i = 0; i < c; i++ ) {
-        currentCategoryText = catsList.at( i ).firstChildElement( "categoryName" ).text();
-        cw.cbMainCat->addItem( currentCategoryText,
-                               QVariant( catsList.at( i ).firstChildElement( "categoryId" ).text() ) );
-        cw.lwOtherCats->addItem( currentCategoryText );
-        cw.chNoCats->setEnabled( true );
-        cw.cbMainCat->setEnabled( true );
-        cw.lwOtherCats->setEnabled( true );
-        statusBar()->clearMessage(); // as otherwise, "there are no categories" would still show
+        cw.cbMainCat->clear();
+        cw.lwOtherCats->clear();
+        for( int i = 0; i < c; i++ ) {
+          currentCategoryText = catsList.at( i ).firstChildElement( "categoryName" ).text();
+          cw.cbMainCat->addItem( currentCategoryText,
+                                 QVariant( catsList.at( i ).firstChildElement( "categoryId" ).text() ) );
+          cw.lwOtherCats->addItem( currentCategoryText );
+          cw.chNoCats->setEnabled( true );
+          cw.cbMainCat->setEnabled( true );
+          cw.lwOtherCats->setEnabled( true );
+          statusBar()->clearMessage(); // as otherwise, "there are no categories" would still show
+        }
+        emit categoryRefreshFinished();
+        if( QApplication::overrideCursor() != 0 )
+          QApplication::restoreOverrideCursor();
       }
-      emit categoryRefreshFinished();
-      if( QApplication::overrideCursor() != 0 )
-        QApplication::restoreOverrideCursor();
+      else
+        callRefreshCategories();
     }
     else
       callRefreshCategories();
   }
-  else
-    callRefreshCategories();
 }
 
 void EditingWindow::blogger_getUsersBlogs( QByteArray response )

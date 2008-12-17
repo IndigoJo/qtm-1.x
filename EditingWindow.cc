@@ -2057,6 +2057,17 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
     else {
       currentAccountElement.removeChild( currentAccountElement.firstChildElement( "blogs" ) );
       currentAccountElement.appendChild( accountsDom.importNode( importedBlogList.firstChildElement( "blogs" ), true ) );
+      if( !noAutoSave ) {
+        QFile domOut( PROPERSEPS( QString( "%1/qtmaccounts2.xml" ).arg( localStorageDirectory ) ) );
+        if( domOut.open( QIODevice::WriteOnly ) ) {
+          QTextStream domFileStream( &domOut );
+          accountsDom.save( domFileStream, 2 );
+          domOut.close();
+          qDebug() << "saved";
+        }
+        else
+          statusBar()->showMessage( tr( "Could not write to accounts file (error %1)" ).arg( (int)domOut.error() ), 2000 );
+      }
 
       for( int a = 0; a < i; a++ ) {
         cw.cbBlogSelector->addItem( blogNodeList.at( a ).firstChildElement( "blogName" ).text(),
@@ -2273,10 +2284,13 @@ void EditingWindow::mt_getCategoryList( QByteArray response )
           QTextStream domFileStream( &domOut );
           accountsDom.save( domFileStream, 2 );
           domOut.close();
+          qDebug() << "saved";
         }
         else
           statusBar()->showMessage( tr( "Could not write to accounts file (error %1)" ).arg( (int)domOut.error() ), 2000 );
       }
+      else
+        qDebug() << "no auto-save";
     }
   }
 
@@ -3933,11 +3947,27 @@ void EditingWindow::doViewTBPings()
 // switches to the category page
 void EditingWindow::handleSideWidgetPageSwitch( int index )
 {
+  QDomNodeList cl;
+  QString currentCatName;
+
   if( index == 1 ) {
     if( cw.cbMainCat->count() == 0 && networkActionsEnabled 
         && categoriesEnabled ) {
-      statusBar()->showMessage( tr( "Getting categories, please wait" ), 2000 );
-      refreshCategories();
+      if( currentBlogElement.isNull() )
+        qDebug() << "currentBlogElement is null";
+      cl = currentBlogElement.firstChildElement( "categories" ).elementsByTagName( "category" );
+      if( cl.count() == 0 ) {
+        statusBar()->showMessage( tr( "Getting categories, please wait" ), 2000 );
+        refreshCategories();
+      }
+      else {
+        for( int i = 0; i < cl.count(); i++ ) {
+          currentCatName = cl.at( i ).firstChildElement( "categoryName" ).text();
+          cw.cbMainCat->addItem( currentCatName,
+                                 cl.at( i ).firstChildElement( "categoryId" ).text() );
+          cw.lwOtherCats->addItem( currentCatName );
+        }
+      }
     }
   }
 }

@@ -187,6 +187,7 @@ void AccountsDialog::doNewAccount()
 void AccountsDialog::removeThisAccount()
 {
   QLineEdit *le;
+  QCheckBox *ch;
   int c = lwAccountList->currentRow();
 
   if( lwAccountList->count() == 1 ) {
@@ -199,6 +200,11 @@ void AccountsDialog::removeThisAccount()
       if( le ) {
         le->clear();
         le->setEnabled( false );
+      }
+      ch = qobject_cast<QCheckBox *>( w );
+      if( ch ) {
+        ch->setChecked( false );
+        ch->setEnabled( false );
       }
     }
     currentRow = -1;
@@ -255,10 +261,12 @@ void AccountsDialog::acceptAccount()
  */
 void AccountsDialog::assignSlug()
 {
-  currentAccountId = QString( "%1_%2" ).arg( entryDateTime.toString( Qt::ISODate ) )
-    .arg( leName->text().toLower()
-          .replace( QRegExp( "\\s" ), "_" ) );
-  accountList[currentRow].id = currentAccountId;
+  if( accountList.count() != 0 ) {
+    currentAccountId = QString( "%1_%2" ).arg( entryDateTime.toString( Qt::ISODate ) )
+      .arg( leName->text().toLower()
+            .replace( QRegExp( "\\s" ), "_" ) );
+    accountList[currentRow].id = currentAccountId;
+  }
 }
 
 void AccountsDialog::on_pbWhatsThis_clicked()
@@ -504,25 +512,25 @@ void AccountsDialog::on_lePassword_textEdited( const QString &text )
     accountList[currentRow].password = text;
 }
 
-void AccountsDialog::on_chCategoriesEnabled_toggled( bool )
+void AccountsDialog::on_chCategoriesEnabled_clicked( bool )
 {
   if( currentRow != -1 )
     accountList[currentRow].categoriesEnabled = chCategoriesEnabled->isChecked();
 }
 
-void AccountsDialog::on_chPostDateTime_toggled( bool )
+void AccountsDialog::on_chPostDateTime_clicked( bool )
 {
   if( currentRow != -1 )
     accountList[currentRow].postDateTime = chPostDateTime->isChecked();
 }
 
-void AccountsDialog::on_chComments_toggled( bool )
+void AccountsDialog::on_chComments_clicked( bool )
 {
   if( currentRow != 1 )
     accountList[currentRow].comments = chComments->isChecked();
 }
 
-void AccountsDialog::on_chTB_toggled( bool )
+void AccountsDialog::on_chTB_clicked( bool )
 {
   if( currentRow != 1 )
     accountList[currentRow].trackback = chTB->isChecked();
@@ -563,8 +571,9 @@ bool AccountsDialog::eventFilter( QObject *obj, QEvent *event )
   if( obj == leBlogURI ) {
     switch( event->type() ) {
       case QEvent::FocusOut:
-        if( !leBlogURI->text().isEmpty() )
+        if( !leBlogURI->text().isEmpty() ) {
           on_leBlogURI_returnPressed();
+        }
       default:
         return QObject::eventFilter( obj, event );
     }

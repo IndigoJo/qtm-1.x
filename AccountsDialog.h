@@ -119,10 +119,10 @@ private slots:
   void on_leLogin_textEdited( const QString & );
   void on_lePassword_textEdited( const QString & );
   void on_cbHostedBlogType_activated( int );
-  void on_chCategoriesEnabled_toggled( bool );
-  void on_chPostDateTime_toggled( bool );
-  void on_chComments_toggled( bool );
-  void on_chTB_toggled( bool );
+  void on_chCategoriesEnabled_clicked( bool );
+  void on_chPostDateTime_clicked( bool );
+  void on_chComments_clicked( bool );
+  void on_chTB_clicked( bool );
   void handleRequestFinished( int, bool );
 
  protected:

@@ -1000,6 +1000,8 @@ void EditingWindow::setInitialAccount()
       populateBlogList();
       setNetworkActionsEnabled( true );
 
+      disconnect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
+                  this, SLOT( changeAccount( int ) ) );
       connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
                this, SLOT( changeAccount( int ) ) );
       break;
@@ -1012,6 +1014,8 @@ void EditingWindow::setInitialAccount()
       extractAccountDetails();
       populateBlogList();
       setNetworkActionsEnabled( true );
+      disconnect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
+                  this, SLOT( changeAccount( int ) ) );
       connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
                this, SLOT( changeAccount( int ) ) );
     }
@@ -1448,6 +1452,8 @@ void EditingWindow::getAccounts( const QString &title )
         setNetworkActionsEnabled( true );
       }
     }
+    disconnect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
+                this, SLOT( changeAccount( int ) ) );
     connect( cw.cbAccountSelector, SIGNAL( activated( int ) ),
              this, SLOT( changeAccount( int ) ) );
     saveAccountsDom();
@@ -1770,6 +1776,8 @@ void EditingWindow::populateBlogList() // slot
       catNodeList = catsElement.elementsByTagName( "category" );
       b = catNodeList.count();
       if( b ) {
+        cw.cbMainCat->clear();
+        cw.lwOtherCats->clear();
         for( j = 0; j < b; j++ ) {
           cw.cbMainCat->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
                                  QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
@@ -1783,6 +1791,8 @@ void EditingWindow::populateBlogList() // slot
       }
 
     }
+    disconnect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
+                this, SLOT( changeBlog( int ) ) );
     connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
              this, SLOT( changeBlog( int ) ) );
   }
@@ -1910,8 +1920,8 @@ void EditingWindow::changeAccount( int a ) // slot
     .elementsByTagName( "account" ).at( a ).toElement();
   currentAccountId = currentAccountElement.toElement().attribute( "id" );
   extractAccountDetails();
-  // qDebug() << "Current account: " << currentAccountElement.firstChildElement( "details" )
-  //  .firstChildElement( "title" ).text();
+  qDebug() << "Current account: " << currentAccountElement.firstChildElement( "details" )
+    .firstChildElement( "title" ).text();
 
   QStringList accountStringNames( accountStrings.keys() );
   QStringList accountAttribNames( accountAttributes.keys() );
@@ -2056,7 +2066,9 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
     }
     else {
       currentAccountElement.removeChild( currentAccountElement.firstChildElement( "blogs" ) );
+      qDebug() << "appending new blogs element";
       currentAccountElement.appendChild( accountsDom.importNode( importedBlogList.firstChildElement( "blogs" ), true ) );
+      qDebug() << "done";
       if( !noAutoSave ) {
         QFile domOut( PROPERSEPS( QString( "%1/qtmaccounts2.xml" ).arg( localStorageDirectory ) ) );
         if( domOut.open( QIODevice::WriteOnly ) ) {
@@ -2072,16 +2084,26 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
       for( int a = 0; a < i; a++ ) {
         cw.cbBlogSelector->addItem( blogNodeList.at( a ).firstChildElement( "blogName" ).text(),
                                     QVariant( blogNodeList.at( a ).firstChildElement( "blogid" ).text() ) );
-        currentBlog = cw.cbBlogSelector->currentIndex();
       }
+
+      cw.cbBlogSelector->setCurrentIndex( 0 );
+      currentBlogElement = currentAccountElement.firstChildElement( "blogs" ).firstChildElement( "blog" );
+      if( currentBlogElement.isNull() )
+        qDebug() << "cbe is null";
+      currentBlogid = cw.cbBlogSelector->itemData( 0 ).toString();
       cw.cbBlogSelector->setEnabled( true );
+      disconnect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
+                  this, SLOT( changeBlog( int ) ) );
       connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
                this, SLOT( changeBlog( int ) ) );
       addToConsole( accountsDom.toString( 2 ) );
 
-      if( !initialChangeBlog )
+      if( !initialChangeBlog ) {
+        disconnect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
+                    this, SLOT( changeBlog( int ) ) );
         connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
                  this, SLOT( changeBlog( int ) ) );
+      }
 
       if( loadedEntryBlog != 999 )
         connect( this, SIGNAL( httpBusinessFinished() ),
@@ -2257,6 +2279,8 @@ void EditingWindow::mt_getCategoryList( QByteArray response )
     else {
       newCategoriesElement = accountsDom.createElement( "categories" );
       QStringList::iterator it;
+      cw.cbMainCat->clear();
+      cw.lwOtherCats->clear();
       for( it = catList.begin(); it != catList.end(); ++it ) {
         cw.cbMainCat->addItem( it->section( " ##ID:", 0, 0 ),
                                QVariant( it->section( " ##ID:", 1, 1 ) ) );
@@ -3573,6 +3597,8 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
           int b = catNodeList.count();
           if( b ) {
             // qDebug() << "categories:" << b;
+            cw.cbMainCat->clear();
+            cw.lwOtherCats->clear();
             for( int j = 0; j < b; j++ ) {
               cw.cbMainCat->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
                                      QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
@@ -3747,6 +3773,8 @@ void EditingWindow::setLoadedPostCategories() // slot
   b = catNodeList.count();
   if( b ) {
     // qDebug() << "populating cat list";
+    cw.cbMainCat->clear();
+    cw.lwOtherCats->clear();
     for( j = 0; j < b; j++ ) {
       cw.cbMainCat->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
                              QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
@@ -3950,6 +3978,8 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
   QDomNodeList cl;
   QString currentCatName;
 
+  qDebug() << "handling page switch";
+
   if( index == 1 ) {
     if( cw.cbMainCat->count() == 0 && networkActionsEnabled 
         && categoriesEnabled ) {
@@ -3963,8 +3993,10 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
       else {
         for( int i = 0; i < cl.count(); i++ ) {
           currentCatName = cl.at( i ).firstChildElement( "categoryName" ).text();
+          cw.cbMainCat->clear();
           cw.cbMainCat->addItem( currentCatName,
                                  cl.at( i ).firstChildElement( "categoryId" ).text() );
+          cw.lwOtherCats->clear();
           cw.lwOtherCats->addItem( currentCatName );
         }
       }
@@ -3981,7 +4013,8 @@ void EditingWindow::addTechTag()
 void EditingWindow::addClipTag()
 {
   int l;
-  QRegExpValidator tagFormat( QRegExp( "^http:\\/\\/(www\\.)?technorati\\.com\\/tag\\/([a-zA-Z0-9\\.%]+[\\+ ])*[a-zA-Z0-9\\.%]+$" ), this );
+  QRegExpValidator tagFormat( QRegExp( "^http:\\/\\/(www\\.)?technorati\\.com\\/tag\\/([a-zA-Z0-9\\.%]+[\\+ ])*[a-zA-Z0-9\\.%]+$" ), 
+                              this );
   QString tagText = QApplication::clipboard()->text();
 
   cw.cbPageSelector->setCurrentIndex( 3 );
@@ -4236,6 +4269,8 @@ void EditingWindow::doInitialChangeBlog()
   }
   changeBlog( currentBlog );
 
+  disconnect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
+              this, SLOT( changeBlog( int ) ) );
   connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
            this, SLOT( changeBlog( int ) ) );
 }

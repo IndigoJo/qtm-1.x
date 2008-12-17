@@ -421,6 +421,7 @@ void AccountsDialog::handleHttpDone( bool error )
                   accountList[currentRow].server = url.host();
                   leLocation->setText( url.path() );
                   accountList[currentRow].location = url.path();
+                  leLogin->setFocus();
                   break;
                 }
               }

@@ -375,6 +375,10 @@ void AccountsDialog::on_leBlogURI_returnPressed()
                .append( "rsd.xml" ) );
   else
     http->get( loc.append( loc.endsWith( '/' ) ? "rsd.xml" : "/rsd.xml" ) );
+
+  if( qApp->overrideCursor() == 0 )
+    qApp->setOverrideCursor( QCursor( Qt::BusyCursor ) );
+
   networkBiz = FindingRsdXml;
 
   connect( http, SIGNAL( requestFinished( int, bool ) ),
@@ -471,6 +475,8 @@ void AccountsDialog::handleHttpDone( bool error )
     http->close();
     currentReq = QHttpRequestHeader();
   }
+  if( qApp->overrideCursor() != 0 )
+    qApp->restoreOverrideCursor();
 }
 
 void AccountsDialog::on_leName_textEdited( const QString &newName )

@@ -98,6 +98,7 @@ class EditingWindow : public QMainWindow
   void setInitialAccount();
   void positionWidget( QWidget *, QWidget * );
   void readSettings();
+  void readServerSettings();
   void writeSettings();
   void callRefreshCategories();
   //void blogger_newPost( QByteArray );

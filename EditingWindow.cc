@@ -206,6 +206,7 @@
         currentAccountElement.appendChild( detailElem );
 
         // Delete the old account from the settings
+        qDebug() << "removing the old settings";
         settings.beginGroup( "account" );
         settings.remove( "server" );
         settings.remove( "location" );
@@ -1040,10 +1041,6 @@ void EditingWindow::readSettings()
   move( settings.value( "position", QPoint( 20, 20 )).toPoint() );
   settings.endGroup();
   settings.beginGroup( "account" );
-  server = settings.value( "server", "" ).toString();
-  location = settings.value( "location", "" ).toString();
-  login = settings.value( "login", "" ).toString();
-  password = settings.value( "password", "" ).toString();
   localStorageDirectory = settings.value( "localStorageDirectory", defaultLocalStorageDir ).toString();
   if( localStorageDirectory.contains( "~/" ) ) {
     localStorageDirectory.replace( "~", QDir::homePath() );
@@ -1098,6 +1095,18 @@ void EditingWindow::readSettings()
 #if QT_VERSION >= 0x040200
   searchWidget->setExpertEnabled( allowRegexSearch );
 #endif
+}
+
+void EditingWindow::readServerSettings()
+{
+  QSettings settings;
+  if( !server.isEmpty() ) {
+    settings.beginGroup( "account" );      
+    server = settings.value( "server", "" ).toString();
+    location = settings.value( "location", "" ).toString();
+    login = settings.value( "login", "" ).toString();
+    password = settings.value( "password", "" ).toString();
+  }
 }
 
 void EditingWindow::handleEnableCategories()

@@ -3990,8 +3990,6 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
   QDomNodeList cl;
   QString currentCatName;
 
-  qDebug() << "handling page switch";
-
   if( index == 1 ) {
     if( cw.cbMainCat->count() == 0 && networkActionsEnabled 
         && categoriesEnabled ) {
@@ -4190,6 +4188,16 @@ void EditingWindow::dirtify()
   cleanSave = false;
 }
 
+void EditingWindow::dirtifyIfText()
+{
+  if( !EDITOR->document()->isEmpty() ) {
+    dirtyIndicator->show();
+    setWindowModified( true );
+    setDirtySignals( false );
+    cleanSave = false;
+  }
+}
+
 void EditingWindow::setDirtySignals( bool d )
 {
   QList<QWidget *> widgetList;
@@ -4198,13 +4206,13 @@ void EditingWindow::setDirtySignals( bool d )
 
   if( d ) {
     connect( EDITOR, SIGNAL( textChanged() ), this, SLOT( dirtify() ) );
-    connect( cw.cbAccountSelector, SIGNAL( activated( int ) ), this, SLOT( dirtify() ) );
-    connect( cw.cbBlogSelector, SIGNAL( activated( int ) ), this, SLOT( dirtify() ) );
-    connect( cw.cbStatus, SIGNAL( activated( int ) ), this, SLOT( dirtify() ) );
-    connect( cw.chComments, SIGNAL( clicked( bool ) ), this, SLOT( dirtify() ) );
-    connect( cw.chTB, SIGNAL( clicked( bool ) ), this, SLOT( dirtify() ) );
-    connect( cw.cbMainCat, SIGNAL( activated( int ) ), this, SLOT( dirtify() ) );
-    connect( cw.lwOtherCats, SIGNAL( activated( const QModelIndex & ) ), this, SLOT( dirtify() ) );
+    connect( cw.cbAccountSelector, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.cbBlogSelector, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.cbStatus, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.chComments, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.chTB, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.cbMainCat, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.lwOtherCats, SIGNAL( activated( const QModelIndex & ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.teExcerpt, SIGNAL( textChanged() ), this, SLOT( dirtify() ) );
   }
   else {
@@ -4615,9 +4623,5 @@ void EditingWindow::addToConsole( const QString &t )
   else
     console->insertPlainText( text );
 
-#ifndef NO_DEBUG_OUTPUT
-  if( currentHttpBusiness == 11 )
-    // qDebug() << "Added image to console";
-#endif
 }
 

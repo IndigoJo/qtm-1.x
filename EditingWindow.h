@@ -283,6 +283,7 @@ class EditingWindow : public QMainWindow
   bool load( const QString &, QDomDocument & );
   bool load( const QString &, bool fromSTI = false );
   void dirtify();
+  void dirtifyIfText();
   void setDirtySignals( bool );
   void doInitialChangeBlog();
   void newDoc();

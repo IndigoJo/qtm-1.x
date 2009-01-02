@@ -1998,6 +1998,8 @@ void EditingWindow::changeBlog( int b ) // slot
 
   if( currentBlog != b ) {
     currentBlog = b;
+    cw.cbMainCat->clear();
+    cw.lwOtherCats->clear();
 
     currentBlogElement = currentAccountElement.elementsByTagName( "blog" ).at( currentBlog ).toElement();
     currentBlogid = currentBlogElement.firstChildElement( "blogid" ).text();

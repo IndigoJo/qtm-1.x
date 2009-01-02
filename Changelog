@@ -10,6 +10,8 @@ click "Yes" in the start-up dialog (and displays "Stage [1/2] of 2" on the
 dialog titles)
 Improvement: When the category selectors are displayed, searches for
 categories if there are already none
+Improvement: Sets the status to "dirty" when changing the blogs or 
+categories only if there is text in the main entry widget
 Bug fix: Fixed crash which occurred in the accounts dialog after a new
 account was deleted and it was the only account
 Bug fix: Corrects start-up behaviour for new users, i.e. stops prompting

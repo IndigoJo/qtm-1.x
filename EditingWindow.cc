@@ -1925,6 +1925,9 @@ void EditingWindow::changeAccount( int a ) // slot
 
   if( currentAccount != a ) {
     currentAccount = a;
+    cw.cbBlogSelector->clear();
+    cw.cbMainCat->clear();
+    cw.lwOtherCats->clear();
 
     currentAccountElement = accountsDom.documentElement()
       .elementsByTagName( "account" ).at( a ).toElement();

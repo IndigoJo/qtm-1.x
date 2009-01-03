@@ -1,6 +1,6 @@
 Changelog:
 
-0.7.1 (17th December 2008):
+0.7.1 (3rd January 2009):
 
 New feature: Ability to set background and text colours in the editor,
 preview and console (requires Qt 4.2 at present)

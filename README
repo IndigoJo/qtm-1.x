@@ -28,9 +28,8 @@ Issues:
 editor widget; in the case of early 4.1.* versions, the problem is 
 slowness, and on version 4.2 the problem is not displaying the bottom of 
 the widget's text when a scrollbar is added.  This problem is replicated
-in the QPlainTextEdit widget in Qt 4.4 at the time of this writing; I
-recommend using QTextEdit (by configuring with the option DONT_USE_PTE
-set to TRUE).
+in the QPlainTextEdit widget in Qt 4.4 at the time of this writing, as a
+result of which, I have disabled it by default in the current version).
 
 (2) When using QuickPost to copy multiple paragraphs of text from a web 
 page into a new entry, you may find that there is no blank line between

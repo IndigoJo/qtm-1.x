@@ -13,6 +13,8 @@ categories if there are already none
 Improvement: Sets the status to "dirty" when changing the blogs or 
 categories only if there is text in the main entry widget
 Improvement: Removed redundant EditingWindow constructor
+Improvement: Prepends / to the location field, as webservers require full
+paths (e.g. /mt/mt-xmlrpc.cgi or /xmlrpc.php, NOT just xmlrpc.php)
 Bug fix: Fixed crash which occurred in the accounts dialog after a new
 account was deleted and it was the only account
 Bug fix: Corrects start-up behaviour for new users, i.e. stops prompting

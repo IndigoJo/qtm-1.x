@@ -119,7 +119,7 @@
 #define PROPERSEPS( x ) x
 #endif
 
-  EditingWindow::EditingWindow( QWidget *parent )
+/*  EditingWindow::EditingWindow( QWidget *parent )
 : QMainWindow( parent )
 {
   QDomElement detailElem, nameElem, serverElem, locElem, loginElem, pwdElem, attribElem;
@@ -206,7 +206,7 @@
         }
       } /*
       else
-        qDebug() << "server is empty"; */
+        qDebug() << "server is empty"; 
       extractAccountDetails();
 
       accountsElement.appendChild( currentAccountElement );
@@ -219,7 +219,7 @@
 
   checkForEmptySettings();
   mainStack->setCurrentIndex( edID );
-}
+} */
 
   EditingWindow::EditingWindow( QString newPost, QWidget *parent )
 : QMainWindow( parent )
@@ -313,7 +313,8 @@
   }
 
   checkForEmptySettings();
-  EDITOR->setPlainText( newPost );
+  if( !newPost.isEmpty() )
+    EDITOR->setPlainText( newPost );
   mainStack->setCurrentIndex( edID );
 
 }

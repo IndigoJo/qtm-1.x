@@ -75,10 +75,10 @@ class EditingWindow : public QMainWindow
   Q_OBJECT
 
  public:
-  EditingWindow( QWidget *widget = 0 );
+  //EditingWindow( QWidget *widget = 0 );
   /*  Catkin( QList<QString>, QList<QString>, int,
       QWidget *parent = 0 );*/
-  EditingWindow( QString, QWidget *parent = 0 );
+  EditingWindow( QString newPost = QString(), QWidget *parent = 0 );
   ~EditingWindow();
 #if QT_VERSION >= 0x040200
 #ifdef USE_SYSTRAYICON

@@ -12,6 +12,7 @@ Improvement: When the category selectors are displayed, searches for
 categories if there are already none
 Improvement: Sets the status to "dirty" when changing the blogs or 
 categories only if there is text in the main entry widget
+Improvement: Removed redundant EditingWindow constructor
 Bug fix: Fixed crash which occurred in the accounts dialog after a new
 account was deleted and it was the only account
 Bug fix: Corrects start-up behaviour for new users, i.e. stops prompting

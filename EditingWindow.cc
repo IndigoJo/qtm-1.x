@@ -896,7 +896,7 @@ void EditingWindow::setEditorColors()
   console->setPalette( widgetPalette );
 }
 
-void EditingWindow::setTextFonts()
+inline void EditingWindow::setTextFonts()
 {
   QFont f, g, h;
 

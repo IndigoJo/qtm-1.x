@@ -95,10 +95,12 @@ class EditingWindow : public QMainWindow
   void doUiSetup();
   void checkForEmptySettings();
   void setEditorColors();
+  void setTextFonts();
   void setInitialAccount();
   void positionWidget( QWidget *, QWidget * );
   void readSettings();
   void readServerSettings();
+  //void copyOldSettingsToNewDefaultElement();
   void writeSettings();
   void callRefreshCategories();
   //void blogger_newPost( QByteArray );

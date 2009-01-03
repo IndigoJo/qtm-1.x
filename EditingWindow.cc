@@ -133,28 +133,7 @@
 
   readSettings();
   setEditorColors();
-
-  if( editorFontString != "" ) {
-    f.fromString( editorFontString );
-    EDITOR->setFont( f );
-  } else {
-    f = EDITOR->font();
-    editorFontString = f.toString();
-  }
-  if( previewFontString != "" ) {
-    g.fromString( previewFontString );
-    previewWindow->setFont( g );
-  } else {
-    g = previewWindow->font();
-    previewFontString = g.toString();
-  }
-  if( consoleFontString != "" ) {
-    h.fromString( consoleFontString );
-    console->setFont( h );
-  } else {
-    h = console->font();
-    consoleFontString = h.toString();
-  }
+  setTextFonts();
 
   cw.chComments->setEnabled( true );
   cw.chComments->setCheckState( allowComments ? Qt::Checked :
@@ -165,6 +144,7 @@
 
   QFile accountsXmlFile( PROPERSEPS( QString( "%1/qtmaccounts2.xml" ).arg( localStorageDirectory ) ) );
   if( accountsDom.setContent( &accountsXmlFile ) ) {
+    //qDebug() << "getting new accounts file";
     accountsXmlFile.close();
     setInitialAccount();
   }
@@ -173,6 +153,7 @@
     accountsXmlFile.setFileName( PROPERSEPS( QString( "%1/qtmaccounts.xml" ).arg( localStorageDirectory ) ) );
     accountsXmlFile.open( QIODevice::ReadOnly | QIODevice::Text );
     if( accountsDom.setContent( &accountsXmlFile ) ) {
+      //qDebug() << "getting old accounts file";
       accountsXmlFile.close();
       setInitialAccount();
     }
@@ -183,10 +164,10 @@
       accountsXmlFile.close();
       accountsElement = accountsDom.createElement( "QTMAccounts" );
 
-      qDebug() << "getting the old account";
+      //qDebug() << "getting the old account";
       readServerSettings();
       if( !server.isEmpty() ) {
-        qDebug() << "copying details to new default element";
+        //qDebug() << "copying details to new default element";
         currentAccountElement = accountsDom.createElement( "account" );
         currentAccountElement.setAttribute( "id", "default" );
         detailElem = accountsDom.createElement( "details" );
@@ -208,7 +189,7 @@
         currentAccountElement.appendChild( detailElem );
 
         // Delete the old account from the settings
-        qDebug() << "removing the old settings";
+        //qDebug() << "removing the old settings";
         settings.beginGroup( "account" );
         settings.remove( "server" );
         settings.remove( "location" );
@@ -225,9 +206,9 @@
             detailElem.appendChild( attribElem );
           }
         }
-      }
+      } /*
       else
-        qDebug() << "server is empty";
+        qDebug() << "server is empty"; */
       extractAccountDetails();
 
       accountsElement.appendChild( currentAccountElement );
@@ -254,28 +235,7 @@
 
   readSettings();
   setEditorColors();
-
-  if( editorFontString != "" ) {
-    f.fromString( editorFontString );
-    EDITOR->setFont( f );
-  } else {
-    f = EDITOR->font();
-    editorFontString = f.toString();
-  }
-  if( previewFontString != "" ) {
-    g.fromString( previewFontString );
-    previewWindow->setFont( g );
-  } else {
-    g = previewWindow->font();
-    previewFontString = g.toString();
-  }
-  if( consoleFontString != "" ) {
-    h.fromString( consoleFontString );
-    console->setFont( h );
-  } else {
-    h = console->font();
-    consoleFontString = h.toString();
-  }
+  setTextFonts();
 
   cw.chComments->setEnabled( true );
   cw.chComments->setEnabled( true );
@@ -939,6 +899,31 @@ void EditingWindow::setEditorColors()
   console->setPalette( widgetPalette );
 }
 
+void EditingWindow::setTextFonts()
+{
+  if( editorFontString != "" ) {
+    f.fromString( editorFontString );
+    EDITOR->setFont( f );
+  } else {
+    f = EDITOR->font();
+    editorFontString = f.toString();
+  }
+  if( previewFontString != "" ) {
+    g.fromString( previewFontString );
+    previewWindow->setFont( g );
+  } else {
+    g = previewWindow->font();
+    previewFontString = g.toString();
+  }
+  if( consoleFontString != "" ) {
+    h.fromString( consoleFontString );
+    console->setFont( h );
+  } else {
+    h = console->font();
+    consoleFontString = h.toString();
+  }
+}
+
 void EditingWindow::setInitialAccount()
 {
   int i;
@@ -954,6 +939,7 @@ void EditingWindow::setInitialAccount()
   if( accountsList.count() == 1 &&
       accountsList.at( 0 ).firstChildElement( "details" ).isNull() ) {
     // This is if there is just one legacy account
+    readServerSettings();
     QDomElement detailElem, titleElem, serverElem, portElem, locElem,
                 loginElem, pwdElem;
     detailElem = accountsDom.createElement( "details" );
@@ -1104,15 +1090,13 @@ void EditingWindow::readSettings()
 
 void EditingWindow::readServerSettings()
 {
-  qDebug() << "getting server settings";
+  //qDebug() << "getting server settings";
   QSettings settings;
-  if( !server.isEmpty() ) {
     settings.beginGroup( "account" );      
     server = settings.value( "server", "" ).toString();
     location = settings.value( "location", "" ).toString();
     login = settings.value( "login", "" ).toString();
     password = settings.value( "password", "" ).toString();
-  }
 }
 
 void EditingWindow::handleEnableCategories()
@@ -1458,7 +1442,7 @@ void EditingWindow::getAccounts( const QString &title )
         break;
       }
       if( i == accountsList.count()-1 ) {
-        qDebug() << "reached end of account list";
+        //qDebug() << "reached end of account list";
         cw.cbAccountSelector->setCurrentIndex( 0 );
         currentAccountElement = accountsList.at( 0 ).toElement();
         currentAccountId = currentAccountElement.attribute( "id" );
@@ -1939,9 +1923,9 @@ void EditingWindow::changeAccount( int a ) // slot
       .elementsByTagName( "account" ).at( a ).toElement();
     currentAccountId = currentAccountElement.toElement().attribute( "id" );
     extractAccountDetails();
-    qDebug() << "Current account: " << currentAccountElement.firstChildElement( "details" )
+    /*qDebug() << "Current account: " << currentAccountElement.firstChildElement( "details" )
       .firstChildElement( "title" ).text();
-
+*/
     QStringList accountStringNames( accountStrings.keys() );
     QStringList accountAttribNames( accountAttributes.keys() );
     QDomNodeList attribNodes = currentAccountElement.firstChildElement( "details" )
@@ -2089,16 +2073,16 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
     }
     else {
       currentAccountElement.removeChild( currentAccountElement.firstChildElement( "blogs" ) );
-      qDebug() << "appending new blogs element";
+      //qDebug() << "appending new blogs element";
       currentAccountElement.appendChild( accountsDom.importNode( importedBlogList.firstChildElement( "blogs" ), true ) );
-      qDebug() << "done";
+      //qDebug() << "done";
       if( !noAutoSave ) {
         QFile domOut( PROPERSEPS( QString( "%1/qtmaccounts2.xml" ).arg( localStorageDirectory ) ) );
         if( domOut.open( QIODevice::WriteOnly ) ) {
           QTextStream domFileStream( &domOut );
           accountsDom.save( domFileStream, 2 );
           domOut.close();
-          qDebug() << "saved";
+          //qDebug() << "saved";
         }
         else
           statusBar()->showMessage( tr( "Could not write to accounts file (error %1)" ).arg( (int)domOut.error() ), 2000 );
@@ -2111,8 +2095,8 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
 
       cw.cbBlogSelector->setCurrentIndex( 0 );
       currentBlogElement = currentAccountElement.firstChildElement( "blogs" ).firstChildElement( "blog" );
-      if( currentBlogElement.isNull() )
-        qDebug() << "cbe is null";
+      //if( currentBlogElement.isNull() )
+        //qDebug() << "cbe is null";
       currentBlogid = cw.cbBlogSelector->itemData( 0 ).toString();
       cw.cbBlogSelector->setEnabled( true );
       disconnect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
@@ -2331,13 +2315,13 @@ void EditingWindow::mt_getCategoryList( QByteArray response )
           QTextStream domFileStream( &domOut );
           accountsDom.save( domFileStream, 2 );
           domOut.close();
-          qDebug() << "saved";
+          //qDebug() << "saved";
         }
         else
           statusBar()->showMessage( tr( "Could not write to accounts file (error %1)" ).arg( (int)domOut.error() ), 2000 );
       }
-      else
-        qDebug() << "no auto-save";
+      /*else
+        qDebug() << "no auto-save"; */
     }
   }
 
@@ -4004,8 +3988,8 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
   if( index == 1 ) {
     if( cw.cbMainCat->count() == 0 && networkActionsEnabled 
         && categoriesEnabled ) {
-      if( currentBlogElement.isNull() )
-        qDebug() << "currentBlogElement is null";
+      /*if( currentBlogElement.isNull() )
+        qDebug() << "currentBlogElement is null"; */
       cl = currentBlogElement.firstChildElement( "categories" ).elementsByTagName( "category" );
       if( cl.count() == 0 ) {
         statusBar()->showMessage( tr( "Getting categories, please wait" ), 2000 );

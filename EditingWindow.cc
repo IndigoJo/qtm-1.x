@@ -183,8 +183,10 @@
       accountsXmlFile.close();
       accountsElement = accountsDom.createElement( "QTMAccounts" );
 
+      qDebug() << "getting the old account";
+      readServerSettings();
       if( !server.isEmpty() ) {
-        // qDebug() << "copying details to new default element";
+        qDebug() << "copying details to new default element";
         currentAccountElement = accountsDom.createElement( "account" );
         currentAccountElement.setAttribute( "id", "default" );
         detailElem = accountsDom.createElement( "details" );
@@ -224,6 +226,8 @@
           }
         }
       }
+      else
+        qDebug() << "server is empty";
       extractAccountDetails();
 
       accountsElement.appendChild( currentAccountElement );
@@ -301,6 +305,7 @@
       accountsXmlFile.close();
       accountsElement = accountsDom.createElement( "QTMAccounts" );
 
+      readServerSettings();
       if( !server.isEmpty() ) {
         // qDebug() << "copying details to new default element";
         currentAccountElement = accountsDom.createElement( "account" );

@@ -60,6 +60,7 @@ AccountsDialog::AccountsDialog( QList<AccountsDialog::Account> &acctList,
 
   setupUi( this );
   leBlogURI->installEventFilter( this );
+  leLocation->installEventFilter( this );
   pbNew->setDefault( false );
 
   // Set up internal account lists; one for the current contents of the accounts,
@@ -575,12 +576,26 @@ void AccountsDialog::on_cbHostedBlogType_activated( int newIndex )
 
 bool AccountsDialog::eventFilter( QObject *obj, QEvent *event )
 {
+  // When the blog URI is typed in and Tab is pressed, the same must happen as when
+  // Return is pressed, i.e. QTM must try to find the endpoint.
   if( obj == leBlogURI ) {
     switch( event->type() ) {
       case QEvent::FocusOut:
         if( !leBlogURI->text().isEmpty() ) {
           on_leBlogURI_returnPressed();
         }
+      default:
+        return QObject::eventFilter( obj, event );
+    }
+  }
+
+  // The text in the location field must start with /; otherwise, the web server will
+  // return an error.
+  if( obj == leLocation ) {
+    switch( event->type() ) {
+      case QEvent::FocusOut:
+        if( !leLocation->text().isEmpty() && !leLocation->text().startsWith( '/' ) )
+          leLocation->setText( leLocation->text().prepend( '/' ) );
       default:
         return QObject::eventFilter( obj, event );
     }

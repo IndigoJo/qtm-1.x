@@ -238,7 +238,6 @@
   setTextFonts();
 
   cw.chComments->setEnabled( true );
-  cw.chComments->setEnabled( true );
   cw.chComments->setCheckState( allowComments ? Qt::Checked :
                                 Qt::Unchecked );
   cw.chTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );

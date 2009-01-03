@@ -1,5 +1,10 @@
 Changelog:
 
+0.7.1.1 (3rd January 2009):
+
+Bug fix: Fixed bug which caused the wrong blog ID to be sent out in XML-RPC
+requests after changing accounts in certain circumstances
+
 0.7.1 (3rd January 2009):
 
 New feature: Ability to set background and text colours in the editor,

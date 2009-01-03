@@ -75,7 +75,7 @@ class EditingWindow : public QMainWindow
   Q_OBJECT
 
  public:
-  EditingWindow( bool noRefreshBlogs = false, QWidget *widget = 0 );
+  EditingWindow( QWidget *widget = 0 );
   /*  Catkin( QList<QString>, QList<QString>, int,
       QWidget *parent = 0 );*/
   EditingWindow( QString, QWidget *parent = 0 );

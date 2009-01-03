@@ -202,7 +202,7 @@ bool SysTrayIcon::handleArguments()
   QStringList args = QApplication::arguments();
 
   for( i = 1; i < args.size(); i++ ) {
-    c = new EditingWindow( true, 0 );
+    c = new EditingWindow;
     if( c->load( args.at( i ), true ) ) {
       c->setSTI( this );
       c->show();
@@ -370,7 +370,7 @@ void SysTrayIcon::choose( QString fname )
     fn = fname;
 
   if( !fn.isEmpty() ) {
-    EditingWindow *e = new EditingWindow( true );
+    EditingWindow *e = new EditingWindow;
     if( !e->load( fn, true ) ) {
 #ifdef Q_WS_MAC
       QMessageBox::warning( 0, "QTM",

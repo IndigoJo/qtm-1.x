@@ -119,11 +119,9 @@
 #define PROPERSEPS( x ) x
 #endif
 
-  EditingWindow::EditingWindow( bool noRefreshBlogs, QWidget *parent )
+  EditingWindow::EditingWindow( QWidget *parent )
 : QMainWindow( parent )
 {
-  QFont f, g, h;
-
   QDomElement detailElem, nameElem, serverElem, locElem, loginElem, pwdElem, attribElem;
   QSettings settings;
 
@@ -226,7 +224,6 @@
   EditingWindow::EditingWindow( QString newPost, QWidget *parent )
 : QMainWindow( parent )
 {
-  QFont f, g, h;
   QDomElement detailElem, attribElem, nameElem, serverElem, locElem, loginElem, pwdElem;
   QSettings settings;
 
@@ -900,6 +897,8 @@ void EditingWindow::setEditorColors()
 
 void EditingWindow::setTextFonts()
 {
+  QFont f, g, h;
+
   if( editorFontString != "" ) {
     f.fromString( editorFontString );
     EDITOR->setFont( f );
@@ -3289,7 +3288,7 @@ void EditingWindow::choose( QString fname )
       }
     }
     else {
-      EditingWindow *e = new EditingWindow( true );
+      EditingWindow *e = new EditingWindow;
       if( e->load( fn, true ) ) {
 #ifdef USE_SYSTRAYICON
         e->setSTI( sti );

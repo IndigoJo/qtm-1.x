@@ -116,7 +116,7 @@ bool DBusAdaptor::open( QString path )
   bool rv = false;
 
   if( !path.isEmpty() ) {
-    EditingWindow *e = new EditingWindow( true );
+    EditingWindow *e = new EditingWindow;
     rv = e->load( path, true );
     if( rv ) {
       e->setSTI( _sti );

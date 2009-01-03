@@ -1954,6 +1954,7 @@ void EditingWindow::changeAccount( int a ) // slot
                                       blogsList.at( i ).firstChildElement( "blogid" ).text() );
         cw.cbBlogSelector->setEnabled( true );
         changeBlog( 0 );
+        currentBlogid = cw.cbBlogSelector->itemData( 0 ).toString();
         cw.cbBlogSelector->disconnect( this, SLOT( changeBlog( int ) ) ); // eliminate duplicate connections
         connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
                  this, SLOT( changeBlog( int ) ) );
@@ -1992,9 +1993,8 @@ void EditingWindow::changeBlog( int b ) // slot
 
     currentBlogElement = currentAccountElement.elementsByTagName( "blog" ).at( currentBlog ).toElement();
     currentBlogid = currentBlogElement.firstChildElement( "blogid" ).text();
-#ifndef NO_DEBUG_OUTPUT
-    // qDebug() << currentBlogid;
-#endif
+    qDebug() << currentBlogid;
+
     QDomElement catsElement = currentBlogElement.firstChildElement( "categories" );
     if( !catsElement.isNull() ) {
       QDomNodeList catsList = catsElement.elementsByTagName( "category" );

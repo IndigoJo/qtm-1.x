@@ -594,8 +594,12 @@ bool AccountsDialog::eventFilter( QObject *obj, QEvent *event )
   if( obj == leLocation ) {
     switch( event->type() ) {
       case QEvent::FocusOut:
-        if( !leLocation->text().isEmpty() && !leLocation->text().startsWith( '/' ) )
-          leLocation->setText( leLocation->text().prepend( '/' ) );
+        if( !leLocation->text().isEmpty() && !leLocation->text().startsWith( '/' ) ) {
+          QString newLocation = leLocation->text().prepend( '/' );
+          leLocation->setText( newLocation );
+          if( currentRow != -1 )
+            accountList[currentRow].location = newLocation;
+        }
       default:
         return QObject::eventFilter( obj, event );
     }

@@ -1104,6 +1104,7 @@ void EditingWindow::readSettings()
 
 void EditingWindow::readServerSettings()
 {
+  qDebug() << "getting server settings";
   QSettings settings;
   if( !server.isEmpty() ) {
     settings.beginGroup( "account" );      

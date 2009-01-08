@@ -1,5 +1,11 @@
 Changelog:
 
+0.7.1.3 (8th January 2009):
+
+Compatibility: Finally restored Qt 4.1 compatibility by correcting typos in
+compile-time isolators, and removing left-over isolators from the accounts
+dialog class.
+
 0.7.1.2 (8th January 2009):
 
 Compatibility: Restored Qt 4.1 compatibility by isolating references to

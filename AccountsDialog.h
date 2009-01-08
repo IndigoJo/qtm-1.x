@@ -22,9 +22,6 @@
 #ifndef ACCOUNTSDIALOG_H
 #define ACCOUNTSDIALOG_H
 
-#include <QtGlobal>
-#if QT_VERSION >= 0x040200
-
 #include "ui_AccountsForm.h"
 
 #include <QStringList> // also includes QString
@@ -129,5 +126,4 @@ private slots:
   virtual bool eventFilter( QObject *, QEvent * );
 };
 
-#endif
 #endif

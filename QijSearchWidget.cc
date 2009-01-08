@@ -177,7 +177,7 @@ void QijSearchWidget::findInTextEdit( const QString &text, direction currentDire
                    if ( chWholeWords->isChecked() )
                    options |= QTextDocument::FindWholeWords;
 
-#if QT_VERSION >= 040200	  
+#if QT_VERSION >= 0x040200	  
                    if( chRegExp->isChecked() )
                    newCursor = doc->find( QRegExp( text, chMatchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive ), c );
                    else

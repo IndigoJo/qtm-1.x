@@ -1,5 +1,10 @@
 Changelog:
 
+0.7.1.2 (8th January 2009):
+
+Compatibility: Restored Qt 4.1 compatibility by isolating references to
+certain widgets which are absent when that version of Qt is used.
+
 0.7.1.1 (3rd January 2009):
 
 Bug fix: Fixed bug which caused the wrong blog ID to be sent out in XML-RPC

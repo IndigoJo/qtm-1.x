@@ -68,50 +68,62 @@ void PrefsDialog::on_pbWhatsThis_clicked() // slot
 
 void PrefsDialog::on_tbEditorBgColor_clicked() // slot
 {
+#if QT_VERSION >= 0x040200
   QPalette palette = lEditorExampleText->palette();
   QColor color = QColorDialog::getColor( palette.color( QPalette::Window ), this );
   palette.setColor( QPalette::Window, color );
   lEditorExampleText->setPalette( palette );
+#endif
 }
 
 void PrefsDialog::on_tbEditorFgColor_clicked() // slot
 {
+#if QT_VERSION >= 0x040200
   QPalette palette = lEditorExampleText->palette();
   QColor color = QColorDialog::getColor( palette.color( QPalette::WindowText ), this );
   palette.setColor( QPalette::WindowText, color );
   lEditorExampleText->setPalette( palette );
+#endif
 }
 
 void PrefsDialog::on_tbPreviewBgColor_clicked() // slot
 {
+#if QT_VERSION >= 0x040200
   QPalette palette = lPreviewExampleText->palette();
   QColor color = QColorDialog::getColor( palette.color( QPalette::Window ), this );
   palette.setColor( QPalette::Window, color );
   lPreviewExampleText->setPalette( palette );
+#endif
 }
 
 void PrefsDialog::on_tbPreviewFgColor_clicked() // slot
 {
+#if QT_VERSION >= 0x040200
   QPalette palette = lPreviewExampleText->palette();
   QColor color = QColorDialog::getColor( palette.color( QPalette::WindowText ), this );
   palette.setColor( QPalette::WindowText, color );
   lPreviewExampleText->setPalette( palette );
+#endif
 }
 
 void PrefsDialog::on_tbConsoleBgColor_clicked() // slot
 {
+#if QT_VERSION >= 0x040200
   QPalette palette = lConsoleExampleText->palette();
   QColor color = QColorDialog::getColor( palette.color( QPalette::Window ), this );
   palette.setColor( QPalette::Window, color );
   lConsoleExampleText->setPalette( palette );
+#endif
 }
 
 void PrefsDialog::on_tbConsoleFgColor_clicked() // slot
 {
+#if QT_VERSION >= 0x040200
   QPalette palette = lConsoleExampleText->palette();
   QColor color = QColorDialog::getColor( palette.color( QPalette::WindowText ), this );
   palette.setColor( QPalette::WindowText, color );
   lConsoleExampleText->setPalette( palette );
+#endif
 }
 
 /*

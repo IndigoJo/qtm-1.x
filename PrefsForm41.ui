@@ -273,7 +273,7 @@
    <sender>chUseMarkdown</sender>
    <signal>toggled(bool)</signal>
    <receiver>lPerlPath</receiver>
-   <slot>setVisible(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>18</x>
@@ -289,7 +289,7 @@
    <sender>chUseMarkdown</sender>
    <signal>toggled(bool)</signal>
    <receiver>lePerlPath</receiver>
-   <slot>setVisible(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>94</x>
@@ -305,7 +305,7 @@
    <sender>chUseMarkdown</sender>
    <signal>toggled(bool)</signal>
    <receiver>lMarkdownPath</receiver>
-   <slot>setVisible(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>160</x>
@@ -321,7 +321,7 @@
    <sender>chUseMarkdown</sender>
    <signal>toggled(bool)</signal>
    <receiver>leMarkdownPath</receiver>
-   <slot>setVisible(bool)</slot>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>206</x>

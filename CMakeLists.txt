@@ -259,7 +259,7 @@ IF(APPLE)
     add_custom_command( TARGET ${PROGNAME} POST_BUILD
       COMMAND mkdir ARGS -p ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
       COMMAND cp ARGS ${MACOSX_BUNDLE_ICON_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
-      COMMAND cp ARGS ${QTM_SOURCE_DIR}/Markdown/Markdown.pl ${CMAKE_CURRENT_BINARY_DIR/${PROGNAME}.app/Contents/Resources
+      COMMAND cp ARGS ${QTM_SOURCE_DIR}/Markdown/Markdown.pl ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
       )
 ELSE(NOT APPLE)
     add_executable(${PROGNAME} WIN32 ${QTM_SRCS} ${QTM_UIS_H} ${QTM_MOC_SRCS} ${QTM_RC_SRCS} ${GENERATED_SOURCES})

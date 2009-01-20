@@ -91,7 +91,7 @@
 #endif
 
 #ifdef Q_WS_MAC
-#include <carbon.h>
+#include <Carbon/Carbon.h>
 #endif
 
 #include "qtm_version.h"
@@ -1034,7 +1034,7 @@ void EditingWindow::readSettings()
                                                     kCFURLPOSIXPathStyle);
      const char *pathPtr = CFStringGetCStringPtr( macPath,
                                                   CFStringGetSystemEncoding() );
-     defaultMarkdownPath = QString( "%1/Resources/Markdown.pl" ).arg( pathPtr );
+     defaultMarkdownPath = QString( "%1/Contents/Resources/Markdown.pl" ).arg( pathPtr );
      CFRelease(appUrlRef);
      CFRelease(macPath);
      defaultUseMarkdown = true;
@@ -1533,10 +1533,12 @@ void EditingWindow::getPreferences( const QString &title )
   prefsDialog.chUseMarkdown->setCheckState( useMarkdown ? Qt::Checked : Qt::Unchecked );
   prefsDialog.lePerlPath->setText( perlPath );
   prefsDialog.leMarkdownPath->setText( markdownPath );
+#if QT_VERSION >= 0x040200
   if( !useMarkdown ) {
     prefsDialog.lineBelowFonts->setVisible( false );
     prefsDialog.gbMarkdown->setVisible( false );
   }
+#endif
 
 #if QT_VERSION >= 0x040200
   prefsDialog.chAllowRegexSearch->setCheckState( allowRegexSearch ? Qt::Checked : Qt::Unchecked );

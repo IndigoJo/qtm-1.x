@@ -1,23 +1,26 @@
 <ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
  <class>PrefsForm</class>
  <widget class="QDialog" name="PrefsForm" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>445</width>
-    <height>340</height>
+    <width>465</width>
+    <height>359</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Blog account settings</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>6</number>
-   </property>
    <property name="margin" >
     <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
    </property>
    <item>
     <widget class="QGroupBox" name="gbLocalStorage" >
@@ -31,33 +34,20 @@
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item row="1" column="3" colspan="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0" >
-         <size>
-          <width>151</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QLineEdit" name="leLocalDir" />
       </item>
-      <item row="1" column="2" >
-       <widget class="QLineEdit" name="leFileExtn" />
-      </item>
-      <item row="1" column="0" colspan="2" >
-       <widget class="QLabel" name="lFileExtn" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label_7" >
         <property name="text" >
-         <string>File e&amp;xtension</string>
+         <string>&amp;Directory</string>
         </property>
         <property name="buddy" >
-         <cstring>leFileExtn</cstring>
+         <cstring>leLocalDir</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="4" >
+      <item row="0" column="3" >
        <widget class="QPushButton" name="pbBrowse" >
         <property name="enabled" >
          <bool>true</bool>
@@ -67,18 +57,31 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2" colspan="2" >
-       <widget class="QLineEdit" name="leLocalDir" />
-      </item>
-      <item row="0" column="0" colspan="2" >
-       <widget class="QLabel" name="label_7" >
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lFileExtn" >
         <property name="text" >
-         <string>&amp;Directory</string>
+         <string>File e&amp;xtension</string>
         </property>
         <property name="buddy" >
-         <cstring>leLocalDir</cstring>
+         <cstring>leFileExtn</cstring>
         </property>
        </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="leFileExtn" />
+      </item>
+      <item row="1" column="2" colspan="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>151</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
@@ -91,17 +94,54 @@
      <property name="spacing" >
       <number>6</number>
      </property>
-     <item rowspan="3" row="0" column="2" >
+     <item row="3" column="0" >
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QCheckBox" name="chUseNewWindows" >
+       <property name="text" >
+        <string>&amp;Open entries in new windows</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" >
+      <widget class="QCheckBox" name="cbPostAsSave" >
+       <property name="whatsThis" >
+        <string>If this is on, if you try to quit having successfully posted an entry but not saved it to disk, QTM will not prompt you to save.</string>
+       </property>
+       <property name="text" >
+        <string>Treat posting as saving</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" >
+      <widget class="QCheckBox" name="chUseMarkdown" >
+       <property name="text" >
+        <string>Use Markdown in Preview</string>
+       </property>
+      </widget>
+     </item>
+     <item rowspan="4" row="0" column="1" >
       <widget class="QGroupBox" name="gbFeedbackDefaults" >
        <property name="title" >
         <string>Feedback defaults</string>
        </property>
        <layout class="QVBoxLayout" >
-        <property name="spacing" >
-         <number>6</number>
-        </property>
         <property name="margin" >
          <number>9</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
         </property>
         <item>
          <widget class="QCheckBox" name="cbAllowComments" >
@@ -120,44 +160,20 @@
        </layout>
       </widget>
      </item>
-     <item row="0" column="0" colspan="2" >
-      <widget class="QCheckBox" name="chUseNewWindows" >
-       <property name="text" >
-        <string>&amp;Open entries in new windows</string>
-       </property>
-      </widget>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="1" column="1" >
+      <widget class="QLineEdit" name="leMarkdownPath" />
      </item>
-     <item row="1" column="0" colspan="2" >
-      <widget class="QCheckBox" name="cbPostAsSave" >
-       <property name="whatsThis" >
-        <string>If this is on, if you try to quit having successfully posted an entry but not saved it to disk, QTM will not prompt you to save.</string>
-       </property>
-       <property name="text" >
-        <string>Treat posting as saving</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="2" >
-      <widget class="QCheckBox" name="chUseMarkdown" >
-       <property name="text" >
-        <string>Use Markdown in Preview</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" >
-      <widget class="QLabel" name="lPerlPath" >
-       <property name="text" >
-        <string>Path to Perl</string>
-       </property>
-       <property name="buddy" >
-        <cstring>lePerlPath</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1" colspan="2" >
-      <widget class="QLineEdit" name="lePerlPath" />
-     </item>
-     <item row="5" column="0" >
+     <item row="1" column="0" >
       <widget class="QLabel" name="lMarkdownPath" >
        <property name="text" >
         <string>Path to Markdown</string>
@@ -167,13 +183,16 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1" colspan="2" >
-      <widget class="QLineEdit" name="leMarkdownPath" />
+     <item row="0" column="1" >
+      <widget class="QLineEdit" name="lePerlPath" />
      </item>
-     <item row="2" column="0" colspan="2" >
-      <widget class="QCheckBox" name="chCopyTitle" >
+     <item row="0" column="0" >
+      <widget class="QLabel" name="lPerlPath" >
        <property name="text" >
-        <string>Copy title when &amp;Quickposting</string>
+        <string>Path to Perl</string>
+       </property>
+       <property name="buddy" >
+        <cstring>lePerlPath</cstring>
        </property>
       </widget>
      </item>
@@ -188,11 +207,11 @@
    </item>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>6</number>
-     </property>
      <property name="margin" >
       <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
      </property>
      <item>
       <widget class="QPushButton" name="pbWhatsThis" >
@@ -209,7 +228,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" >
         <size>
          <width>91</width>
          <height>31</height>
@@ -235,13 +254,13 @@
    </item>
   </layout>
  </widget>
+ <pixmapfunction></pixmapfunction>
  <tabstops>
   <tabstop>leLocalDir</tabstop>
   <tabstop>pbBrowse</tabstop>
   <tabstop>leFileExtn</tabstop>
   <tabstop>chUseNewWindows</tabstop>
   <tabstop>cbPostAsSave</tabstop>
-  <tabstop>chCopyTitle</tabstop>
   <tabstop>chUseMarkdown</tabstop>
   <tabstop>cbAllowComments</tabstop>
   <tabstop>cbAllowTB</tabstop>
@@ -330,6 +349,22 @@
     <hint type="destinationlabel" >
      <x>275</x>
      <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>okButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PrefsForm</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>320</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>45</x>
+     <y>-13</y>
     </hint>
    </hints>
   </connection>

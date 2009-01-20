@@ -1528,7 +1528,9 @@ void EditingWindow::getPreferences( const QString &title )
 #ifdef USE_SYSTRAYICON
   prefsDialog.chCopyTitle->setCheckState( copyTitle ? Qt::Checked : Qt::Unchecked );
 #else
+#if QT_VERSION >= 0x040200
   prefsDialog.chCopyTitle->setVisible( false );
+#endif
 #endif
   prefsDialog.chUseMarkdown->setCheckState( useMarkdown ? Qt::Checked : Qt::Unchecked );
   prefsDialog.lePerlPath->setText( perlPath );
@@ -1602,7 +1604,7 @@ void EditingWindow::getPreferences( const QString &title )
     postAsSave = prefsDialog.cbPostAsSave->isChecked();
     allowComments = prefsDialog.cbAllowComments->isChecked();
     allowTB = prefsDialog.cbAllowTB->isChecked();
-#ifdef USE_SYSTRAYICON
+#if defined USE_SYSTRAYICON && QT_VERSION >= 0x040200
     copyTitle = prefsDialog.chCopyTitle->isChecked();
 #endif
     useMarkdown = prefsDialog.chUseMarkdown->isChecked();
@@ -1698,7 +1700,7 @@ void EditingWindow::getPreferences( const QString &title )
     settings.setValue( "postAsSave", postAsSave );
     settings.setValue( "allowComments", allowComments );
     settings.setValue( "allowTB", allowTB );
-#ifdef USE_SYSTRAYICON
+#if defined USE_SYSTRAYICON && QT_VERSION >= 0x040200
     settings.setValue( "copyTitle", copyTitle );
 #endif
     settings.setValue( "useMarkdown", useMarkdown );

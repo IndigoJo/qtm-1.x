@@ -1521,6 +1521,8 @@ void EditingWindow::getPreferences( const QString &title )
   prefsDialog.chCopyTitle->setVisible( false );
 #endif
   prefsDialog.chUseMarkdown->setCheckState( useMarkdown ? Qt::Checked : Qt::Unchecked );
+  prefsDialog.lePerlPath->setText( perlPath );
+  prefsDialog.leMarkdownPath->setText( markdownPath );
   if( !useMarkdown ) {
     prefsDialog.lPerlPath->setVisible( false );
     prefsDialog.lePerlPath->setVisible( false );
@@ -1537,7 +1539,7 @@ void EditingWindow::getPreferences( const QString &title )
 
 #if QT_VERSION >= 0x040200
   prefsDialog.tabWidget->setTabText( 0, tr( "General" ) );
-  prefsDialog.tabWidget->setTabText( 1, tr( "Fonts & Markdown" ) );
+  prefsDialog.tabWidget->setTabText( 1, tr( "Fonts && Markdown" ) );
   prefsDialog.tabWidget->setCurrentIndex( 0 );
 
   QFont editorFont = EDITOR->font();
@@ -2711,10 +2713,10 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
         tf.close();
 
         QProcess proc;
-        QFile *f = qobject_cast<QFile *>( &tf );
-        proc.start( perlPath, QStringList() << markdownPath << QFileInfo( f ).filePath() );
+        proc.start( perlPath, QStringList() << markdownPath << tf.fileName() );
         statusBar()->showMessage( tr( "Starting text converter ..." ), 2000 );
         if( !proc.waitForStarted() ) {
+          statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
           doPreview( isChecked, true ); // i.e. redo the preview without Markdown
           return;
         }
@@ -2722,6 +2724,7 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
         // Now wait until the process finishes; use a loop and process events every 10th of a second
         for( int i = 0; i <= 300; ++i ) {
           if( i == 300 ) { // if 30 seconds has elapsed without a finish signal
+            statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
             doPreview( isChecked, true );
             return;
           }
@@ -2733,6 +2736,7 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
         conversionStringB = QString( proc.readAllStandardOutput() );
         if( conversionStringB.length() < conversionString.length() ||
             proc.exitStatus() != QProcess::NormalExit ) {
+          statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
           doPreview( isChecked, true );
           return;
         }

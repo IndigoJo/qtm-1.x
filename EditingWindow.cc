@@ -1030,7 +1030,7 @@ void EditingWindow::readSettings()
                                                     kCFURLPOSIXPathStyle);
      const char *pathPtr = CFStringGetCStringPtr( macPath,
                                                   CFStringGetSystemEncoding() );
-     defaultMarkdownPath = QString( "%1/Markdown.pl" ).arg( pathPtr );
+     defaultMarkdownPath = QString( "%1/Resources/Markdown.pl" ).arg( pathPtr );
      CFRelease(appUrlRef);
      CFRelease(macPath);
 #else
@@ -1061,8 +1061,9 @@ void EditingWindow::readSettings()
     settings.setValue( "localStorageDirectory", localStorageDirectory );
   }
   localStorageFileExtn = settings.value( "localStorageFileExtn", "cqt" ).toString();
+  useMarkdown = settings.value( "useMarkdown", true ).toBool();
   perlPath = settings.value( "perlPath", "/usr/bin/perl" ).toString();
-  markdownPath = settings.value( "markdownPath", "/usr/bin/markdown" ).toString();
+  markdownPath = settings.value( "markdownPath", defaultMarkdownPath ).toString();
   categoriesEnabled = settings.value( "categoriesEnabled", true ).toBool();
   useNewWindows = settings.value( "useNewWindows", true ).toBool();
   savePassword = settings.value( "savePassword", false ).toBool();
@@ -2709,12 +2710,12 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
       QTextStream stream( &tf );
 
       if( tf.open() ) {
+        QString fn = tf.fileName();
         stream << conversionString;
         tf.close();
 
         QProcess proc;
-        proc.start( perlPath, QStringList() << markdownPath << tf.fileName() );
-        //statusBar()->showMessage( tr( "Starting text converter ..." ), 2000 );
+        proc.start( perlPath, QStringList() << markdownPath << fn );
         if( !proc.waitForStarted() ) {
           statusBar()->showMessage( tr( "Failed to start conversion" ), 2000 );
           doPreview( isChecked, true ); // i.e. redo the preview without Markdown
@@ -2737,6 +2738,9 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
         if( conversionStringB.length() < conversionString.length() ||
             proc.exitStatus() != QProcess::NormalExit ) {
           statusBar()->showMessage( tr( "Conversion failed" ), 2000 );
+          if( proc.exitStatus() != QProcess::NormalExit )
+            qDebug() << "Bad exit";
+          // qDebug() << "Length:" << conversionStringB.length();
           doPreview( isChecked, true );
           return;
         }
@@ -2756,6 +2760,11 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
         ui.actionP_review->setText( tr( "Exit p&review" ) );
         ui.actionP_review->setIconText( tr( "Exit preview" ) );
         ui.actionP_review->setToolTip( tr( "Exit preview" ) );
+      }
+      else {
+        statusBar()->showMessage( tr( "Could not open temporary file" ), 2000 );
+        doPreview( isChecked, true );
+        return;
       }
     }
     else {

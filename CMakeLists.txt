@@ -238,6 +238,9 @@ IF(APPLE)
     add_custom_command( TARGET ${PROGNAME} POST_BUILD
       COMMAND mkdir ARGS -p ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
       COMMAND cp ARGS ${MACOSX_BUNDLE_ICON_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
+      if( INSTALL_MARKDOWN )
+        COMMAND cp ARGS ${QTM_SOURCE_DIR}/Markdown/Markdown.pl ${CMAKE_CURRENT_BINARY_DIR/${PROGNAME}.app/Contents/Resources
+      endif( INSTALL_MARKDOWN )
       )
 ELSE(NOT APPLE)
     add_executable(${PROGNAME} WIN32 ${QTM_SRCS} ${QTM_UIS_H} ${QTM_MOC_SRCS} ${QTM_RC_SRCS} ${GENERATED_SOURCES})
@@ -272,4 +275,7 @@ if(UNIX AND NOT APPLE)
   install(FILES ${QTM_BINARY_DIR}/${DESKTOP_ENTRY} DESTINATION ${DESKTOP_ENTRY_PATH})
   install( FILES ${APP_ICON} DESTINATION share/icons )
   install( FILES ${QTM_BINARY_DIR}/qtm.1.gz DESTINATION ${MANPAGE_DIRECTORY} )
+  if( INSTALL_MARKDOWN )
+    install( FILES Markdown/Markdown.pl DESTINATION share/qtm )
+  endif( INSTALL_MARKDOWN )
 endif(UNIX AND NOT APPLE)

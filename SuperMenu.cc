@@ -80,7 +80,7 @@ void SuperMenu::choose()
     localStorageDirectory, extn );
 
   if( !fn.isEmpty() ) {
-    EditingWindow *e = new EditingWindow( true );
+    EditingWindow *e = new EditingWindow;
     if( !e->load( fn, true ) ) {
       QMessageBox::warning( 0, "QTM",
                             tr( "Could not load the file you specified." ),

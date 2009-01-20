@@ -68,6 +68,19 @@ present (the class was only introduced with that version of Qt), forcing the
 use of QTextEdit for the main editing widget.  This is recommended, as
 QPlainTextEdit is buggy.
 
+INSTALL_MARKDOWN:BOOL - Installs Markdown to a "share" location in the file 
+system (e.g. /usr/share or /usr/local/share) so that it can be used to 
+process text when previewingentries formatted with Markdown. Note that some 
+distributions provide a package of Markdown, so you might not need this 
+option. Default: FALSE
+
+MARKDOWN_LOCATION:PATH - Only in 0.7.2 or later on Windows and non-Mac Unix
+platforms.  This specifies a default location where QTM might find Markdown
+(the user can override it); you will normally need to specify this if you
+are using a non-Debian Linux platform.  It will not install Markdown to that
+location but relies on it being there.  Default: /usr/bin/markdown on Unix
+and %APPDIRPATH%/Markdown on Windows.
+
 If building on Windows, you will likely need to set the Makefile generator.
 This requires the -G option, followed by the generator name, and if you are
 using the standard MinGW compiler kit, this becomes -G "MinGW Makefiles"

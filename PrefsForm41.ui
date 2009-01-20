@@ -5,19 +5,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
-    <height>257</height>
+    <width>445</width>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Blog account settings</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
+   </property>
+   <property name="margin" >
+    <number>9</number>
    </property>
    <item>
     <widget class="QGroupBox" name="gbLocalStorage" >
@@ -36,7 +36,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>151</width>
           <height>20</height>
@@ -97,11 +97,11 @@
         <string>Feedback defaults</string>
        </property>
        <layout class="QVBoxLayout" >
-        <property name="margin" >
-         <number>9</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="margin" >
+         <number>9</number>
         </property>
         <item>
          <widget class="QCheckBox" name="cbAllowComments" >
@@ -137,6 +137,39 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="0" colspan="2" >
+      <widget class="QCheckBox" name="chUseMarkdown" >
+       <property name="text" >
+        <string>Use Markdown in Preview</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" >
+      <widget class="QLabel" name="lPerlPath" >
+       <property name="text" >
+        <string>Path to Perl</string>
+       </property>
+       <property name="buddy" >
+        <cstring>lePerlPath</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2" >
+      <widget class="QLineEdit" name="lePerlPath" />
+     </item>
+     <item row="5" column="0" >
+      <widget class="QLabel" name="lMarkdownPath" >
+       <property name="text" >
+        <string>Path to Markdown</string>
+       </property>
+       <property name="buddy" >
+        <cstring>leMarkdownPath</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2" >
+      <widget class="QLineEdit" name="leMarkdownPath" />
+     </item>
      <item row="2" column="0" colspan="2" >
       <widget class="QCheckBox" name="chCopyTitle" >
        <property name="text" >
@@ -155,11 +188,11 @@
    </item>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="margin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QPushButton" name="pbWhatsThis" >
@@ -176,7 +209,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>91</width>
          <height>31</height>
@@ -203,9 +236,18 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pbBrowse</tabstop>
   <tabstop>leLocalDir</tabstop>
+  <tabstop>pbBrowse</tabstop>
   <tabstop>leFileExtn</tabstop>
+  <tabstop>chUseNewWindows</tabstop>
+  <tabstop>cbPostAsSave</tabstop>
+  <tabstop>chCopyTitle</tabstop>
+  <tabstop>chUseMarkdown</tabstop>
+  <tabstop>cbAllowComments</tabstop>
+  <tabstop>cbAllowTB</tabstop>
+  <tabstop>lePerlPath</tabstop>
+  <tabstop>leMarkdownPath</tabstop>
+  <tabstop>pbWhatsThis</tabstop>
   <tabstop>okButton</tabstop>
   <tabstop>cancelButton</tabstop>
  </tabstops>
@@ -218,12 +260,76 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>535</x>
-     <y>383</y>
+     <x>434</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel" >
      <x>179</x>
      <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lPerlPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>18</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>42</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePerlPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>94</x>
+     <y>212</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>257</x>
+     <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lMarkdownPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>160</x>
+     <y>210</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>85</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leMarkdownPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>206</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>275</x>
+     <y>267</y>
     </hint>
    </hints>
   </connection>

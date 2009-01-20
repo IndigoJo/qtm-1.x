@@ -77,6 +77,7 @@
 #include <QHostInfo>
 #include <QProgressDialog>
 #include <QTextEdit>
+#include <QProcess>
 #if QT_VERSION >= 0x040400 && !defined DONT_USE_PTE
 #include <QPlainTextEdit>
 #endif
@@ -87,6 +88,10 @@
 #include "EditingWindow.h"
 #ifdef USE_SYSTRAYICON
 #include "SysTrayIcon.h"
+#endif
+
+#ifdef Q_WS_MAC
+#include <carbon.h>
 #endif
 
 #include "qtm_version.h"
@@ -1017,6 +1022,25 @@ void EditingWindow::readSettings()
 {
   QString crf;
   Application::recentFile currentRF;
+  QString defaultMarkdownPath;
+
+#ifdef Q_WS_MAC
+     CFURLRef appUrlRef = CFBundleCopyBundleURL( CFBundleGetMainBundle() );
+     CFStringRef macPath = CFURLCopyFileSystemPath( appUrlRef,
+                                                    kCFURLPOSIXPathStyle);
+     const char *pathPtr = CFStringGetCStringPtr( macPath,
+                                                  CFStringGetSystemEncoding() );
+     defaultMarkdownPath = QString( "%1/Markdown.pl" ).arg( pathPtr );
+     CFRelease(appUrlRef);
+     CFRelease(macPath);
+#else
+#ifdef Q_WS_WIN
+     defaultMarkdownPath = qApp->applicationDirPath().append( "/Markdown.pl" );
+#else
+     // Presumably we're in X11
+     defaultMarkdownPath = "/usr/bin/markdown";
+#endif
+#endif
 
 #ifdef Q_WS_WIN
   QString defaultLocalStorageDir = QString( "%1\\QTM blog" ).arg( QDir::homePath() );
@@ -1037,6 +1061,8 @@ void EditingWindow::readSettings()
     settings.setValue( "localStorageDirectory", localStorageDirectory );
   }
   localStorageFileExtn = settings.value( "localStorageFileExtn", "cqt" ).toString();
+  perlPath = settings.value( "perlPath", "/usr/bin/perl" ).toString();
+  markdownPath = settings.value( "markdownPath", "/usr/bin/markdown" ).toString();
   categoriesEnabled = settings.value( "categoriesEnabled", true ).toBool();
   useNewWindows = settings.value( "useNewWindows", true ).toBool();
   savePassword = settings.value( "savePassword", false ).toBool();
@@ -1494,6 +1520,14 @@ void EditingWindow::getPreferences( const QString &title )
 #else
   prefsDialog.chCopyTitle->setVisible( false );
 #endif
+  prefsDialog.chUseMarkdown->setCheckState( useMarkdown ? Qt::Checked : Qt::Unchecked );
+  if( !useMarkdown ) {
+    prefsDialog.lPerlPath->setVisible( false );
+    prefsDialog.lePerlPath->setVisible( false );
+    prefsDialog.lMarkdownPath->setVisible( false );
+    prefsDialog.leMarkdownPath->setVisible( false );
+  }
+
 #if QT_VERSION >= 0x040200
   prefsDialog.chAllowRegexSearch->setCheckState( allowRegexSearch ? Qt::Checked : Qt::Unchecked );
 #endif
@@ -1503,7 +1537,7 @@ void EditingWindow::getPreferences( const QString &title )
 
 #if QT_VERSION >= 0x040200
   prefsDialog.tabWidget->setTabText( 0, tr( "General" ) );
-  prefsDialog.tabWidget->setTabText( 1, tr( "Fonts" ) );
+  prefsDialog.tabWidget->setTabText( 1, tr( "Fonts & Markdown" ) );
   prefsDialog.tabWidget->setCurrentIndex( 0 );
 
   QFont editorFont = EDITOR->font();
@@ -1559,6 +1593,9 @@ void EditingWindow::getPreferences( const QString &title )
 #ifdef USE_SYSTRAYICON
     copyTitle = prefsDialog.chCopyTitle->isChecked();
 #endif
+    useMarkdown = prefsDialog.chUseMarkdown->isChecked();
+    perlPath = prefsDialog.lePerlPath->text();
+    markdownPath = prefsDialog.leMarkdownPath->text();
 #if QT_VERSION >= 0x040200
     allowRegexSearch = prefsDialog.chAllowRegexSearch->isChecked();
 #endif
@@ -1652,6 +1689,9 @@ void EditingWindow::getPreferences( const QString &title )
 #ifdef USE_SYSTRAYICON
     settings.setValue( "copyTitle", copyTitle );
 #endif
+    settings.setValue( "useMarkdown", useMarkdown );
+    settings.setValue( "perlPath", perlPath );
+    settings.setValue( "markdownPath", markdownPath );
 #if QT_VERSION >= 0x040200
     settings.setValue( "allowRegexSearch", allowRegexSearch );
 #endif
@@ -2652,50 +2692,106 @@ void EditingWindow::pasteAsOrderedList()
     EDITOR->insertPlainText( getHTMLList( QString( "ol" ), insertion ) );
 }
 
-void EditingWindow::doPreview( bool isChecked )
+void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
 {
-  QString line, techTagString;
+  QString line, techTagString, tempFilePath;
   QString conversionString = "", conversionStringB = "";
   QTextDocument cDoc;
+  // bool finished = false;
   bool isPre = false;
 
   if( isChecked ) {
-    ui.action_View_Console->setEnabled( false );
-    conversionString += QString( "<b>%1</b>\n\n" )
-      .arg( cw.leTitle->text().size() ?
-            cw.leTitle->text() : "<i>Untitled</i>" );
-    conversionString += EDITOR->toPlainText();
-    QTextStream a( &conversionString );
-    QRegExp re( "^(<table|thead|tfoot|caption|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|select|form|blockquote|address|math|p|h[1-6])>" );
-    do {
-      line = a.readLine();
-      if( !line.isEmpty() ) {
-        if( re.exactMatch( line ) )
-          conversionStringB += line;
-        else {
-          if( line.startsWith( "<pre>" ) ) {
-            isPre = true;
-            conversionStringB += line;
-          }
-          else {
-            conversionStringB += QString( isPre ? "%1\n" : "<p>%1</p>" ).arg( line );
+    if( useMarkdown && !markdownFailed ) {
+      QTemporaryFile tf;
+      conversionString += EDITOR->toPlainText();
+      QTextStream stream( &tf );
 
-            if( line.contains( "</pre>" ) )
-              isPre = false;
+      if( tf.open() ) {
+        stream << conversionString;
+        tf.close();
+
+        QProcess proc;
+        QFile *f = qobject_cast<QFile *>( &tf );
+        proc.start( perlPath, QStringList() << markdownPath << QFileInfo( f ).filePath() );
+        statusBar()->showMessage( tr( "Starting text converter ..." ), 2000 );
+        if( !proc.waitForStarted() ) {
+          doPreview( isChecked, true ); // i.e. redo the preview without Markdown
+          return;
+        }
+
+        // Now wait until the process finishes; use a loop and process events every 10th of a second
+        for( int i = 0; i <= 300; ++i ) {
+          if( i == 300 ) { // if 30 seconds has elapsed without a finish signal
+            doPreview( isChecked, true );
+            return;
+          }
+          if( proc.waitForFinished( 100 ) )
+            break;
+          else
+            qApp->processEvents();
+        }
+        conversionStringB = QString( proc.readAllStandardOutput() );
+        if( conversionStringB.length() < conversionString.length() ||
+            proc.exitStatus() != QProcess::NormalExit ) {
+          doPreview( isChecked, true );
+          return;
+        }
+
+        // Now that the process has done its job, we can add the title and display
+        // the preview
+
+        conversionStringB.prepend( QString( "<strong>%1</strong>\n\n" )
+                                   .arg( cw.leTitle->text().size() ?
+                                         cw.leTitle->text() : "<em>Untitled</em>" ) );
+        previewWindow->setHtml( conversionStringB );
+        previousRaisedLSWidget = mainStack->currentIndex();
+        connect( previewWindow, SIGNAL( highlighted( const QString & ) ),
+                 this, SLOT( showHighlightedURL( const QString & ) ) );
+        mainStack->setCurrentIndex( previewWindowID );
+        searchWidget->setTextEdit( previewWindow );
+        ui.actionP_review->setText( tr( "Exit p&review" ) );
+        ui.actionP_review->setIconText( tr( "Exit preview" ) );
+        ui.actionP_review->setToolTip( tr( "Exit preview" ) );
+      }
+    }
+    else {
+      ui.action_View_Console->setEnabled( false );
+      conversionString += QString( "<b>%1</b>\n\n" )
+        .arg( cw.leTitle->text().size() ?
+              cw.leTitle->text() : "<i>Untitled</i>" );
+      conversionString += EDITOR->toPlainText();
+      QTextStream a( &conversionString );
+      QRegExp re( "^(<table|thead|tfoot|caption|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|select|form|blockquote|address|math|p|h[1-6])>" );
+      do {
+        line = a.readLine();
+        if( !line.isEmpty() ) {
+          if( re.exactMatch( line ) )
+            conversionStringB += line;
+          else {
+            if( line.startsWith( "<pre>" ) ) {
+              isPre = true;
+              conversionStringB += line;
+            }
+            else {
+              conversionStringB += QString( isPre ? "%1\n" : "<p>%1</p>" ).arg( line );
+
+              if( line.contains( "</pre>" ) )
+                isPre = false;
+            }
           }
         }
-      }
-    } while( !a.atEnd() );
+      } while( !a.atEnd() );
 
-    previewWindow->setHtml( conversionStringB );
-    previousRaisedLSWidget = mainStack->currentIndex();
-    connect( previewWindow, SIGNAL( highlighted( const QString & ) ),
-             this, SLOT( showHighlightedURL( const QString & ) ) );
-    mainStack->setCurrentIndex( previewWindowID );
-    searchWidget->setTextEdit( previewWindow );
-    ui.actionP_review->setText( tr( "Exit p&review" ) );
-    ui.actionP_review->setIconText( tr( "Exit preview" ) );
-    ui.actionP_review->setToolTip( tr( "Exit preview" ) );
+      previewWindow->setHtml( conversionStringB );
+      previousRaisedLSWidget = mainStack->currentIndex();
+      connect( previewWindow, SIGNAL( highlighted( const QString & ) ),
+               this, SLOT( showHighlightedURL( const QString & ) ) );
+      mainStack->setCurrentIndex( previewWindowID );
+      searchWidget->setTextEdit( previewWindow );
+      ui.actionP_review->setText( tr( "Exit p&review" ) );
+      ui.actionP_review->setIconText( tr( "Exit preview" ) );
+      ui.actionP_review->setToolTip( tr( "Exit preview" ) );
+    }
   } else {
     ui.action_View_Console->setEnabled( true );
     mainStack->setCurrentIndex( previousRaisedLSWidget );

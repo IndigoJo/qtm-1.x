@@ -147,7 +147,7 @@ class EditingWindow : public QMainWindow
   QString lastAccountID;
   bool categoriesEnabled, entryBlogged, useNewWindows, savePassword,
       postAsSave, noPassword, initialChangeBlog, allowComments, allowTB, postDateTime,
-    copyTitle, allowRegexSearch, useTwoNewlines;
+      copyTitle, allowRegexSearch, useTwoNewlines, useMarkdown;
   QHash<QString, bool *> accountAttributes;
   QHash<QString, QString *> accountStrings;
   bool entryEverSaved, cleanSave, noAutoSave, noAlphaCats, networkActionsEnabled;
@@ -167,6 +167,7 @@ class EditingWindow : public QMainWindow
   QString otherCatsList;
   QRegExpValidator *tagValidator;
   QString editorFontString, previewFontString, consoleFontString;
+  QString perlPath, markdownPath;
   QColor editorBgColor, editorFgColor,
          previewBgColor, previewFgColor,
          consoleBgColor, consoleFgColor;
@@ -232,7 +233,7 @@ class EditingWindow : public QMainWindow
   void redo();
   void makeUnorderedList();
   void makeOrderedList();
-  void doPreview( bool );
+  void doPreview( bool, bool markdownFailed = false );
   void showHighlightedURL( const QString & );
   //void blogThis();
   void newMTPost(); // formerly blogThis()

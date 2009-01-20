@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>357</height>
+    <width>531</width>
+    <height>346</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -34,7 +34,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="storageTab" >
       <attribute name="title" >
@@ -86,6 +86,13 @@
            </property>
            <property name="text" >
             <string>Enable expert search</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chUseMarkdown" >
+           <property name="text" >
+            <string>Use Markdown in Preview</string>
            </property>
           </widget>
          </item>
@@ -393,7 +400,7 @@
             <bool>true</bool>
            </property>
            <property name="frameShape" >
-            <enum>QFrame::Box</enum>
+            <enum>QFrame::StyledPanel</enum>
            </property>
            <property name="text" >
             <string>Text</string>
@@ -412,7 +419,7 @@
             <bool>true</bool>
            </property>
            <property name="frameShape" >
-            <enum>QFrame::Box</enum>
+            <enum>QFrame::StyledPanel</enum>
            </property>
            <property name="text" >
             <string>Text</string>
@@ -431,27 +438,90 @@
             <bool>true</bool>
            </property>
            <property name="frameShape" >
-            <enum>QFrame::Box</enum>
+            <enum>QFrame::StyledPanel</enum>
            </property>
            <property name="text" >
             <string>Text</string>
            </property>
           </widget>
          </item>
+         <item row="4" column="0" colspan="4" >
+          <widget class="QGroupBox" name="gbMarkdown" >
+           <property name="title" >
+            <string>Markdown</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout" >
+            <item row="0" column="0" >
+             <widget class="QLabel" name="lPerlPath" >
+              <property name="text" >
+               <string>Path to Perl</string>
+              </property>
+              <property name="buddy" >
+               <cstring>lePerlPath</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" >
+             <widget class="QLineEdit" name="lePerlPath" >
+              <property name="whatsThis" >
+               <string>Markdown is written in Perl, so you may need to specify where to find Perl (on Linux and Mac, usually the path is /usr/bin/perl).  If you use a version of Markdown that's written in Python, you can specify the path to Python here instead.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="lMarkdownPath" >
+              <property name="text" >
+               <string>Path to Markdown</string>
+              </property>
+              <property name="buddy" >
+               <cstring>leMarkdownPath</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="QLineEdit" name="leMarkdownPath" >
+              <property name="whatsThis" >
+               <string>Where to find the Markdown script.  Ubuntu installs it in /usr/bin but other systems may install it somewhere else.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <spacer name="verticalSpacer" >
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="1" >
+             <spacer name="verticalSpacer_2" >
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="6" >
+          <widget class="Line" name="line" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </item>
-       <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -512,6 +582,7 @@
   <tabstop>cbPostAsSave</tabstop>
   <tabstop>chCopyTitle</tabstop>
   <tabstop>chAllowRegexSearch</tabstop>
+  <tabstop>chUseMarkdown</tabstop>
   <tabstop>cbAllowComments</tabstop>
   <tabstop>cbAllowTB</tabstop>
   <tabstop>cbSTI2ClickFunction</tabstop>
@@ -527,6 +598,8 @@
   <tabstop>sbConsole</tabstop>
   <tabstop>tbConsoleBgColor</tabstop>
   <tabstop>tbConsoleFgColor</tabstop>
+  <tabstop>lePerlPath</tabstop>
+  <tabstop>leMarkdownPath</tabstop>
   <tabstop>pbWhatsThis</tabstop>
   <tabstop>okButton</tabstop>
   <tabstop>cancelButton</tabstop>
@@ -556,12 +629,76 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>377</x>
-     <y>304</y>
+     <x>435</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel" >
      <x>256</x>
      <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lPerlPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>163</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>87</x>
+     <y>186</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePerlPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>163</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>278</x>
+     <y>186</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lMarkdownPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>163</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>87</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chUseMarkdown</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leMarkdownPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>163</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>278</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>

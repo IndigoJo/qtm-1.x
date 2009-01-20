@@ -2714,9 +2714,9 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
 
         QProcess proc;
         proc.start( perlPath, QStringList() << markdownPath << tf.fileName() );
-        statusBar()->showMessage( tr( "Starting text converter ..." ), 2000 );
+        //statusBar()->showMessage( tr( "Starting text converter ..." ), 2000 );
         if( !proc.waitForStarted() ) {
-          statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
+          statusBar()->showMessage( tr( "Failed to start conversion" ), 2000 );
           doPreview( isChecked, true ); // i.e. redo the preview without Markdown
           return;
         }
@@ -2736,7 +2736,7 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
         conversionStringB = QString( proc.readAllStandardOutput() );
         if( conversionStringB.length() < conversionString.length() ||
             proc.exitStatus() != QProcess::NormalExit ) {
-          statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
+          statusBar()->showMessage( tr( "Conversion failed" ), 2000 );
           doPreview( isChecked, true );
           return;
         }

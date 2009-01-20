@@ -1534,10 +1534,8 @@ void EditingWindow::getPreferences( const QString &title )
   prefsDialog.lePerlPath->setText( perlPath );
   prefsDialog.leMarkdownPath->setText( markdownPath );
   if( !useMarkdown ) {
-    prefsDialog.lPerlPath->setVisible( false );
-    prefsDialog.lePerlPath->setVisible( false );
-    prefsDialog.lMarkdownPath->setVisible( false );
-    prefsDialog.leMarkdownPath->setVisible( false );
+    prefsDialog.lineBelowFonts->setVisible( false );
+    prefsDialog.gbMarkdown->setVisible( false );
   }
 
 #if QT_VERSION >= 0x040200

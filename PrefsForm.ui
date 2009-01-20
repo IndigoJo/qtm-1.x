@@ -515,11 +515,24 @@
           </widget>
          </item>
          <item row="3" column="0" colspan="6" >
-          <widget class="Line" name="line" >
+          <widget class="Line" name="lineBelowFonts" >
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
+         </item>
+         <item row="4" column="4" >
+          <spacer name="verticalSpacer_3" >
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </item>
@@ -641,64 +654,32 @@
   <connection>
    <sender>chUseMarkdown</sender>
    <signal>toggled(bool)</signal>
-   <receiver>lPerlPath</receiver>
+   <receiver>gbMarkdown</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>163</x>
-     <y>248</y>
+     <x>158</x>
+     <y>238</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>87</x>
-     <y>186</y>
+     <x>207</x>
+     <y>206</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>chUseMarkdown</sender>
    <signal>toggled(bool)</signal>
-   <receiver>lePerlPath</receiver>
+   <receiver>lineBelowFonts</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>163</x>
-     <y>248</y>
+     <x>158</x>
+     <y>238</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>278</x>
-     <y>186</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>chUseMarkdown</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lMarkdownPath</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>163</x>
-     <y>248</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>87</x>
-     <y>215</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>chUseMarkdown</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leMarkdownPath</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>163</x>
-     <y>248</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>278</x>
-     <y>215</y>
+     <x>264</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>

@@ -95,7 +95,7 @@
 #endif
 
 #include "qtm_version.h"
-#ifdef Q_WS_X11
+#if defined Q_WS_X11 || defined Q_WS_WIN
 #include "markdown_header.h"
 #endif
 
@@ -1026,6 +1026,7 @@ void EditingWindow::readSettings()
   QString crf;
   Application::recentFile currentRF;
   QString defaultMarkdownPath;
+  bool defaultUseMarkdown;
 
 #ifdef Q_WS_MAC
      CFURLRef appUrlRef = CFBundleCopyBundleURL( CFBundleGetMainBundle() );
@@ -1036,12 +1037,17 @@ void EditingWindow::readSettings()
      defaultMarkdownPath = QString( "%1/Resources/Markdown.pl" ).arg( pathPtr );
      CFRelease(appUrlRef);
      CFRelease(macPath);
+     defaultUseMarkdown = true;
 #else
 #ifdef Q_WS_WIN
-     defaultMarkdownPath = qApp->applicationDirPath().append( "/Markdown.pl" );
+     defaultMarkdownPath = QString( "%1/Markdown.pl" )
+       .arg( QString( MARKDOWN_LOCATION ).replace( "%APPDIRPATH%", qApp->applicationDirPath() ) );
+     //defaultMarkdownPath = qApp->applicationDirPath().append( "/Markdown.pl" );
+     defaultUseMarkdown = false;
 #else
      // Presumably we're in X11
      defaultMarkdownPath = MARKDOWN_LOCATION;
+     defaultUseMarkdown = true;
 #endif
 #endif
 
@@ -1064,7 +1070,7 @@ void EditingWindow::readSettings()
     settings.setValue( "localStorageDirectory", localStorageDirectory );
   }
   localStorageFileExtn = settings.value( "localStorageFileExtn", "cqt" ).toString();
-  useMarkdown = settings.value( "useMarkdown", true ).toBool();
+  useMarkdown = settings.value( "useMarkdown", defaultUseMarkdown ).toBool();
   perlPath = settings.value( "perlPath", "/usr/bin/perl" ).toString();
   markdownPath = settings.value( "markdownPath", defaultMarkdownPath ).toString();
   categoriesEnabled = settings.value( "categoriesEnabled", true ).toBool();

@@ -131,6 +131,14 @@ if( UNIX AND NOT APPLE )
 
 endif( UNIX AND NOT APPLE )
 
+if( WIN32 )
+  if( NOT MARKDOWN_LOCATION )
+    set( MARKDOWN_LOCATION %APPDIRPATH%/Markdown )
+  endif( NOT MARKDOWN_LOCATION )
+  set( MARKDOWN_HEADER ${QTM_BINARY_DIR}/markdown_header.h )
+  configure_file( ${QTM_SOURCE_DIR}/markdown_header.h.in ${QTM_BINARY_DIR}/markdown_header.h @ONLY IMMEDIATE )
+endif( WIN32 )
+
 if( QDEBUG )
   set( CMAKE_VERBOSE_MAKEFILE ON )
   add_definitions( -g -O1 )

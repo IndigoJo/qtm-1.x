@@ -1525,7 +1525,7 @@ void EditingWindow::getPreferences( const QString &title )
                                               Qt::Unchecked );
   prefsDialog.cbAllowTB->setCheckState( allowTB ? Qt::Checked :
                                         Qt::Unchecked );
-#ifdef USE_SYSTRAYICON
+#if defined USE_SYSTRAYICON && QT_VERSION >= 0x040200
   prefsDialog.chCopyTitle->setCheckState( copyTitle ? Qt::Checked : Qt::Unchecked );
 #else
 #if QT_VERSION >= 0x040200

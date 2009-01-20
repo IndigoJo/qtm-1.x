@@ -95,6 +95,9 @@
 #endif
 
 #include "qtm_version.h"
+#ifdef Q_WS_X11
+#include "markdown_header.h"
+#endif
 
 #include <QtAlgorithms>
 #include <QtNetwork>
@@ -1038,7 +1041,7 @@ void EditingWindow::readSettings()
      defaultMarkdownPath = qApp->applicationDirPath().append( "/Markdown.pl" );
 #else
      // Presumably we're in X11
-     defaultMarkdownPath = "/usr/bin/markdown";
+     defaultMarkdownPath = MARKDOWN_LOCATION;
 #endif
 #endif
 

@@ -120,6 +120,15 @@ if( UNIX AND NOT APPLE )
 	  qtmico.o )
   
   set( APP_ICON images/qtm-logo1.png )
+
+# Generate Markdown location file
+
+  if( NOT MARKDOWN_LOCATION )
+    set( MARKDOWN_LOCATION /usr/bin/markdown )
+  endif( NOT MARKDOWN_LOCATION )
+  set( MARKDOWN_HEADER ${QTM_BINARY_DIR}/markdown_header.h )
+  configure_file( ${QTM_SOURCE_DIR}/markdown_header.h.in ${QTM_BINARY_DIR}/markdown_header.h @ONLY IMMEDIATE )
+
 endif( UNIX AND NOT APPLE )
 
 if( QDEBUG )
@@ -203,7 +212,7 @@ endif(COMMAND cmake_policy)
 add_definitions( -Wall )
 
 configure_file( ${QTM_SOURCE_DIR}/qtm_version.h.in ${QTM_BINARY_DIR}/qtm_version.h @ONLY IMMEDIATE )
-set( GENERATED_SOURCES ${QTM_BINARY_DIR}/qtm_version.h )
+set( GENERATED_SOURCES ${QTM_BINARY_DIR}/qtm_version.h ${MARKDOWN_HEADER} )
 
 SET(QT_USE_QTNETWORK TRUE)
 SET(QT_USE_QTXML TRUE)
@@ -238,9 +247,7 @@ IF(APPLE)
     add_custom_command( TARGET ${PROGNAME} POST_BUILD
       COMMAND mkdir ARGS -p ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
       COMMAND cp ARGS ${MACOSX_BUNDLE_ICON_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${PROGNAME}.app/Contents/Resources
-      if( INSTALL_MARKDOWN )
-        COMMAND cp ARGS ${QTM_SOURCE_DIR}/Markdown/Markdown.pl ${CMAKE_CURRENT_BINARY_DIR/${PROGNAME}.app/Contents/Resources
-      endif( INSTALL_MARKDOWN )
+      COMMAND cp ARGS ${QTM_SOURCE_DIR}/Markdown/Markdown.pl ${CMAKE_CURRENT_BINARY_DIR/${PROGNAME}.app/Contents/Resources
       )
 ELSE(NOT APPLE)
     add_executable(${PROGNAME} WIN32 ${QTM_SRCS} ${QTM_UIS_H} ${QTM_MOC_SRCS} ${QTM_RC_SRCS} ${GENERATED_SOURCES})

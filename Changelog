@@ -1,6 +1,6 @@
 Changelog:
 
-0.7.2
+0.7.2 (20th January 2009):
 
 New feature: Support for Markdown in the Preview window (requires an
 external Markdown script)

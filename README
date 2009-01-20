@@ -1,5 +1,5 @@
-QTM, version 0.7.1.3
-Copyright 2008, Matthew J Smith
+QTM, version 0.7.2
+Copyright (C) 2004-2009, Matthew J Smith
 This program is released under the terms of the GNU General Public License,
 version 2.  This applies to all files written by me, or produced by me by
 the use of tools like Qt Designer, in this package, and any binary produced
@@ -48,6 +48,13 @@ widget bar.  You may find it preferable to move the widget bar, or to use Qt
 4.3 instead.  For the time being, installers for Windows will come with Qt
 4.3.
 
+(5) Markdown support requires an external Markdown parser, which requires
+Perl (there are versions for other scripting languages).  On the Mac, the
+parser is provided in the bundle; on Linux, the QTM binary may depend on
+another Markdown package.  On Windows, the script is provided, and you will
+need to install Perl yourself, and configure QTM so that it knows where to
+find Perl.
+
 Any enquiries and suggestions to me at indigojo@blogistan.co.uk.  Please, no
 requests for the normal features of blog managers like ecto - most of these
 are on my wish list anyway.
@@ -55,4 +62,4 @@ are on my wish list anyway.
 
 Matthew J Smith
 New Malden, Surrey, England
-23rd Jan, 2006 - 8th Jan, 2009
+23rd Jan, 2006 - 20th Jan, 2009

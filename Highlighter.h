@@ -5,19 +5,19 @@
 // Copyright 2008 Matthew J Smith
 // Distributed under GNU General Public License, version 2 or later
 
-#ifdef HTMLHIGHLIGHTER_H
-#define HTMLHIGHLIGHTER_H
+#ifndef HIGHLIGHTER_H
+#define HIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
 #include <QString>
+#include <QTextCharFormat>
 
 class Highlighter : public QSyntaxHighlighter
 {
 Q_OBJECT
 
 public:
-  Highlighter::Highligher( QObject *parent = 0 );
-  Highlighter::~Highlighter();
+  Highlighter::Highligher( QTextDocument *parent = 0 );
 
 protected:
   virtual void highlightBlock( const QString & );
@@ -26,14 +26,15 @@ private:
   struct HighlightingRule {
     QRegExp pattern;
     QTextCharFormat format;
-    QVector<HighlightingRule> highlightingRules;
+  };
+  QVector<HighlightingRule> highlightingRules;
 
-    QRegExp commentStartExpression;
-    QRegExp commentEndExpression;
+  QRegExp commentStartExpression;
+  QRegExp commentEndExpression;
 
-    QTextCharFormat htmlTagFormat;
-    QTextCharFormat htmlEntityFormat;
-    QTextCharFormat htmlCommentFormat;
+  QTextCharFormat htmlTagFormat;
+  QTextCharFormat htmlEntityFormat;
+  QTextCharFormat htmlCommentFormat;
 };
 
 

@@ -3,16 +3,15 @@
 // Copyright 2008 Matthew J Smith
 // Distributed under the GNU General Public License, version 2 or later
 
+#include <QtGui>
+
 #include "Highlighter.h"
 
 Highlighter::Highlighter( QObject *parent )
   : QSyntaxHighlighter( parent )
 {
+  HighlightingRule rule;
 
-}
-
-Highlighter::~Highlighter()
-{
 
 }
 

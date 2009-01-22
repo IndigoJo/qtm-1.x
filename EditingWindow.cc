@@ -971,6 +971,8 @@ void EditingWindow::readSettings()
   useMarkdown = settings.value( "useMarkdown", defaultUseMarkdown ).toBool();
   perlPath = settings.value( "perlPath", "/usr/bin/perl" ).toString();
   markdownPath = settings.value( "markdownPath", defaultMarkdownPath ).toString();
+  doMarkdownWhenPosting = settings.value( "doMarkdownWhenPosting", useMarkdown ).toBool();
+  stripParaTags = settings.value( "stripParaTags", doMarkdownWhenPosting ).toBool();
   categoriesEnabled = settings.value( "categoriesEnabled", true ).toBool();
   useNewWindows = settings.value( "useNewWindows", true ).toBool();
   savePassword = settings.value( "savePassword", false ).toBool();
@@ -1478,6 +1480,10 @@ void EditingWindow::getPreferences( const QString &title )
   prefsDialog.chUseMarkdown->setCheckState( useMarkdown ? Qt::Checked : Qt::Unchecked );
   prefsDialog.lePerlPath->setText( perlPath );
   prefsDialog.leMarkdownPath->setText( markdownPath );
+  prefsDialog.chDoMarkdownWhenPosting->setCheckState( doMarkdownWhenPosting ? Qt::Checked
+                                                      : Qt::Unchecked );
+  prefsDialog.chStripParaTags->setCheckState( stripParaTags ? Qt::Checked : Qt::Unchecked );
+  prefsDialog.chStripParaTags->setEnabled( doMarkdownWhenPosting );
 #if QT_VERSION >= 0x040200
   if( !useMarkdown ) {
     prefsDialog.lineBelowFonts->setVisible( false );
@@ -1553,6 +1559,8 @@ void EditingWindow::getPreferences( const QString &title )
     useMarkdown = prefsDialog.chUseMarkdown->isChecked();
     perlPath = prefsDialog.lePerlPath->text();
     markdownPath = prefsDialog.leMarkdownPath->text();
+    doMarkdownWhenPosting = prefsDialog.chDoMarkdownWhenPosting->isChecked();
+    stripParaTags = prefsDialog.chStripParaTags->isChecked();
 #if QT_VERSION >= 0x040200
     allowRegexSearch = prefsDialog.chAllowRegexSearch->isChecked();
 #endif
@@ -1649,6 +1657,8 @@ void EditingWindow::getPreferences( const QString &title )
     settings.setValue( "useMarkdown", useMarkdown );
     settings.setValue( "perlPath", perlPath );
     settings.setValue( "markdownPath", markdownPath );
+    settings.setValue( "doMarkdownWhenPosting", doMarkdownWhenPosting );
+    settings.setValue( "stripParaTags", stripParaTags );
 #if QT_VERSION >= 0x040200
     settings.setValue( "allowRegexSearch", allowRegexSearch );
 #endif
@@ -2789,7 +2799,7 @@ void EditingWindow::newMTPost()
   QDomDocument doc;
   QDomElement methodCall, params, param, member, value, integer,
               string, rpcstruct, rpcarray, actualValue;
-  QString description, extEntry, techTagString;
+  QString description, extEntry, techTagString, convertedString;
   bool takeComms = cw.chComments->isChecked();
   bool takeTB = cw.chTB->isChecked();
   bool blogidIsInt;
@@ -2806,6 +2816,23 @@ void EditingWindow::newMTPost()
     } else {
       description = QString( EDITOR->toPlainText() );
       extEntry = "";
+    }
+
+    if( doMarkdownWhenPosting ) {
+      convertedString = processWithMarkdown( description );
+      if( !convertedString.isNull() )
+        description = stripParaTags ?
+          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+      else
+        statusBar()->showMessage( tr( "Markdown conversion failed; posting main entry as is." ), 2000 );
+      if( !extEntry.isEmpty() ) {
+        convertedString = processWithMarkdown( extEntry );
+        if( !convertedString.isNull() )
+          extEntry = stripParaTags ?
+            convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+        else
+          statusBar()->showMessage( tr( "Markdown conversion failed; posting extension as is." ), 2000 );
+      }
     }
 
     dateTime = QDateTime::currentDateTime().toString( Qt::ISODate );
@@ -2922,7 +2949,7 @@ void EditingWindow::submitMTEdit()
 {
   QDomDocument doc;
   QDomElement methodCall, params, param, value, rpcstruct, rpcarray;
-  QString description, extEntry, techTagString;
+  QString description, extEntry, techTagString, convertedString;
   int count, tags;
   bool takeComms = cw.chComments->isChecked();
   bool takeTB = cw.chTB->isChecked();
@@ -2936,6 +2963,23 @@ void EditingWindow::submitMTEdit()
   } else {
     description = QString( EDITOR->toPlainText() );
     extEntry = "";
+  }
+
+  if( doMarkdownWhenPosting ) {
+    convertedString = processWithMarkdown( description );
+    if( !convertedString.isNull() )
+      description = stripParaTags ?
+        convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+    else
+      statusBar()->showMessage( tr( "Markdown conversion failed; posting main entry as is." ), 2000 );
+    if( !extEntry.isEmpty() ) {
+      convertedString = processWithMarkdown( extEntry );
+      if( !convertedString.isNull() )
+        extEntry = stripParaTags ?
+          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+      else
+        statusBar()->showMessage( tr( "Markdown conversion failed; posting extension as is." ), 2000 );
+    }
   }
 
   if( cw.lwTags->count() ) {

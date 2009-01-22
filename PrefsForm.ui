@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>531</width>
-    <height>326</height>
+    <height>388</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -40,13 +40,56 @@
       <attribute name="title" >
        <string>Tab 2</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
+      <layout class="QGridLayout" name="gridLayout_2" >
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label_7" >
+         <property name="text" >
+          <string>&amp;Directory</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leLocalDir</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QLineEdit" name="leLocalDir" />
+       </item>
+       <item row="0" column="2" >
+        <widget class="QPushButton" name="pbBrowse" >
+         <property name="enabled" >
+          <bool>true</bool>
+         </property>
+         <property name="text" >
+          <string>&amp;Browse</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lFileExtn" >
+         <property name="text" >
+          <string>File e&amp;xtension</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leFileExtn</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QLineEdit" name="leFileExtn" />
+       </item>
+       <item row="1" column="2" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>141</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="2" column="0" colspan="2" >
         <layout class="QVBoxLayout" >
          <property name="spacing" >
@@ -106,26 +149,20 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QCheckBox" name="chStripParaTags" >
+           <property name="whatsThis" >
+            <string>Strip out paragraph tags (&lt;p>) between running Markdown and posting the entry.  Use this if your blogging system converts line breaks automatically.</string>
+           </property>
+           <property name="text" >
+            <string>... and strip Paragraph tags</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_7" >
-         <property name="text" >
-          <string>&amp;Directory</string>
-         </property>
-         <property name="buddy" >
-          <cstring>leLocalDir</cstring>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="2" >
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <property name="margin" >
-          <number>0</number>
-         </property>
+        <layout class="QVBoxLayout" name="verticalLayout" >
          <item>
           <widget class="QGroupBox" name="gbDefault" >
            <property name="title" >
@@ -156,19 +193,29 @@
           </widget>
          </item>
          <item>
-          <spacer>
+          <spacer name="verticalSpacer_4" >
            <property name="orientation" >
             <enum>Qt::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0" >
             <size>
              <width>20</width>
-             <height>31</height>
+             <height>40</height>
             </size>
            </property>
           </spacer>
          </item>
         </layout>
+       </item>
+       <item row="3" column="0" colspan="2" >
+        <widget class="QLabel" name="label_10" >
+         <property name="text" >
+          <string>When system-tray &amp;icon double-clicked:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>cbSTI2ClickFunction</cstring>
+         </property>
+        </widget>
        </item>
        <item row="3" column="2" >
         <widget class="QComboBox" name="cbSTI2ClickFunction" >
@@ -183,55 +230,6 @@
           </property>
          </item>
         </widget>
-       </item>
-       <item row="3" column="0" colspan="2" >
-        <widget class="QLabel" name="label_10" >
-         <property name="text" >
-          <string>When system-tray &amp;icon double-clicked:</string>
-         </property>
-         <property name="buddy" >
-          <cstring>cbSTI2ClickFunction</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>141</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QLineEdit" name="leFileExtn" />
-       </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lFileExtn" >
-         <property name="text" >
-          <string>File e&amp;xtension</string>
-         </property>
-         <property name="buddy" >
-          <cstring>leFileExtn</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2" >
-        <widget class="QPushButton" name="pbBrowse" >
-         <property name="enabled" >
-          <bool>true</bool>
-         </property>
-         <property name="text" >
-          <string>&amp;Browse</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
-        <widget class="QLineEdit" name="leLocalDir" />
        </item>
       </layout>
      </widget>
@@ -636,8 +634,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>474</x>
-     <y>319</y>
+     <x>520</x>
+     <y>375</y>
     </hint>
     <hint type="destinationlabel" >
      <x>179</x>
@@ -653,7 +651,7 @@
    <hints>
     <hint type="sourcelabel" >
      <x>435</x>
-     <y>344</y>
+     <y>375</y>
     </hint>
     <hint type="destinationlabel" >
      <x>256</x>
@@ -672,8 +670,8 @@
      <y>238</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>207</x>
-     <y>206</y>
+     <x>120</x>
+     <y>176</y>
     </hint>
    </hints>
   </connection>
@@ -688,8 +686,24 @@
      <y>238</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>264</x>
-     <y>121</y>
+     <x>120</x>
+     <y>142</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chDoMarkdownWhenPosting</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chStripParaTags</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>85</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>86</x>
+     <y>279</y>
     </hint>
    </hints>
   </connection>

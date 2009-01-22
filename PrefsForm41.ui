@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>460</width>
-    <height>309</height>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -141,6 +141,19 @@
           </property>
          </widget>
         </item>
+        <item>
+         <spacer name="verticalSpacer" >
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </widget>
      </item>
@@ -151,6 +164,16 @@
        </property>
        <property name="text" >
         <string>Run Markdown before posting</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" >
+      <widget class="QCheckBox" name="chStripParaTags" >
+       <property name="whatsThis" >
+        <string>Strip out paragraph tags (&lt;p>) between running Markdown and posting the entry.  Use this if your blogging system converts line breaks automatically.</string>
+       </property>
+       <property name="text" >
+        <string>... and strip Paragraph tags</string>
        </property>
       </widget>
      </item>

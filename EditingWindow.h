@@ -148,7 +148,8 @@ class EditingWindow : public QMainWindow
   QString lastAccountID;
   bool categoriesEnabled, entryBlogged, useNewWindows, savePassword,
       postAsSave, noPassword, initialChangeBlog, allowComments, allowTB, postDateTime,
-      copyTitle, allowRegexSearch, useTwoNewlines, useMarkdown;
+      copyTitle, allowRegexSearch, useTwoNewlines, 
+      useMarkdown, doMarkdownWhenPosting, stripParaTags;
   QHash<QString, bool *> accountAttributes;
   QHash<QString, QString *> accountStrings;
   bool entryEverSaved, cleanSave, noAutoSave, noAlphaCats, networkActionsEnabled;

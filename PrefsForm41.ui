@@ -1,26 +1,23 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>PrefsForm</class>
  <widget class="QDialog" name="PrefsForm" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>465</width>
-    <height>359</height>
+    <width>460</width>
+    <height>309</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Blog account settings</string>
+   <string>Preferences</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
+   </property>
+   <property name="margin" >
+    <number>9</number>
    </property>
    <item>
     <widget class="QGroupBox" name="gbLocalStorage" >
@@ -75,7 +72,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>151</width>
           <height>20</height>
@@ -94,19 +91,6 @@
      <property name="spacing" >
       <number>6</number>
      </property>
-     <item row="3" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
      <item row="0" column="0" >
       <widget class="QCheckBox" name="chUseNewWindows" >
        <property name="text" >
@@ -131,17 +115,17 @@
        </property>
       </widget>
      </item>
-     <item rowspan="4" row="0" column="1" >
+     <item rowspan="5" row="0" column="1" >
       <widget class="QGroupBox" name="gbFeedbackDefaults" >
        <property name="title" >
         <string>Feedback defaults</string>
        </property>
        <layout class="QVBoxLayout" >
-        <property name="margin" >
-         <number>9</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="margin" >
+         <number>9</number>
         </property>
         <item>
          <widget class="QCheckBox" name="cbAllowComments" >
@@ -158,6 +142,16 @@
          </widget>
         </item>
        </layout>
+      </widget>
+     </item>
+     <item row="3" column="0" >
+      <widget class="QCheckBox" name="chDoMarkdownWhenPosting" >
+       <property name="whatsThis" >
+        <string>This makes QTM run Markdown to turn your text into HTML before sending it to the web server.  This is ideal if your blogging application does not support Markdown; if it does, you can send an entry as it is.</string>
+       </property>
+       <property name="text" >
+        <string>Run Markdown before posting</string>
+       </property>
       </widget>
      </item>
     </layout>
@@ -207,11 +201,11 @@
    </item>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="margin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QPushButton" name="pbWhatsThis" >
@@ -228,7 +222,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>91</width>
          <height>31</height>
@@ -254,7 +248,6 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <tabstops>
   <tabstop>leLocalDir</tabstop>
   <tabstop>pbBrowse</tabstop>

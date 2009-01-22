@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>531</width>
-    <height>346</height>
+    <height>326</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -34,7 +34,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="storageTab" >
       <attribute name="title" >
@@ -93,6 +93,16 @@
           <widget class="QCheckBox" name="chUseMarkdown" >
            <property name="text" >
             <string>Use Markdown in Preview</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="chDoMarkdownWhenPosting" >
+           <property name="whatsThis" >
+            <string>This makes QTM run Markdown to turn your text into HTML before sending it to the web server.  This is ideal if your blogging application does not support Markdown; if it does, you can send an entry as it is.</string>
+           </property>
+           <property name="text" >
+            <string>Run Markdown before posting</string>
            </property>
           </widget>
          </item>

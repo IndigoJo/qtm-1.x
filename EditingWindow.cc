@@ -127,109 +127,7 @@
 #define PROPERSEPS( x ) x
 #endif
 
-/*  EditingWindow::EditingWindow( QWidget *parent )
-: QMainWindow( parent )
-{
-  QDomElement detailElem, nameElem, serverElem, locElem, loginElem, pwdElem, attribElem;
-  QSettings settings;
-
-  setAttribute( Qt::WA_QuitOnClose );
-  setAttribute( Qt::WA_DeleteOnClose );
-  doUiSetup();
-
-  readSettings();
-  setEditorColors();
-  setTextFonts();
-
-  cw.chComments->setEnabled( true );
-  cw.chComments->setCheckState( allowComments ? Qt::Checked :
-                                Qt::Unchecked );
-  cw.chTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
-
-  handleEnableCategories();
-
-  QFile accountsXmlFile( PROPERSEPS( QString( "%1/qtmaccounts2.xml" ).arg( localStorageDirectory ) ) );
-  if( accountsDom.setContent( &accountsXmlFile ) ) {
-    //qDebug() << "getting new accounts file";
-    accountsXmlFile.close();
-    setInitialAccount();
-  }
-  else {
-    accountsXmlFile.close();
-    accountsXmlFile.setFileName( PROPERSEPS( QString( "%1/qtmaccounts.xml" ).arg( localStorageDirectory ) ) );
-    accountsXmlFile.open( QIODevice::ReadOnly | QIODevice::Text );
-    if( accountsDom.setContent( &accountsXmlFile ) ) {
-      //qDebug() << "getting old accounts file";
-      accountsXmlFile.close();
-      setInitialAccount();
-    }
-    else {
-#ifndef NO_DEBUG_OUTPUT
-      // qDebug() << "Can't read the XML";
-#endif
-      accountsXmlFile.close();
-      accountsElement = accountsDom.createElement( "QTMAccounts" );
-
-      //qDebug() << "getting the old account";
-      readServerSettings();
-      if( !server.isEmpty() ) {
-        //qDebug() << "copying details to new default element";
-        currentAccountElement = accountsDom.createElement( "account" );
-        currentAccountElement.setAttribute( "id", "default" );
-        detailElem = accountsDom.createElement( "details" );
-        nameElem = accountsDom.createElement( "title" );
-        nameElem.appendChild( accountsDom.createTextNode( tr( "Default account" ) ) );
-        serverElem = accountsDom.createElement( "server" );
-        serverElem.appendChild( accountsDom.createTextNode( server ) );
-        locElem = accountsDom.createElement( "location" );
-        locElem.appendChild( accountsDom.createTextNode( location ) );
-        loginElem = accountsDom.createElement( "login" );
-        loginElem.appendChild( accountsDom.createTextNode( login ) );
-        pwdElem = accountsDom.createElement( "password" );
-        pwdElem.appendChild( accountsDom.createTextNode( password ) );
-        detailElem.appendChild( nameElem );
-        detailElem.appendChild( serverElem );
-        detailElem.appendChild( locElem );
-        detailElem.appendChild( loginElem );
-        detailElem.appendChild( pwdElem );
-        currentAccountElement.appendChild( detailElem );
-
-        // Delete the old account from the settings
-        //qDebug() << "removing the old settings";
-        settings.beginGroup( "account" );
-        settings.remove( "server" );
-        settings.remove( "location" );
-        settings.remove( "login" );
-        settings.remove( "password" );
-        settings.endGroup();
-
-        // Now transfer the attributes to the default accounts
-        QStringList attribs( accountAttributes.keys() );
-        Q_FOREACH( QString s, attribs ) {
-          if( *(accountAttributes[s]) ) {
-            attribElem = accountsDom.createElement( "attribute" );
-            attribElem.setAttribute( "name", s );
-            detailElem.appendChild( attribElem );
-          }
-        }
-      } /*
-      else
-        qDebug() << "server is empty"; 
-      extractAccountDetails();
-
-      accountsElement.appendChild( currentAccountElement );
-      accountsDom.appendChild( accountsElement );
-      accountsDom.insertBefore( accountsDom.createProcessingInstruction( "xml", "version=\"1.0\"" ),
-                                accountsDom.firstChild() );
-      QHostInfo::lookupHost( server, this, SLOT( handleInitialLookup( QHostInfo ) ) );
-    }
-  }
-
-  checkForEmptySettings();
-  mainStack->setCurrentIndex( edID );
-} */
-
-  EditingWindow::EditingWindow( QString newPost, QWidget *parent )
+EditingWindow::EditingWindow( QString newPost, QWidget *parent )
 : QMainWindow( parent )
 {
   QDomElement detailElem, attribElem, nameElem, serverElem, locElem, loginElem, pwdElem;
@@ -1286,6 +1184,51 @@ void EditingWindow::refreshCategories()
   }
 }
 
+QString EditingWindow::processWithMarkdown( const QString &text )
+{
+  QString conversionString = text;
+  QString nullString, conversionStringB, tempFileName;
+  QTemporaryFile tf;
+
+  if( tf.open() ) {
+    tempFileName = tf.fileName();
+    QTextStream tstream( &tf );
+    tstream << conversionString.toUtf8();
+    tf.close();
+  }
+  else
+    return QString();
+
+  QProcess proc;
+  proc.start( perlPath, QStringList() << markdownPath << tempFileName );
+  if( !proc.waitForStarted() ) {
+    statusBar()->showMessage( tr( "Failed to start conversion" ), 2000 );
+    return QString();
+  }
+
+  // Now wait until the process finishes; use a loop and process events every 10th of a second
+  for( int i = 0; i <= 300; ++i ) {
+    if( i == 300 ) { // if 30 seconds has elapsed without a finish signal
+      statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
+      return QString();
+    }
+    if( proc.waitForFinished( 100 ) )
+      break;
+    else
+      qApp->processEvents();
+  }
+  conversionStringB = QString( proc.readAllStandardOutput() );
+  if( conversionStringB.length() < conversionString.length() ||
+      proc.exitStatus() != QProcess::NormalExit ) {
+    statusBar()->showMessage( tr( "Conversion failed" ), 2000 );
+    if( proc.exitStatus() != QProcess::NormalExit )
+      qDebug() << "Bad exit";
+    // qDebug() << "Length:" << conversionStringB.length();
+    return QString();
+  }
+
+  return conversionStringB;
+}
 void EditingWindow::getAccounts()
 {
   getAccounts( QString() );
@@ -2708,7 +2651,7 @@ void EditingWindow::pasteAsOrderedList()
 
 void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
 {
-  QString line, techTagString, tempFilePath;
+  QString line, techTagString;
   QString conversionString = "", conversionStringB = "";
   QTextDocument cDoc;
   // bool finished = false;
@@ -2716,6 +2659,7 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
 
   if( isChecked ) {
     if( useMarkdown && !markdownFailed ) {
+      /*
       QTemporaryFile tf;
       conversionString += EDITOR->toPlainText();
       QTextStream stream( &tf );
@@ -2754,31 +2698,32 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
           // qDebug() << "Length:" << conversionStringB.length();
           doPreview( isChecked, true );
           return;
-        }
+	  }
+      */
+    
+      conversionStringB = processWithMarkdown( EDITOR->toPlainText() );
+      if( conversionStringB.isNull() ) {
+	doPreview( isChecked, true );
+	return;
+      }
 
         // Now that the process has done its job, we can add the title and display
         // the preview
 
-        conversionStringB.prepend( QString( "<strong>%1</strong>\n\n" )
-                                   .arg( cw.leTitle->text().size() ?
-                                         cw.leTitle->text() : "<em>Untitled</em>" ) );
-        previewWindow->setHtml( conversionStringB );
-        previousRaisedLSWidget = mainStack->currentIndex();
-        connect( previewWindow, SIGNAL( highlighted( const QString & ) ),
-                 this, SLOT( showHighlightedURL( const QString & ) ) );
-        mainStack->setCurrentIndex( previewWindowID );
-        searchWidget->setTextEdit( previewWindow );
-        ui.actionP_review->setText( tr( "Exit p&review" ) );
-        ui.actionP_review->setIconText( tr( "Exit preview" ) );
-        ui.actionP_review->setToolTip( tr( "Exit preview" ) );
-      }
-      else {
-        statusBar()->showMessage( tr( "Could not open temporary file" ), 2000 );
-        doPreview( isChecked, true );
-        return;
-      }
+      conversionStringB.prepend( QString( "<strong>%1</strong>\n\n" )
+				 .arg( cw.leTitle->text().size() ?
+				       cw.leTitle->text() : "<em>Untitled</em>" ) );
+      previewWindow->setHtml( conversionStringB );
+      previousRaisedLSWidget = mainStack->currentIndex();
+      connect( previewWindow, SIGNAL( highlighted( const QString & ) ),
+	       this, SLOT( showHighlightedURL( const QString & ) ) );
+      mainStack->setCurrentIndex( previewWindowID );
+      searchWidget->setTextEdit( previewWindow );
+      ui.actionP_review->setText( tr( "Exit p&review" ) );
+      ui.actionP_review->setIconText( tr( "Exit preview" ) );
+      ui.actionP_review->setToolTip( tr( "Exit preview" ) );
     }
-    else {
+    else {			// i.e. if not Markdown or Markdown failed
       ui.action_View_Console->setEnabled( false );
       conversionString += QString( "<b>%1</b>\n\n" )
         .arg( cw.leTitle->text().size() ?
@@ -2816,7 +2761,7 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
       ui.actionP_review->setIconText( tr( "Exit preview" ) );
       ui.actionP_review->setToolTip( tr( "Exit preview" ) );
     }
-  } else {
+  } else {			// i.e. if the preview button is being released
     ui.action_View_Console->setEnabled( true );
     mainStack->setCurrentIndex( previousRaisedLSWidget );
     previewWindow->disconnect( SIGNAL( highlighted( const QString & ) ) );

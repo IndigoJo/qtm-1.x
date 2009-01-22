@@ -103,6 +103,7 @@ class EditingWindow : public QMainWindow
   //void copyOldSettingsToNewDefaultElement();
   void writeSettings();
   void callRefreshCategories();
+  QString processWithMarkdown( const QString & );
   //void blogger_newPost( QByteArray );
   //void blogger_editPost( QByteArray );
   void blogger_getUsersBlogs( QByteArray );

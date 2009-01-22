@@ -170,7 +170,7 @@
      <item row="4" column="0" >
       <widget class="QCheckBox" name="chStripParaTags" >
        <property name="whatsThis" >
-        <string>Strip out paragraph tags (&lt;p>) between running Markdown and posting the entry.  Use this if your blogging system converts line breaks automatically.</string>
+        <string>Strip out paragraph tags (&amp;lt;p>) between running Markdown and posting the entry.  Use this if your blogging system converts line breaks automatically.</string>
        </property>
        <property name="text" >
         <string>... and strip Paragraph tags</string>
@@ -278,6 +278,8 @@
   <tabstop>chUseNewWindows</tabstop>
   <tabstop>cbPostAsSave</tabstop>
   <tabstop>chUseMarkdown</tabstop>
+  <tabstop>chDoMarkdownWhenPosting</tabstop>
+  <tabstop>chStripParaTags</tabstop>
   <tabstop>cbAllowComments</tabstop>
   <tabstop>cbAllowTB</tabstop>
   <tabstop>lePerlPath</tabstop>

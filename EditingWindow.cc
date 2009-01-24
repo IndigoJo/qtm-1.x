@@ -2669,52 +2669,10 @@ void EditingWindow::doPreview( bool isChecked, bool markdownFailed )
 
   if( isChecked ) {
     if( useMarkdown && !markdownFailed ) {
-      /*
-      QTemporaryFile tf;
-      conversionString += EDITOR->toPlainText();
-      QTextStream stream( &tf );
-
-      if( tf.open() ) {
-        QString fn = tf.fileName();
-        stream << conversionString;
-        tf.close();
-
-        QProcess proc;
-        proc.start( perlPath, QStringList() << markdownPath << fn );
-        if( !proc.waitForStarted() ) {
-          statusBar()->showMessage( tr( "Failed to start conversion" ), 2000 );
-          doPreview( isChecked, true ); // i.e. redo the preview without Markdown
-          return;
-        }
-
-        // Now wait until the process finishes; use a loop and process events every 10th of a second
-        for( int i = 0; i <= 300; ++i ) {
-          if( i == 300 ) { // if 30 seconds has elapsed without a finish signal
-            statusBar()->showMessage( tr( "Failed to convert" ), 2000 );
-            doPreview( isChecked, true );
-            return;
-          }
-          if( proc.waitForFinished( 100 ) )
-            break;
-          else
-            qApp->processEvents();
-        }
-        conversionStringB = QString( proc.readAllStandardOutput() );
-        if( conversionStringB.length() < conversionString.length() ||
-            proc.exitStatus() != QProcess::NormalExit ) {
-          statusBar()->showMessage( tr( "Conversion failed" ), 2000 );
-          if( proc.exitStatus() != QProcess::NormalExit )
-            qDebug() << "Bad exit";
-          // qDebug() << "Length:" << conversionStringB.length();
-          doPreview( isChecked, true );
-          return;
-	  }
-      */
-    
       conversionStringB = processWithMarkdown( EDITOR->toPlainText() );
       if( conversionStringB.isNull() ) {
-	doPreview( isChecked, true );
-	return;
+        doPreview( isChecked, true );
+        return;
       }
 
         // Now that the process has done its job, we can add the title and display

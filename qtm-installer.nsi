@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "QTM"
-!define PRODUCT_VERSION "0.7.2"
+!define PRODUCT_VERSION "0.7.3"
 !define PRODUCT_PUBLISHER "Matthew J Smith"
 !define PRODUCT_WEB_SITE "http://qtm.blogistan.co.uk"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\qtm.exe"

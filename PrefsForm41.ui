@@ -313,12 +313,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>18</x>
-     <y>217</y>
+     <x>28</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>42</x>
-     <y>242</y>
+     <x>52</x>
+     <y>273</y>
     </hint>
    </hints>
   </connection>
@@ -329,12 +329,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>94</x>
-     <y>212</y>
+     <x>104</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>257</x>
-     <y>240</y>
+     <x>385</x>
+     <y>273</y>
     </hint>
    </hints>
   </connection>
@@ -345,12 +345,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>160</x>
-     <y>210</y>
+     <x>170</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>85</x>
-     <y>270</y>
+     <x>95</x>
+     <y>302</y>
     </hint>
    </hints>
   </connection>
@@ -361,12 +361,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>206</x>
-     <y>215</y>
+     <x>216</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>275</x>
-     <y>267</y>
+     <x>403</x>
+     <y>302</y>
     </hint>
    </hints>
   </connection>
@@ -377,12 +377,28 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>320</x>
-     <y>321</y>
+     <x>364</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel" >
      <x>45</x>
      <y>-13</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>chDoMarkdownWhenPosting</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>chStripParaTags</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>101</x>
+     <y>206</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>101</x>
+     <y>232</y>
     </hint>
    </hints>
   </connection>

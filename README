@@ -1,4 +1,4 @@
-QTM, version 0.7.2
+QTM, version 0.7.3
 Copyright (C) 2004-2009, Matthew J Smith
 This program is released under the terms of the GNU General Public License,
 version 2.  This applies to all files written by me, or produced by me by
@@ -55,6 +55,13 @@ another Markdown package.  On Windows, the script is provided, and you will
 need to install Perl yourself, and configure QTM so that it knows where to
 find Perl.
 
+(Markdown support is provided, and not Textile or any other formatting,
+because the Markdown parser works on the command line, and the others do
+not.  It also seems to be the most popular outside the Textpattern
+community.  I do have an internal Markdown parser in the works and am
+considering porting Textile to Qt, so I may provide those features in the
+future.)
+
 Any enquiries and suggestions to me at indigojo@blogistan.co.uk.  Please, no
 requests for the normal features of blog managers like ecto - most of these
 are on my wish list anyway.
@@ -62,4 +69,4 @@ are on my wish list anyway.
 
 Matthew J Smith
 New Malden, Surrey, England
-23rd Jan, 2006 - 20th Jan, 2009
+23rd Jan, 2006 - 24th Jan, 2009

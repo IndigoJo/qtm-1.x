@@ -1,6 +1,6 @@
 project(QTM)
 
-set( QTM_VERSION 0.7.3 )
+set( QTM_VERSION 0.7.3.1 )
 
 IF(APPLE)
     set( PROGNAME QTM )
@@ -125,7 +125,7 @@ if( UNIX AND NOT APPLE )
 
   if( NOT MARKDOWN_LOCATION )
     if( INSTALL_MARKDOWN )
-      set( MARKDOWN_LOCATION ${CMAKE_INSTALL_PREFIX}/share/qtm )
+      set( MARKDOWN_LOCATION ${CMAKE_INSTALL_PREFIX}/share/qtm/Markdown.pl )
     else( INSTALL_MARKDOWN )
       set( MARKDOWN_LOCATION /usr/bin/markdown )
     endif( INSTALL_MARKDOWN )

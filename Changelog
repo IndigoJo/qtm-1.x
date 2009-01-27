@@ -1,5 +1,10 @@
 Changelog:
 
+0.7.3.1 (27th Jan 2009):
+
+Bug fix: Correctly set the default Markdown script location when installing
+it to a "share" location
+
 0.7.3 (24th Jan 2009):
 
 New feature: Running Markdown before posting a new entry, with the option to

@@ -86,10 +86,16 @@ if( UNIX AND NOT APPLE )
     set( DESKTOP_ENTRY qtm.desktop )
   endif( NOT DESKTOP_ENTRY )
 
+  if( DESKTOP_ENTRY_SUSE )
+    set( QTM_DESKTOP_SH qtm-desktop-suse.sh )
+  else( DESKTOP_ENTRY_SUSE )
+    set( QTM_DESKTOP_SH qtm-desktop.sh )
+  endif( DESKTOP_ENTRY_SUSE )
+
   add_custom_command( OUTPUT ${DESKTOP_ENTRY}
     COMMAND touch ${QTM_BINARY_DIR}/${DESKTOP_ENTRY}
-    COMMAND sh ${QTM_SOURCE_DIR}/qtm-desktop.sh ${CMAKE_INSTALL_PREFIX} >${QTM_BINARY_DIR}/${DESKTOP_ENTRY}
-    DEPENDS qtm-desktop.sh
+    COMMAND sh ${QTM_SOURCE_DIR}/${QTM_DESKTOP_SH} ${CMAKE_INSTALL_PREFIX} >${QTM_BINARY_DIR}/${DESKTOP_ENTRY}
+    DEPENDS ${QTM_DESKTOP_SH}
     COMMENT "Generating desktop entry file"
     )
   add_custom_target( DESKTOP_ENTRY_FILE ALL

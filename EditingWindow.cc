@@ -1195,7 +1195,8 @@ QString EditingWindow::processWithMarkdown( const QString &text )
   if( tf.open() ) {
     tempFileName = tf.fileName();
     QTextStream tstream( &tf );
-    tstream << conversionString.toUtf8();
+    tstream.setCodec( "UTF-8" );
+    tstream << conversionString;
     tf.close();
   }
   else
@@ -1219,7 +1220,7 @@ QString EditingWindow::processWithMarkdown( const QString &text )
     else
       qApp->processEvents();
   }
-  conversionStringB = QString( proc.readAllStandardOutput() );
+  conversionStringB = QString::fromUtf8( proc.readAllStandardOutput() );
   if( conversionStringB.length() < conversionString.length() ||
       proc.exitStatus() != QProcess::NormalExit ) {
     statusBar()->showMessage( tr( "Conversion failed" ), 2000 );

@@ -923,7 +923,7 @@ void EditingWindow::readSettings()
 {
   QString crf;
   Application::recentFile currentRF;
-  QString defaultMarkdownPath;
+  QString defaultMarkdownPath, defaultPerlLocation;
   bool defaultUseMarkdown;
 
 #ifdef Q_WS_MAC
@@ -936,16 +936,18 @@ void EditingWindow::readSettings()
      CFRelease(appUrlRef);
      CFRelease(macPath);
      defaultUseMarkdown = true;
+     defaultPerlLocation = "/usr/bin/perl";
 #else
 #ifdef Q_WS_WIN
      defaultMarkdownPath = QString( "%1/Markdown.pl" )
        .arg( QString( MARKDOWN_LOCATION ).replace( "%APPDIRPATH%", qApp->applicationDirPath() ) );
-     //defaultMarkdownPath = qApp->applicationDirPath().append( "/Markdown.pl" );
      defaultUseMarkdown = false;
+     defaultPerlLocation = "C:\\Perl\\bin\\perl.exe";
 #else
      // Presumably we're in X11
      defaultMarkdownPath = MARKDOWN_LOCATION;
      defaultUseMarkdown = true;
+     defaultPerlLocation = "/usr/bin/perl";
 #endif
 #endif
 
@@ -969,7 +971,7 @@ void EditingWindow::readSettings()
   }
   localStorageFileExtn = settings.value( "localStorageFileExtn", "cqt" ).toString();
   useMarkdown = settings.value( "useMarkdown", defaultUseMarkdown ).toBool();
-  perlPath = settings.value( "perlPath", "/usr/bin/perl" ).toString();
+  perlPath = settings.value( "perlPath", defaultPerlLocation ).toString();
   markdownPath = settings.value( "markdownPath", defaultMarkdownPath ).toString();
   doMarkdownWhenPosting = settings.value( "doMarkdownWhenPosting", useMarkdown ).toBool();
   stripParaTags = settings.value( "stripParaTags", doMarkdownWhenPosting ).toBool();

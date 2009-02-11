@@ -1547,7 +1547,7 @@ void EditingWindow::getPreferences( const QString &title )
     prefsDialog.setWindowTitle( title );
 
   // Disable cbStripParaTags as this feature is not properly implemented
-  prefsDialog.cbStripParaTags->setVisible( false );
+  prefsDialog.chStripParaTags->setVisible( false );
 
   if( prefsDialog.exec() ) {
 #ifndef NO_DEBUG_OUTPUT

@@ -1,12 +1,14 @@
 Changelog:
 
-0.7.3.2
+0.7.3.2 (11th Feb 2009):
 
 Bug fix: Sets the default Perl location to the ActivePerl standard install
 path on Windows, rather than /usr/bin/perl
 Bug fix: Corrected enforcement of UTF-8 encoding for Markdown, so that it
 doesn't come out with weird characters instead of apostrophes or UK pound
 signs
+Bug fix: Disabled "strip paragraph tags" as this feature clashes with some
+multi-paragraph tags such as "blockquote"
 
 0.7.3.1 (27th Jan 2009):
 

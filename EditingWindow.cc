@@ -1546,6 +1546,9 @@ void EditingWindow::getPreferences( const QString &title )
   if( !title.isEmpty() )
     prefsDialog.setWindowTitle( title );
 
+  // Disable cbStripParaTags as this feature is not properly implemented
+  prefsDialog.cbStripParaTags->setVisible( false );
+
   if( prefsDialog.exec() ) {
 #ifndef NO_DEBUG_OUTPUT
     // qDebug( "Setting account variables" );
@@ -2782,15 +2785,17 @@ void EditingWindow::newMTPost()
     if( doMarkdownWhenPosting ) {
       convertedString = processWithMarkdown( description );
       if( !convertedString.isNull() )
-        description = stripParaTags ?
-          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+        /* description = stripParaTags ?
+          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
+        description = convertedString;
       else
         statusBar()->showMessage( tr( "Markdown conversion failed; posting main entry as is." ), 2000 );
       if( !extEntry.isEmpty() ) {
         convertedString = processWithMarkdown( extEntry );
         if( !convertedString.isNull() )
-          extEntry = stripParaTags ?
-            convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+          /*extEntry = stripParaTags ?
+            convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
+          extEntry = convertedString;
         else
           statusBar()->showMessage( tr( "Markdown conversion failed; posting extension as is." ), 2000 );
       }
@@ -2929,15 +2934,17 @@ void EditingWindow::submitMTEdit()
   if( doMarkdownWhenPosting ) {
     convertedString = processWithMarkdown( description );
     if( !convertedString.isNull() )
-      description = stripParaTags ?
-        convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+      /* description = stripParaTags ?
+        convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
+      description = convertedString;
     else
       statusBar()->showMessage( tr( "Markdown conversion failed; posting main entry as is." ), 2000 );
     if( !extEntry.isEmpty() ) {
       convertedString = processWithMarkdown( extEntry );
       if( !convertedString.isNull() )
-        extEntry = stripParaTags ?
-          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString;
+        /* extEntry = stripParaTags ?
+          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
+        extEntry = convertedString;
       else
         statusBar()->showMessage( tr( "Markdown conversion failed; posting extension as is." ), 2000 );
     }

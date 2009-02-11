@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
-    <height>388</height>
+    <width>542</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -34,7 +34,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="storageTab" >
       <attribute name="title" >
@@ -151,8 +151,11 @@
          </item>
          <item>
           <widget class="QCheckBox" name="chStripParaTags" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
            <property name="whatsThis" >
-            <string>Strip out paragraph tags (&amp;lt;p>) between running Markdown and posting the entry.  Use this if your blogging system converts line breaks automatically.</string>
+            <string>Strip out paragraph tags (&amp;lt;p>) between running Markdown and posting the entry.  Note: this feature is no longer recommended due to it causing problems with blockquote tags.</string>
            </property>
            <property name="text" >
             <string>... and strip Paragraph tags</string>

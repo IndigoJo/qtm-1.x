@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>460</width>
-    <height>361</height>
+    <height>404</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -169,6 +169,9 @@
      </item>
      <item row="4" column="0" >
       <widget class="QCheckBox" name="chStripParaTags" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
        <property name="whatsThis" >
         <string>Strip out paragraph tags (&amp;lt;p>) between running Markdown and posting the entry.  Use this if your blogging system converts line breaks automatically.</string>
        </property>

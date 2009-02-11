@@ -974,7 +974,7 @@ void EditingWindow::readSettings()
   perlPath = settings.value( "perlPath", defaultPerlLocation ).toString();
   markdownPath = settings.value( "markdownPath", defaultMarkdownPath ).toString();
   doMarkdownWhenPosting = settings.value( "doMarkdownWhenPosting", useMarkdown ).toBool();
-  stripParaTags = settings.value( "stripParaTags", doMarkdownWhenPosting ).toBool();
+  stripParaTags = settings.value( "stripParaTags", false ).toBool();
   categoriesEnabled = settings.value( "categoriesEnabled", true ).toBool();
   useNewWindows = settings.value( "useNewWindows", true ).toBool();
   savePassword = settings.value( "savePassword", false ).toBool();

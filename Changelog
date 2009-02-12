@@ -1,6 +1,6 @@
 Changelog:
 
-0.7.3.2 (11th Feb 2009):
+0.7.3.2 (12th Feb 2009):
 
 Bug fix: Sets the default Perl location to the ActivePerl standard install
 path on Windows, rather than /usr/bin/perl

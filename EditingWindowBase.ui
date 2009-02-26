@@ -25,7 +25,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit" >
@@ -46,6 +46,7 @@
     <addaction name="actionC_opy" />
     <addaction name="actionCopy_upload_location" />
     <addaction name="actionPaste" />
+    <addaction name="actionTidy_paste" />
     <addaction name="menuPaste_as" />
     <addaction name="action_Undo" />
     <addaction name="action_Redo" />
@@ -635,6 +636,11 @@
   <action name="actionOpen_recent" >
    <property name="text" >
     <string>Open &amp;recent</string>
+   </property>
+  </action>
+  <action name="actionTidy_paste" >
+   <property name="text" >
+    <string>Tidy paste</string>
    </property>
   </action>
  </widget>

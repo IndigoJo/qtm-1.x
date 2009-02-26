@@ -226,6 +226,7 @@ class EditingWindow : public QMainWindow
   void cut();
   void copy();
   void paste();
+  void tidyPaste();
   void pasteAsMarkedParagraphs();
   void pasteAsBlockquote();
   void pasteAsMarkdownBlockquote();

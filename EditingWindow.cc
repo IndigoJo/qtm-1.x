@@ -415,6 +415,8 @@ void EditingWindow::doUiSetup()
   connect( ui.actionCopy_upload_location, SIGNAL( triggered( bool ) ),
            this, SLOT( copyURL() ) );
   connect( ui.actionPaste, SIGNAL( triggered( bool ) ),   this, SLOT( paste() ) );
+  connect( ui.actionTidy_paste, SIGNAL( triggered( bool ) ),
+           this, SLOT( tidyPaste() ) );
   connect( ui.actionMarked_paragraphs, SIGNAL( triggered( bool ) ),
            this, SLOT( pasteAsMarkedParagraphs() ) );
   connect( ui.actionBlockquote_2, SIGNAL( triggered( bool ) ),
@@ -2567,6 +2569,14 @@ void EditingWindow::copy()
 void EditingWindow::paste()
 {
   EDITOR->paste();
+}
+
+void EditingWindow::tidyPaste()
+{
+  QString pastedText = QApplication::clipboard()->text();
+  pastedText.replace( QRegExp( " {2,}" ), " " );
+  pastedText.remove( QRegExp( "\n{1}" ) );
+  EDITOR->insertPlainText( pastedText );
 }
 
 void EditingWindow::undo()

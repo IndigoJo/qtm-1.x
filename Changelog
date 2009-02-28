@@ -1,5 +1,12 @@
 Changelog:
 
+0.7.4 (28th Feb 2009):
+
+New feature: "Tidy paste", which allows pasting a selection with multiple
+spaces reduced to single spaces, and newlines within paragraphs removed
+(both are commonly found in PDFs, and may cause problems with blogging
+systems which convert line breaks, although not with normal HTML)
+
 0.7.3.2 (12th Feb 2009):
 
 Bug fix: Sets the default Perl location to the ActivePerl standard install

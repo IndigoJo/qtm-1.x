@@ -109,5 +109,6 @@ void SuperMenu::about()
   Ui::AboutBox abui;
 
   abui.setupUi( &about_box );
+  abui.label->setText( abui.label->text().replace( "(VERSION)", QTM_VERSION ) );
   about_box.exec();
 }

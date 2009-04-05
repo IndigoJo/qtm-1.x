@@ -68,6 +68,7 @@ public slots:
   void openRecentFile();
   bool handleArguments();
   void doQuit();
+  void saveAll();
   void setRecentFiles( const QList<Application::recentFile> & );
 
 private slots:

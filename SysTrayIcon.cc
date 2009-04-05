@@ -690,6 +690,18 @@ void SysTrayIcon::doQuit()
 
 }
 
+void SysTrayIcon::saveAll()
+{
+  EditingWindow *w;
+  QWidgetList tlw = QApplication::topLevelWidgets();
+
+  Q_FOREACH( QWidget *w, tlw ) {
+    w = qobject_cast<EditingWindow *>( w );
+    if( w )
+      w->save();
+  }
+}
+
 void SysTrayIcon::doQP( QString receivedText )
 {
   QString newPost, newTitle;

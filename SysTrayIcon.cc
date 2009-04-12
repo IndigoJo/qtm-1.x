@@ -124,6 +124,7 @@
   menu->addAction( tr( "New entry" ), this, SLOT( newDoc() ) );
   menu->addAction( tr( "Open ..." ), this, SLOT( choose() ) );
   openRecent = menu->addAction( tr( "Open recent" ) );
+  menu->addAction( tr( "Save all ..." ), this, SLOT( saveAll() ) );
   menu->addAction( tr( "Quick post" ), this, SLOT( quickpost() ) );
   abortAction = menu->addAction( tr( "Abort quick post" ), this, SLOT( abortQP() ) );
   abortAction->setEnabled( false );
@@ -692,14 +693,8 @@ void SysTrayIcon::doQuit()
 
 void SysTrayIcon::saveAll()
 {
-  EditingWindow *w;
-  QWidgetList tlw = QApplication::topLevelWidgets();
-
-  Q_FOREACH( QWidget *w, tlw ) {
-    w = qobject_cast<EditingWindow *>( w );
-    if( w )
-      w->save();
-  }
+  Application *qtm = qobject_cast<Application *>( qApp );
+  qtm->saveAll();
 }
 
 void SysTrayIcon::doQP( QString receivedText )

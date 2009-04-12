@@ -48,6 +48,7 @@ class QStackedWidget;
 // class QSplitter;
 class QTextBrowser;
 class QPushButton;
+class QProgressBar;
 class QAction;
 class QResizeEvent;
 class QComboBox;
@@ -198,9 +199,9 @@ class EditingWindow : public QMainWindow
   void about();
   void choose( const QString fname = QString() );
   void openRecentFile();
-  void save();
   void save( const QString &, bool exp = false );
   void exportEntry();
+  void saveAll();
   void saveAs( bool exp = false );
   void stopThisJob();
   void handleDone( bool );
@@ -286,6 +287,7 @@ class EditingWindow : public QMainWindow
   //bool load( const QString &, QList<QString>, QList<QString> );
   /*bool load( const QString &, QStringList, QStringList, QStringList,
     QStringList, QStringList ); */
+  void save();
   bool load( const QString &, QDomDocument & );
   bool load( const QString &, bool fromSTI = false );
   void dirtify();
@@ -314,6 +316,7 @@ class EditingWindow : public QMainWindow
   QVBoxLayout *mainWindowLayoutWithSearch;
   QHBoxLayout *mainWindowLayout;
   QPushButton *pbCopyURL;
+  QProgressBar *progressBar;
   QMenu *recentFilesMenu;
   QAction *noRecentFilesAction;
 

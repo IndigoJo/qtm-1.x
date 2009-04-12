@@ -72,7 +72,8 @@ Q_NOREPLY void DBusAdaptor::quit()
   */
 Q_NOREPLY void DBusAdaptor::saveAll()
 {
-  _sti->saveAll();
+  Application *qtm = qobject_cast<Application *>( qApp );
+  qtm->saveAll();
 }
 
 /** newDocument - Opens a new blank entry

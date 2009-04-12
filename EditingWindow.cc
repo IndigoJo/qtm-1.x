@@ -78,6 +78,7 @@
 #include <QProgressDialog>
 #include <QTextEdit>
 #include <QProcess>
+#include <QProgressBar>
 #if QT_VERSION >= 0x040400 && !defined DONT_USE_PTE
 #include <QPlainTextEdit>
 #endif
@@ -600,6 +601,14 @@ void EditingWindow::doUiSetup()
   statusBar()->addPermanentWidget( pbCopyURL );
   connect( pbCopyURL, SIGNAL( clicked() ), this, SLOT( copyURL() ) );
   pbCopyURL->hide();
+
+  progressBar = new QProgressBar;
+  progressBar->setMinimum( 0 );
+  progressBar->setMaximum( 100 );
+  progressBar->setValue( 0 );
+  statusBar()->addPermanentWidget( progressBar );
+  progressBar->setEnabled( false );
+  progressBar->hide();
 
   dirtyIndicator = new QLabel( this );
   dirtyIndicator->setPixmap( QPixmap( filesave ) );
@@ -3214,6 +3223,11 @@ void EditingWindow::publishPost() // slot
 void EditingWindow::exportEntry()
 {
   saveAs( true );
+}
+
+void EditingWindow::saveAll()
+{
+  qtm->saveAll();
 }
 
 void EditingWindow::saveAs( bool exp )

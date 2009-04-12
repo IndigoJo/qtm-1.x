@@ -370,6 +370,8 @@ void EditingWindow::doUiSetup()
            this, SLOT( exportEntry() ) );
   connect( ui.actionSave_As, SIGNAL( triggered( bool ) ),
            this, SLOT( saveAs() ) );
+  connect( ui.actionSave_all, SIGNAL( triggered( bool ) ),
+           qtm, SLOT( saveAll() ) );
   connect( ui.action_Upload, SIGNAL( triggered( bool ) ),
            this, SLOT( uploadFile() ) );
   connect( ui.actionStop_this_job, SIGNAL( triggered( bool ) ),

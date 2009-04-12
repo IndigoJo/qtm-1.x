@@ -534,64 +534,64 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>EditingWindow</name>
     <message>
-        <location filename="EditingWindow.cc" line="854"/>
+        <location filename="EditingWindow.cc" line="865"/>
         <source>Default account</source>
         <translation>Compte par défaut</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="502"/>
+        <location filename="EditingWindow.cc" line="505"/>
         <source>Secondary categories, if your blog system supports them.  To highlight more than one category, press Command and click the mouse, or the left mouse button.</source>
         <translation>Catégories secondaires, si votre système de blog les soutient. Pour choisir  plus d&apos;une catégorie, appuyez sur Commande et cliquez sur la souris, ou le bouton gauche de la souris.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="582"/>
+        <location filename="EditingWindow.cc" line="585"/>
         <source>No recent files</source>
         <translation>Aucuns fichiers récents</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="598"/>
+        <location filename="EditingWindow.cc" line="601"/>
         <source>Copy URL</source>
         <translation>Copier l&apos;URL</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="599"/>
+        <location filename="EditingWindow.cc" line="602"/>
         <source>Copy the location of the last uploaded file.</source>
         <translation>Copier l&apos;emplacement du dernier fichier.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="663"/>
+        <location filename="EditingWindow.cc" line="674"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="665"/>
+        <location filename="EditingWindow.cc" line="676"/>
         <source>Could not load the following:
 
 %1</source>
         <translation>Impossible de charger : %1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="666"/>
+        <location filename="EditingWindow.cc" line="677"/>
         <source>&amp;Open blank window</source>
         <translation>&amp;Ouvrir une fenêtre vide</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="666"/>
+        <location filename="EditingWindow.cc" line="677"/>
         <source>E&amp;xit</source>
         <translation>Q&amp;uitter</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="716"/>
+        <location filename="EditingWindow.cc" line="727"/>
         <source>QTM - new entry [*]</source>
         <translation>QTM - nouvelle entrée[*]</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="773"/>
+        <location filename="EditingWindow.cc" line="784"/>
         <source>Welcome to QTM</source>
         <translation>Bienvenue à QTM</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="777"/>
+        <location filename="EditingWindow.cc" line="788"/>
         <source>You do not have any preferences set, and QTM needs to know where to find your blog, and where to store your data.
 
 Set these preferences now?</source>
@@ -599,102 +599,102 @@ Set these preferences now?</source>
 Définir les préférences maintenant?</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="780"/>
+        <location filename="EditingWindow.cc" line="791"/>
         <source>Stage 1 of 2: Preferences</source>
         <translation>Etape 1 de 2 : Préférences</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="781"/>
+        <location filename="EditingWindow.cc" line="792"/>
         <source>Stage 2 of 2: Accounts</source>
         <translation>Etape 2 de 2: Comptes</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="885"/>
+        <location filename="EditingWindow.cc" line="896"/>
         <source>Unnamed account</source>
         <translation>Compte anonyme</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1069"/>
+        <location filename="EditingWindow.cc" line="1080"/>
         <source> ...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1072"/>
+        <location filename="EditingWindow.cc" line="1083"/>
         <source>1&amp;0 %1</source>
         <translation>1&amp;0 %1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1077"/>
+        <location filename="EditingWindow.cc" line="1088"/>
         <source>&amp;%1 %2</source>
         <translation>&amp;%1 %2</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1121"/>
+        <location filename="EditingWindow.cc" line="1132"/>
         <source>changeBlog: All HTTP requests are blocked</source>
         <translation>changerBlog: Toutes les requêtes HTTP sont bloquées</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3156"/>
+        <location filename="EditingWindow.cc" line="3167"/>
         <source>All HTTP requests are blocked.</source>
         <translation>Toutes les requêtes HTTP sont bloquées.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2913"/>
+        <location filename="EditingWindow.cc" line="2924"/>
         <source>refreshCategories: All HTTP requests are blocked</source>
         <translation>actualiserCategories: Toutes les requêtes HTTP sont bloquées</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1212"/>
+        <location filename="EditingWindow.cc" line="1223"/>
         <source>Failed to start conversion</source>
         <translation>Impossible de commencer la conversion</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1219"/>
+        <location filename="EditingWindow.cc" line="1230"/>
         <source>Failed to convert</source>
         <translation>Impossible de convertir</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1230"/>
+        <location filename="EditingWindow.cc" line="1241"/>
         <source>Conversion failed</source>
         <translation>La conversion a échoué</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1401"/>
+        <location filename="EditingWindow.cc" line="1412"/>
         <source>(Unnamed account)</source>
         <translation>(Compte anonyme)</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1507"/>
+        <location filename="EditingWindow.cc" line="1518"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1508"/>
+        <location filename="EditingWindow.cc" line="1519"/>
         <source>Fonts &amp;&amp; Markdown</source>
         <translation>Polices &amp;&amp;  Markdown</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1628"/>
+        <location filename="EditingWindow.cc" line="1639"/>
         <source>Making directory %1</source>
         <translation>Création de répertoire %1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1630"/>
+        <location filename="EditingWindow.cc" line="1641"/>
         <source>Could not create QTM directory.</source>
         <translation>Impossible de créer  le répertoire QTM.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1641"/>
+        <location filename="EditingWindow.cc" line="1652"/>
         <source>Blogger no longer supports QTM or similar clients.</source>
         <translation>Le Bloggeur ne soutient plus QTM ou autres clients similaires.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1706"/>
+        <location filename="EditingWindow.cc" line="1717"/>
         <source>Cannot find storage directory</source>
         <translation>Impossible de trouver le répertoire de stockage</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1709"/>
+        <location filename="EditingWindow.cc" line="1720"/>
         <source>QTM cannot find the directory you specified to store your account data and files.
 
 Create it?</source>
@@ -702,234 +702,234 @@ Create it?</source>
 Créer?</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1720"/>
+        <location filename="EditingWindow.cc" line="1731"/>
         <source>Could not write to accounts file.</source>
         <translation>Impossible d&apos;écrire dans le fichier  comptes.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1723"/>
+        <location filename="EditingWindow.cc" line="1734"/>
         <source>Could not create the directory.</source>
         <translation>Impossible de créer le répertoire.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1750"/>
+        <location filename="EditingWindow.cc" line="1761"/>
         <source>Unnamed account %1</source>
         <translation>Compte innomé %1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1863"/>
+        <location filename="EditingWindow.cc" line="1874"/>
         <source>Error 404</source>
         <translation>Erreur  404</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1866"/>
+        <location filename="EditingWindow.cc" line="1877"/>
         <source>There is no web service at the location you
 specified.  Please change it in the Preferences
 window.</source>
         <translation>Il n&apos;y a pas de service web à l&apos;endroit spécifiée.Changer  le dans les préférences.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1893"/>
+        <location filename="EditingWindow.cc" line="1904"/>
         <source>The request failed.</source>
         <translation>Echec de vôtre demande.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="1895"/>
+        <location filename="EditingWindow.cc" line="1906"/>
         <source>The request succeeded; %1 bytes received</source>
         <translation>La demande a réussi; %1 octets reçus</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2075"/>
+        <location filename="EditingWindow.cc" line="2086"/>
         <source>Could not connect - check account details &amp; password</source>
         <translation>Impossible de se connecter - vérifier les détails de compte &amp; le mot de passe</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2086"/>
+        <location filename="EditingWindow.cc" line="2097"/>
         <source>No blogs found</source>
         <translation>Blog non trouvable</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3931"/>
+        <location filename="EditingWindow.cc" line="3947"/>
         <source>Could not write to accounts file (error %1)</source>
         <translation>Impossible d&apos;écrire sur les fichiers   (erreur %1)</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2181"/>
+        <location filename="EditingWindow.cc" line="2192"/>
         <source>The submission returned a fault - see console.</source>
         <translation>Erreur de tranfert - voir la console.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2217"/>
+        <location filename="EditingWindow.cc" line="2228"/>
         <source>Your file is here: %1</source>
         <translation>Votre fichier se trouve ici: %1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2223"/>
+        <location filename="EditingWindow.cc" line="2234"/>
         <source>The upload returned a fault.</source>
         <translation>Erreur de transfert.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2239"/>
+        <location filename="EditingWindow.cc" line="2250"/>
         <source>An error occurred during rebuilding.</source>
         <translation>Une erreur s&apos;est produite.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2241"/>
+        <location filename="EditingWindow.cc" line="2252"/>
         <source>The post was published successfully.</source>
         <translation>Le message a été publié avec succès.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2291"/>
+        <location filename="EditingWindow.cc" line="2302"/>
         <source>Could not connect; check account details &amp; password</source>
         <translation>Impossible de se connecter, vérifier les détails de compte et le mot de passe</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2295"/>
+        <location filename="EditingWindow.cc" line="2306"/>
         <source>There are no categories.</source>
         <translation>Il n&apos;y a pas de catégories.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2367"/>
+        <location filename="EditingWindow.cc" line="2378"/>
         <source>Categories not set successfully; see console.</source>
         <translation>La définition des catégories  n&apos;a pas réussi : voir la console.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2369"/>
+        <location filename="EditingWindow.cc" line="2380"/>
         <source>Categories set successfully.</source>
         <translation>Les catégories sont établies avec succès.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2385"/>
+        <location filename="EditingWindow.cc" line="2396"/>
         <source>&amp;Console</source>
         <translation>&amp;Console</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2387"/>
+        <location filename="EditingWindow.cc" line="2398"/>
         <source>Console</source>
         <translation>Console</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2394"/>
+        <location filename="EditingWindow.cc" line="2405"/>
         <source>Exit &amp;console</source>
         <translation>Quitter la&amp;Console </translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2396"/>
+        <location filename="EditingWindow.cc" line="2407"/>
         <source>Exit console</source>
         <translation>Quitter la console</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2420"/>
+        <location filename="EditingWindow.cc" line="2431"/>
         <source>A &apos;more&apos; tag already exists.</source>
         <translation>Une balise &quot;plus&quot; existe déjà.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2497"/>
+        <location filename="EditingWindow.cc" line="2508"/>
         <source>The selection is not a valid URL.</source>
         <translation>La sélection n&apos;est pas une URL valide.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2744"/>
+        <location filename="EditingWindow.cc" line="2755"/>
         <source>Exit p&amp;review</source>
         <translation>Quitter l&apos;a&amp;perçu</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2746"/>
+        <location filename="EditingWindow.cc" line="2757"/>
         <source>Exit preview</source>
         <translation>Quitter l&apos;aperçu</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2753"/>
+        <location filename="EditingWindow.cc" line="2764"/>
         <source>Entry in p&amp;review</source>
         <translation>Entrée en mode ap&amp;erçu</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2755"/>
+        <location filename="EditingWindow.cc" line="2766"/>
         <source>Entry in preview</source>
         <translation>Entrée en mode aperçu</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2951"/>
+        <location filename="EditingWindow.cc" line="2962"/>
         <source>Markdown conversion failed; posting main entry as is.</source>
         <translation>Conversion Markdown a échoué,  l&apos;entrée principal est affichée tel qu&apos;elle était.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="2959"/>
+        <location filename="EditingWindow.cc" line="2970"/>
         <source>Markdown conversion failed; posting extension as is.</source>
         <translation>Conversion Markdown a échoué; l&apos;extension sera affichée telle qu&apos;elle était.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3057"/>
+        <location filename="EditingWindow.cc" line="3068"/>
         <source>This entry has not been posted yet.</source>
         <translation>Cette entrée n&apos;est pas encore  posté.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3153"/>
+        <location filename="EditingWindow.cc" line="3164"/>
         <source>setPostCategories: All HTTP requests are blocked</source>
         <translation>definirCategoriesPost: Toutes les requêtes HTTP sont bloquées</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3211"/>
+        <location filename="EditingWindow.cc" line="3222"/>
         <source>Cannot publish; HTTP is blocked</source>
         <translation>Ne peut pas publier; HTTP est bloqué</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3355"/>
+        <location filename="EditingWindow.cc" line="3371"/>
         <source>Blog entries</source>
         <translation>Les entrées de blog</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3233"/>
+        <location filename="EditingWindow.cc" line="3249"/>
         <source>Choose a filename</source>
         <translation>Choisissez un nom de fichier</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3259"/>
+        <location filename="EditingWindow.cc" line="3275"/>
         <source>Saving aborted</source>
         <translation>sauvegarde interrompue</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3285"/>
+        <location filename="EditingWindow.cc" line="3301"/>
         <source>Could not write to %1</source>
         <translation>Impossible d&apos;écrire à %1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3359"/>
+        <location filename="EditingWindow.cc" line="3375"/>
         <source>Choose a file to open</source>
         <translation>Choisissez le nom de fichier a ouvrir</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3368"/>
+        <location filename="EditingWindow.cc" line="3384"/>
         <source>File could not be loaded.</source>
         <translation>Impossible de chargé le dossier.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3397"/>
+        <location filename="EditingWindow.cc" line="3413"/>
         <source>Loading aborted</source>
         <translation>Chargement interrompue</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3455"/>
+        <location filename="EditingWindow.cc" line="3471"/>
         <source>Cannot open file.</source>
         <translation>Impossible d&apos;ouvrir le fichier.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3462"/>
+        <location filename="EditingWindow.cc" line="3478"/>
         <source>This is not a QTM blog entry.</source>
         <translation>Cela n&apos;est pas une entrée de blog QTM.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3583"/>
+        <location filename="EditingWindow.cc" line="3599"/>
         <source>Assignation of primary category failed</source>
         <translation>Echec d&apos;affectation de  catégorie primaire</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3612"/>
+        <location filename="EditingWindow.cc" line="3628"/>
         <source>QTM - No such account</source>
         <translation>QTM - Aucun compte a été trouvé</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3615"/>
+        <location filename="EditingWindow.cc" line="3631"/>
         <source>QTM could not find this account (perhaps it was deleted).
 
 Will set up a blank default account; you will need to fill in the access details by choosing Accounts from the File menu.</source>
@@ -937,27 +937,27 @@ Will set up a blank default account; you will need to fill in the access details
 QTM va créer une  compte vide par défaut, vous devrez remplir les accès aux informations en choisissant  Comptes à partir du menu Fichier.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3626"/>
+        <location filename="EditingWindow.cc" line="3642"/>
         <source>New blank element</source>
         <translation>Nouvel élément </translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3670"/>
+        <location filename="EditingWindow.cc" line="3686"/>
         <source>QTM - Invalid blog</source>
         <translation>QTM - blog non valide</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3671"/>
+        <location filename="EditingWindow.cc" line="3687"/>
         <source>Could not get a valid blog number.  Please set it again.</source>
         <translation>Impossible d&apos;obtenir un numéro valide de  blog. Veuillez redéfinir.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3791"/>
+        <location filename="EditingWindow.cc" line="3807"/>
         <source>No password</source>
         <translation>Pas de mot de passe</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3794"/>
+        <location filename="EditingWindow.cc" line="3810"/>
         <source>This entry was saved without a password.
 You will need to set one, using the
 Preferences window.</source>
@@ -965,145 +965,145 @@ Preferences window.</source>
 Vous devez configurer  un mot de passe à partir de le Fenêtre Préférences.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3804"/>
+        <location filename="EditingWindow.cc" line="3820"/>
         <source>newAccount_%1</source>
         <translation>Nouvelle compte_%1</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3808"/>
+        <location filename="EditingWindow.cc" line="3824"/>
         <source>New un-named account</source>
         <translation>Nouvelle compte anonyme</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3943"/>
+        <location filename="EditingWindow.cc" line="3959"/>
         <source>Select file to upload</source>
         <translation>Sélectionnez le fichier à transferer</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="3951"/>
+        <location filename="EditingWindow.cc" line="3967"/>
         <source>This file was empty, or an error occurred.</source>
         <translation>Ce fichier est vide, ou une erreur s&apos;est produite.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4012"/>
+        <location filename="EditingWindow.cc" line="4028"/>
         <source>Upload was cancelled.</source>
         <translation>Le transfert a été annulé.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4017"/>
+        <location filename="EditingWindow.cc" line="4033"/>
         <source>Could not open the file.</source>
         <translation>Impossible d&apos;ouvrir le fichier.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4020"/>
+        <location filename="EditingWindow.cc" line="4036"/>
         <source>That file could not be found.</source>
         <translation>Fichier non trouvable.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4024"/>
+        <location filename="EditingWindow.cc" line="4040"/>
         <source>HTTP requests are blocked.</source>
         <translation>Les requêtes HTTP sont bloquées.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4046"/>
+        <location filename="EditingWindow.cc" line="4062"/>
         <source>Others (%1)</source>
         <translation>Autres ( %1)</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4048"/>
+        <location filename="EditingWindow.cc" line="4064"/>
         <source>Others</source>
         <translation>Autres</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4081"/>
+        <location filename="EditingWindow.cc" line="4097"/>
         <source>Getting categories, please wait</source>
         <translation>Obtention des catégories en cours,veuillez patientez </translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4147"/>
+        <location filename="EditingWindow.cc" line="4163"/>
         <source>This is not a valid tag.</source>
         <translation>Balise non valide.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4116"/>
+        <location filename="EditingWindow.cc" line="4132"/>
         <source>This tag validates OK.</source>
         <translation>Balise valide.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4141"/>
+        <location filename="EditingWindow.cc" line="4157"/>
         <source>This tag validates.</source>
         <translation>Balise valide.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4204"/>
+        <location filename="EditingWindow.cc" line="4220"/>
         <source>This URL validates.</source>
         <translation>URL valide.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4210"/>
+        <location filename="EditingWindow.cc" line="4226"/>
         <source>This is not a valid URL.</source>
         <translation>URL non valide.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4335"/>
+        <location filename="EditingWindow.cc" line="4351"/>
         <source>Not saved</source>
         <translation>Fichier/dossier non enregistré</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4337"/>
+        <location filename="EditingWindow.cc" line="4353"/>
         <source>You have not saved this file.
 Save first?</source>
         <translation>Fichier non enregistré.Voulez-vous l&apos;enregistrer?</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4389"/>
+        <location filename="EditingWindow.cc" line="4405"/>
         <source>&amp;Find ...</source>
         <translation>&amp;Rechercher...</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4393"/>
+        <location filename="EditingWindow.cc" line="4409"/>
         <source>Exit &amp;find</source>
         <translation>Quitter la &amp;Recherche</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4488"/>
+        <location filename="EditingWindow.cc" line="4504"/>
         <source>The host specified could not be found.</source>
         <translation>Hôte non trouvable.</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4574"/>
+        <location filename="EditingWindow.cc" line="4590"/>
         <source>Could not write to dictionary file</source>
         <translation>Impossible d&apos;écrire sur le dictionnaire</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4595"/>
+        <location filename="EditingWindow.cc" line="4611"/>
         <source>Failed to read templates</source>
         <translation>Impossible de lire les modèles</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4597"/>
+        <location filename="EditingWindow.cc" line="4613"/>
         <source>Error: %1
 Line %2, col %3</source>
         <translation>Erreur: %1
 Ligne %2,Colonne %3</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4630"/>
+        <location filename="EditingWindow.cc" line="4646"/>
         <source>Converting file to Base64</source>
         <translation>Conversion de fichier en Base64 en cours</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4631"/>
+        <location filename="EditingWindow.cc" line="4647"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4695"/>
+        <location filename="EditingWindow.cc" line="4711"/>
         <source>&lt;string&gt;(password omitted)&lt;/string&gt;</source>
         <translation>&lt;string&gt;(mot de passe omis)&lt;/string&gt;</translation>
     </message>
     <message>
-        <location filename="EditingWindow.cc" line="4702"/>
+        <location filename="EditingWindow.cc" line="4718"/>
         <source> ... base64 encoded file omitted ... </source>
         <translation>... omission de fichier encodé en base64  ...</translation>
     </message>
@@ -1323,474 +1323,479 @@ Ligne %2,Colonne %3</translation>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="155"/>
+        <location filename="EditingWindowBase.ui" line="156"/>
         <source>Toolbar</source>
         <translation>Bar à outil</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="172"/>
+        <location filename="EditingWindowBase.ui" line="173"/>
         <source>&amp;New</source>
         <translation>&amp;Nouveau</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="175"/>
+        <location filename="EditingWindowBase.ui" line="176"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="180"/>
+        <location filename="EditingWindowBase.ui" line="181"/>
         <source>&amp;Save</source>
         <translation>&amp;Enregistrer</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="183"/>
+        <location filename="EditingWindowBase.ui" line="184"/>
         <source>Save this entry to disk for editing or publication later</source>
         <translation>Enregistrer cette entrée sur le disque pour modification ou de publication ultérieure</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="186"/>
+        <location filename="EditingWindowBase.ui" line="187"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="191"/>
+        <location filename="EditingWindowBase.ui" line="192"/>
         <source>Sa&amp;ve As ...</source>
         <translation>E&amp;nregistrer sous ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="196"/>
+        <location filename="EditingWindowBase.ui" line="197"/>
         <source>&amp;Export ...</source>
         <translation>&amp;Exporter ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="204"/>
+        <location filename="EditingWindowBase.ui" line="205"/>
         <source>Print ...</source>
         <translation>Imprimer ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="215"/>
+        <location filename="EditingWindowBase.ui" line="216"/>
         <source>Entry in p&amp;review</source>
         <translation>Entrée en mode aperçu</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="218"/>
+        <location filename="EditingWindowBase.ui" line="219"/>
         <source>Preview the entry in this window</source>
         <translation>Apercevoir l&apos;entrée dans cette fenêtre</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="223"/>
+        <location filename="EditingWindowBase.ui" line="224"/>
         <source>&amp;Blog this!</source>
         <translation>&amp;Blogger !</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="226"/>
+        <location filename="EditingWindowBase.ui" line="227"/>
         <source>Post this entry to the blog</source>
         <translation>Publier cette entrée </translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="231"/>
+        <location filename="EditingWindowBase.ui" line="232"/>
         <source>&amp;Accounts ...</source>
         <translation>&amp;Comptes ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="234"/>
+        <location filename="EditingWindowBase.ui" line="235"/>
         <source>Ctrl+Shift+,</source>
         <translation>Ctrl+Shift+,</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="239"/>
+        <location filename="EditingWindowBase.ui" line="240"/>
         <source>Pr&amp;eferences ...</source>
         <translation>Pr&amp;éférences ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="242"/>
+        <location filename="EditingWindowBase.ui" line="243"/>
         <source>Ctrl+,</source>
         <translation>Ctrl+,</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="247"/>
+        <location filename="EditingWindowBase.ui" line="248"/>
         <source>&amp;Close</source>
         <translation>&amp;Fermer</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="250"/>
+        <location filename="EditingWindowBase.ui" line="251"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="258"/>
+        <location filename="EditingWindowBase.ui" line="259"/>
         <source>Close and &amp;Delete</source>
         <translation>Fermer et &amp;Supprimer</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="269"/>
+        <location filename="EditingWindowBase.ui" line="270"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="274"/>
+        <location filename="EditingWindowBase.ui" line="275"/>
         <source>&amp;Cut</source>
         <translation>&amp;Couper</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="279"/>
+        <location filename="EditingWindowBase.ui" line="280"/>
         <source>C&amp;opy</source>
         <translation>C&amp;opier</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="284"/>
+        <location filename="EditingWindowBase.ui" line="285"/>
         <source>Paste</source>
         <translation>Coller</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="289"/>
+        <location filename="EditingWindowBase.ui" line="290"/>
         <source>&amp;Undo</source>
         <translation>&amp;Annuler</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="294"/>
+        <location filename="EditingWindowBase.ui" line="295"/>
         <source>&amp;Redo</source>
         <translation>&amp;Répéter</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="299"/>
+        <location filename="EditingWindowBase.ui" line="300"/>
         <source>Editor &amp;font ...</source>
         <translation>Editeur de &amp;police ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="304"/>
+        <location filename="EditingWindowBase.ui" line="305"/>
         <source>&amp;Bold</source>
         <translation>&amp;Gras</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="307"/>
+        <location filename="EditingWindowBase.ui" line="308"/>
         <source>Make the selected text bold</source>
         <translation>Rendre le texte sélectionné en gras</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="312"/>
+        <location filename="EditingWindowBase.ui" line="313"/>
         <source>&amp;Italic</source>
         <translation>&amp;Italique</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="315"/>
+        <location filename="EditingWindowBase.ui" line="316"/>
         <source>Italicise the selected text</source>
         <translation>Rendre le texte sélectionné en italique</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="320"/>
+        <location filename="EditingWindowBase.ui" line="321"/>
         <source>U&amp;nderline</source>
         <translation>S&amp;ouligner</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="323"/>
+        <location filename="EditingWindowBase.ui" line="324"/>
         <source>Underline the selected text</source>
         <translation>Souligner le texte sélectionné</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="328"/>
+        <location filename="EditingWindowBase.ui" line="329"/>
         <source>P&amp;aragraph</source>
         <translation>P&amp;aragraphe</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="333"/>
+        <location filename="EditingWindowBase.ui" line="334"/>
         <source>&amp;Link ...</source>
         <translation>&amp;Lien ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="336"/>
+        <location filename="EditingWindowBase.ui" line="337"/>
         <source>Inserts a link to another page, the location to be specified now</source>
         <translation>Insère un lien vers une autre page,précisez l&apos;emplacement  maintenant</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="341"/>
+        <location filename="EditingWindowBase.ui" line="342"/>
         <source>Link from C&amp;lipboard</source>
         <translation>Lien de Presse-papier</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="346"/>
+        <location filename="EditingWindowBase.ui" line="347"/>
         <source>I&amp;mage ...</source>
         <translation>I&amp;mage ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="349"/>
+        <location filename="EditingWindowBase.ui" line="350"/>
         <source>Insert an image into the text, the location, alignment and alternate text to be specified now</source>
         <translation>Insérer une image dans le texte,précisez l&apos;emplacement, l&apos;alignement et le texte alternative maintenant</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="354"/>
+        <location filename="EditingWindowBase.ui" line="355"/>
         <source>Ima&amp;ge from Clipboard</source>
         <translation>Ima&amp;ge de Presse-papier</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="359"/>
+        <location filename="EditingWindowBase.ui" line="360"/>
         <source>&amp;More</source>
         <translation>&amp;Plus</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="362"/>
+        <location filename="EditingWindowBase.ui" line="363"/>
         <source>Set this as the end of the main entry (which appears on the index) and the beginning of the extended entry (which appears when you click More, Extended entry or view the entry on its own page).</source>
         <translation>Définir cela comme la fin de l&apos;entrée principale (qui apparaît sur l&apos;index) et le début de la prolongation de l&apos;entrée qui apparaît quand vous cliquez Plus.</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="367"/>
+        <location filename="EditingWindowBase.ui" line="368"/>
         <source>&amp;About ...</source>
         <translation>&amp;A propos ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="372"/>
+        <location filename="EditingWindowBase.ui" line="373"/>
         <source>About &amp;Qt ...</source>
         <translation>A propos de &amp;Qt ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="377"/>
+        <location filename="EditingWindowBase.ui" line="378"/>
         <source>&amp;What&apos;s this?</source>
         <translation>&amp;Qu&apos;est-ce que c&apos;est?</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="382"/>
+        <location filename="EditingWindowBase.ui" line="383"/>
         <source>Quit</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="387"/>
+        <location filename="EditingWindowBase.ui" line="388"/>
         <source>Refresh cate&amp;gories</source>
         <translation>Actualiser les caté&amp;gories</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="390"/>
+        <location filename="EditingWindowBase.ui" line="391"/>
         <source>Refresh the category list</source>
         <translation>Actualiser la liste de catégorie</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="395"/>
+        <location filename="EditingWindowBase.ui" line="396"/>
         <source>Re&amp;fresh blog list</source>
         <translation>Ac&amp;tualiser la liste de blog</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="403"/>
+        <location filename="EditingWindowBase.ui" line="404"/>
         <source>&amp;Console</source>
         <translation>&amp;Console</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="406"/>
+        <location filename="EditingWindowBase.ui" line="407"/>
         <source>The console displays the raw code that QTM sends to your blog management system.</source>
         <translation>La console affiche le code brut que QTM envoie à votre système de gestion de blog.</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="414"/>
+        <location filename="EditingWindowBase.ui" line="415"/>
         <source>File ...</source>
         <translation>Fichier ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="419"/>
+        <location filename="EditingWindowBase.ui" line="420"/>
         <source>Entries ...</source>
         <translation>Entrées ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="424"/>
+        <location filename="EditingWindowBase.ui" line="425"/>
         <source>&amp;Open ...</source>
         <translation>&amp;Ouvrir ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="427"/>
+        <location filename="EditingWindowBase.ui" line="428"/>
         <source>Load a saved entry from the disk</source>
         <translation>Charger un fichier d&apos;entrée à partir du disque</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="430"/>
+        <location filename="EditingWindowBase.ui" line="431"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="441"/>
+        <location filename="EditingWindowBase.ui" line="442"/>
         <source>&amp;Toolbar</source>
         <translation>&amp;Bar à outil</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="452"/>
+        <location filename="EditingWindowBase.ui" line="453"/>
         <source>E&amp;xcerpt</source>
         <translation>E&amp;xtrait</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="457"/>
+        <location filename="EditingWindowBase.ui" line="458"/>
         <source>C&amp;ategories</source>
         <translation>C&amp;atégories</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="462"/>
+        <location filename="EditingWindowBase.ui" line="463"/>
         <source>&amp;Basic entry settings</source>
         <translation>&amp;Paramètres de base d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="467"/>
+        <location filename="EditingWindowBase.ui" line="468"/>
         <source>Tec&amp;hnorati tags</source>
         <translation>Balises Tec&amp;hnorati</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="472"/>
+        <location filename="EditingWindowBase.ui" line="473"/>
         <source>&amp;Add tag ...</source>
         <translation>&amp;Ajouter une balise ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="477"/>
+        <location filename="EditingWindowBase.ui" line="478"/>
         <source>Add tag from clipboard</source>
         <translation>Ajouter une balise de la Presse-papier</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="482"/>
+        <location filename="EditingWindowBase.ui" line="483"/>
         <source>&amp;Remove tag</source>
         <translation>&amp;Supprimer balise</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="487"/>
+        <location filename="EditingWindowBase.ui" line="488"/>
         <source>Preview font ...</source>
         <translation>Apercevoir la police ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="490"/>
+        <location filename="EditingWindowBase.ui" line="491"/>
         <source>Set the font to be used when previewing an entry</source>
         <translation>Définir la police à utiliser lors de la prévisualisation d&apos;entrée</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="561"/>
+        <location filename="EditingWindowBase.ui" line="562"/>
         <source>Blockquote</source>
         <translation>Blockquote</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="498"/>
+        <location filename="EditingWindowBase.ui" line="499"/>
         <source>Mark the selected text as a block of quoted text</source>
         <translation>Marquer le texte sélectionné comme une citation</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="503"/>
+        <location filename="EditingWindowBase.ui" line="504"/>
         <source>Console font ...</source>
         <translation>Police de la console ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="508"/>
+        <location filename="EditingWindowBase.ui" line="509"/>
         <source>Quickpost &amp;Templates ...</source>
         <translation>&amp;Modèles de publication rapide ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="513"/>
+        <location filename="EditingWindowBase.ui" line="514"/>
         <source>Trackback &amp;pings</source>
         <translation>Trackback &amp;pings</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="518"/>
+        <location filename="EditingWindowBase.ui" line="519"/>
         <source>Add trackback &amp;ping ...</source>
         <translation>Ajouter trackback &amp;ping ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="523"/>
+        <location filename="EditingWindowBase.ui" line="524"/>
         <source>Add ping from clip&amp;board</source>
         <translation>Ajouter ping de la Presse-&amp;papier</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="528"/>
+        <location filename="EditingWindowBase.ui" line="529"/>
         <source>Re&amp;move ping</source>
         <translation>Su&amp;pprimer ping</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="533"/>
+        <location filename="EditingWindowBase.ui" line="534"/>
         <source>&amp;Self link</source>
         <translation>&amp;Lien en lui-même</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="536"/>
+        <location filename="EditingWindowBase.ui" line="537"/>
         <source>Make a link out of this text (which has to be a location in itself)</source>
         <translation>Faire un lien de ce texte</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="541"/>
+        <location filename="EditingWindowBase.ui" line="542"/>
         <source>Abort this &amp;job</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="546"/>
+        <location filename="EditingWindowBase.ui" line="547"/>
         <source>Unordered &amp;list</source>
         <translation>&amp;Liste non ordonnée</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="551"/>
+        <location filename="EditingWindowBase.ui" line="552"/>
         <source>&amp;Ordered list</source>
         <translation>&amp;Liste ordonnée</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="556"/>
+        <location filename="EditingWindowBase.ui" line="557"/>
         <source>Marked paragraphs</source>
         <translation>Paragraphes marqués</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="566"/>
+        <location filename="EditingWindowBase.ui" line="567"/>
         <source>Unordered list</source>
         <translation>Liste non ordonnée</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="571"/>
+        <location filename="EditingWindowBase.ui" line="572"/>
         <source>Ordered list</source>
         <translation>Liste ordonnée</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="576"/>
+        <location filename="EditingWindowBase.ui" line="577"/>
         <source>Markdown blockquote</source>
         <translation>Markdown blockquote</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="581"/>
+        <location filename="EditingWindowBase.ui" line="582"/>
         <source>Update this post&apos;s cate&amp;gories</source>
         <translation>Mettre à jour les catégories de ce poste</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="584"/>
+        <location filename="EditingWindowBase.ui" line="585"/>
         <source>Tell your blog system what categories you want this post to be in</source>
         <translation>Indiquer ,à votre système de blog, dans quelle catégorie doivent-elles apparaître</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="589"/>
+        <location filename="EditingWindowBase.ui" line="590"/>
         <source>&amp;Upload ...</source>
         <translation>&amp;Transferer...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="594"/>
+        <location filename="EditingWindowBase.ui" line="595"/>
         <source>Copy uploaded file&apos;s location</source>
         <translation>Copier l&apos;emplacement du fichier transferé</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="602"/>
+        <location filename="EditingWindowBase.ui" line="603"/>
         <source>&amp;Auto link</source>
         <translation>&amp;Lien automatique</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="607"/>
+        <location filename="EditingWindowBase.ui" line="608"/>
         <source>C&amp;lear console</source>
         <translation>N&amp;ettoyer la console</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="612"/>
+        <location filename="EditingWindowBase.ui" line="613"/>
         <source>&amp;Find ...</source>
         <translation>&amp;Rechercher ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="617"/>
+        <location filename="EditingWindowBase.ui" line="618"/>
         <source>Find &amp;again ...</source>
         <translation>Rechercher &amp;encore ...</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="633"/>
+        <location filename="EditingWindowBase.ui" line="634"/>
         <source>Save blogs &amp;&amp; categories</source>
         <translation>Enregistrer les &amp;&amp; catégories de blog </translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="638"/>
+        <location filename="EditingWindowBase.ui" line="639"/>
         <source>Open &amp;recent</source>
         <translation>Ouvrir les fichier/dossier &amp;recents</translation>
     </message>
     <message>
-        <location filename="EditingWindowBase.ui" line="643"/>
+        <location filename="EditingWindowBase.ui" line="644"/>
         <source>Tidy paste</source>
         <translation>Coller</translation>
+    </message>
+    <message>
+        <location filename="EditingWindowBase.ui" line="649"/>
+        <source>Save all ...</source>
+        <translation type="unfinished">Tout enregistrer</translation>
     </message>
 </context>
 <context>
@@ -2326,13 +2331,13 @@ Ligne %2,Colonne %3</translation>
 <context>
     <name>SysTrayIcon</name>
     <message>
-        <location filename="SysTrayIcon.cc" line="290"/>
+        <location filename="SysTrayIcon.cc" line="291"/>
         <source>QTM - Double click for 
 new entry</source>
         <translation>QTM - Double cliquez pour une nouvelle entrée </translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="292"/>
+        <location filename="SysTrayIcon.cc" line="293"/>
         <source>QTM - Double click for 
 Quick Post</source>
         <translation>QTM - Double-cliquez pour une publication rapide</translation>
@@ -2358,197 +2363,202 @@ Quick Post</source>
         <translation>Ouvrir une entrée récente</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="127"/>
+        <location filename="SysTrayIcon.cc" line="128"/>
         <source>Quick post</source>
         <translation>Publication rapide</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="128"/>
+        <location filename="SysTrayIcon.cc" line="129"/>
         <source>Abort quick post</source>
         <translation>Quitter la publication rapide</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="130"/>
+        <location filename="SysTrayIcon.cc" line="131"/>
         <source>Quickpost templates</source>
         <translation>Modèle publication rapide</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="132"/>
+        <location filename="SysTrayIcon.cc" line="133"/>
         <source>&amp;Configure ...</source>
         <translation>&amp;Configurer ...</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="142"/>
+        <location filename="SysTrayIcon.cc" line="143"/>
         <source>Quit</source>
         <translation>Quitter</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="153"/>
+        <location filename="SysTrayIcon.cc" line="154"/>
         <source>No recent files</source>
         <translation>Pas de fichiers récents</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="181"/>
+        <location filename="SysTrayIcon.cc" line="182"/>
         <source>QTM - new entry [*]</source>
         <translation>QTM - nouvelle entrée [*]</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="979"/>
+        <location filename="SysTrayIcon.cc" line="986"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="219"/>
+        <location filename="SysTrayIcon.cc" line="220"/>
         <source>Could not load the following:
 
 %1</source>
         <translation>Impossible de charger:%1</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="220"/>
+        <location filename="SysTrayIcon.cc" line="221"/>
         <source>&amp;Continue</source>
         <translation>&amp;Continuer</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="220"/>
+        <location filename="SysTrayIcon.cc" line="221"/>
         <source>E&amp;xit</source>
         <translation>Q&amp;uitter</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="229"/>
+        <location filename="SysTrayIcon.cc" line="230"/>
         <source>Could not load the following:
 
 %1 </source>
         <translation>Impossible de charger : %1</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="252"/>
+        <location filename="SysTrayIcon.cc" line="253"/>
         <source> ...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="255"/>
+        <location filename="SysTrayIcon.cc" line="256"/>
         <source>1&amp;0 %1</source>
         <translation>1&amp;0 %1</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="260"/>
+        <location filename="SysTrayIcon.cc" line="261"/>
         <source>&amp;%1 %2</source>
         <translation>&amp;%1 %2</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="363"/>
+        <location filename="SysTrayIcon.cc" line="364"/>
         <source>Blog entries</source>
         <translation>Entrées de Blog</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="367"/>
+        <location filename="SysTrayIcon.cc" line="368"/>
         <source>Choose a file to open</source>
         <translation>Choisissez un fichier à ouvrir</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="381"/>
+        <location filename="SysTrayIcon.cc" line="382"/>
         <source>Could not load the file you specified.</source>
         <translation>Impossible de charger le fichier que vous avez spécifié.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="532"/>
+        <location filename="SysTrayIcon.cc" line="533"/>
         <source>No selection!</source>
         <translation>Aucune sélection!</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="423"/>
+        <location filename="SysTrayIcon.cc" line="424"/>
         <source>No web location specified to blog about.</source>
         <translation>Emplacement non spécifié pour ce blog.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="528"/>
+        <location filename="SysTrayIcon.cc" line="529"/>
         <source>This version of QTM does not support HTTPS.</source>
         <translation>Cette version de QTM ne reconnaît pas HTTPS.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="634"/>
+        <location filename="SysTrayIcon.cc" line="635"/>
         <source>Quickpost Error</source>
         <translation>Erreur de publication rapide</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="448"/>
+        <location filename="SysTrayIcon.cc" line="449"/>
         <source>Invalid web location</source>
         <translation>Emplacement web non valide</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="449"/>
+        <location filename="SysTrayIcon.cc" line="450"/>
         <source>Quick Post requires valid web location.</source>
         <translation>Publication rapide nécessite un emplacement web valable.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="533"/>
+        <location filename="SysTrayIcon.cc" line="534"/>
         <source>The selection is not a web location, or is invalid.</source>
         <translation>La sélection n&apos;est pas un emplacement web, ou elle est non valide.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="604"/>
+        <location filename="SysTrayIcon.cc" line="605"/>
         <source>Cannot find page</source>
         <translation>Impossible de trouver la page</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="607"/>
+        <location filename="SysTrayIcon.cc" line="608"/>
         <source>QTM cannot find the resource you specified.
 Check that it is spelled right and that your network is working.</source>
         <translation>QTM ne peut pas trouver la ressource que vous avez spécifié.Vérifiez qu&apos;il est bien écrit  et que votre réseau fonctionne.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="623"/>
+        <location filename="SysTrayIcon.cc" line="624"/>
         <source>Could not find the host.</source>
         <translation>Impossible de trouver l&apos;hôte.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="625"/>
+        <location filename="SysTrayIcon.cc" line="626"/>
         <source>Connection was refused.</source>
         <translation>Connexion a été refusée.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="627"/>
+        <location filename="SysTrayIcon.cc" line="628"/>
         <source>Connection closed unexpectedly.</source>
         <translation>Erreur de connexion.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="631"/>
+        <location filename="SysTrayIcon.cc" line="632"/>
         <source>Document was not received correctly.</source>
         <translation>Document n&apos;a pas été reçu correctement.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="651"/>
+        <location filename="SysTrayIcon.cc" line="652"/>
         <source>Error 404</source>
         <translation>Erreur 404</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="653"/>
+        <location filename="SysTrayIcon.cc" line="654"/>
         <source>The file or entry you specified could not be
 found.</source>
         <translation>Le fichier ou l&apos;entrée que vous avez spécifié n&apos;est pas trouvé.</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="737"/>
+        <location filename="SysTrayIcon.cc" line="744"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Insert link text here&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;%1&quot;&gt;Inserer le texte de lien ici&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="815"/>
+        <location filename="SysTrayIcon.cc" line="822"/>
         <source>Failed to read templates</source>
         <translation>Impossible de lire les modèles</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="817"/>
+        <location filename="SysTrayIcon.cc" line="824"/>
         <source>Error: %1
 Line %2, col %3</source>
         <translation>Erreur: %1
 Ligne %2, Colonne %3</translation>
     </message>
     <message>
-        <location filename="SysTrayIcon.cc" line="980"/>
+        <location filename="SysTrayIcon.cc" line="987"/>
         <source>Could not write to templates file</source>
         <translation>Impossible d&apos;écrire dans le fichier modèle</translation>
+    </message>
+    <message>
+        <location filename="SysTrayIcon.cc" line="127"/>
+        <source>Save all ...</source>
+        <translation type="unfinished">Tout enregistrer</translation>
     </message>
 </context>
 <context>

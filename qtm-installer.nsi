@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "QTM"
-!define PRODUCT_VERSION "0.7.3"
+!define PRODUCT_VERSION "0.7.4"
 !define PRODUCT_PUBLISHER "Matthew J Smith"
 !define PRODUCT_WEB_SITE "http://qtm.blogistan.co.uk"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\qtm.exe"
@@ -52,10 +52,10 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\QTM\QTM.lnk" "$INSTDIR\qtm.exe"
   CreateShortCut "$DESKTOP\QTM.lnk" "$INSTDIR\qtm.exe"
   File "C:\MinGW\bin\mingwm10.dll"
-  File "C:\Qt\4.4.3\bin\QtCore4.dll"
-  File "C:\Qt\4.4.3\bin\QtGui4.dll"
-  File "C:\Qt\4.4.3\bin\QtXml4.dll"
-  File "C:\Qt\4.4.3\bin\QtNetwork4.dll"
+  File "C:\Qt\4.5.0\bin\QtCore4.dll"
+  File "C:\Qt\4.5.0\bin\QtGui4.dll"
+  File "C:\Qt\4.5.0\bin\QtXml4.dll"
+  File "C:\Qt\4.5.0\bin\QtNetwork4.dll"
   File "Markdown\Markdown.pl"
 SectionEnd
 

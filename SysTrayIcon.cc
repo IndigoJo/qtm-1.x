@@ -200,6 +200,7 @@ bool SysTrayIcon::handleArguments()
   EditingWindow *c;
   QStringList failedFiles;
   QStringList args = QApplication::arguments();
+  args.removeAll( "&" );
 
   for( i = 1; i < args.size(); i++ ) {
     c = new EditingWindow;

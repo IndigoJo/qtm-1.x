@@ -1,6 +1,6 @@
 project(QTM)
 
-set( QTM_VERSION 0.7.4 )
+set( QTM_VERSION 0.7.4.1 )
 
 IF(APPLE)
     set( PROGNAME QTM )

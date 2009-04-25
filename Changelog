@@ -1,5 +1,10 @@
 Changelog:
 
+0.7.4.1 (25th April 2009):
+
+Bug fix: Removed ampersands from commands in the desktop entry spec files,
+and stopped attempts to open filenames consisting solely of an ampersand
+
 0.7.4 (28th Feb 2009):
 
 New feature: "Tidy paste", which allows pasting a selection with multiple

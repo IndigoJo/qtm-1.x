@@ -78,6 +78,7 @@
 #include <QProgressDialog>
 #include <QTextEdit>
 #include <QProcess>
+#include <QProgressBar>
 #if QT_VERSION >= 0x040400 && !defined DONT_USE_PTE
 #include <QPlainTextEdit>
 #endif
@@ -102,6 +103,7 @@
 #include <QtAlgorithms>
 #include <QtNetwork>
 #include <QtXml>
+#include <cmath>
 
 #include "addimg.xpm"
 #include "addlink.xpm"
@@ -369,6 +371,8 @@ void EditingWindow::doUiSetup()
            this, SLOT( exportEntry() ) );
   connect( ui.actionSave_As, SIGNAL( triggered( bool ) ),
            this, SLOT( saveAs() ) );
+  connect( ui.actionSave_all, SIGNAL( triggered( bool ) ),
+           qtm, SLOT( saveAll() ) );
   connect( ui.action_Upload, SIGNAL( triggered( bool ) ),
            this, SLOT( uploadFile() ) );
   connect( ui.actionStop_this_job, SIGNAL( triggered( bool ) ),
@@ -600,6 +604,16 @@ void EditingWindow::doUiSetup()
   statusBar()->addPermanentWidget( pbCopyURL );
   connect( pbCopyURL, SIGNAL( clicked() ), this, SLOT( copyURL() ) );
   pbCopyURL->hide();
+
+  progressBar = new QProgressBar;
+  progressBar->setMinimum( 0 );
+  progressBar->setMaximum( 100 );
+  progressBar->setValue( 0 );
+  statusBar()->addPermanentWidget( progressBar );
+  progressBar->setEnabled( false );
+  progressBar->hide();
+  connect( progressBar, SIGNAL( valueChanged( int ) ),
+           this, SLOT( hideProgressBarIfMaximum( int ) ) );
 
   dirtyIndicator = new QLabel( this );
   dirtyIndicator->setPixmap( QPixmap( filesave ) );
@@ -1913,6 +1927,7 @@ void EditingWindow::handleDone( bool error ) // slot
   }
 
   http->disconnect();
+  progressBar->setValue( progressBar->value() + 1 );
   currentHttpBusiness = 0;
   emit httpBusinessFinished();
 }
@@ -2778,6 +2793,7 @@ void EditingWindow::newMTPost()
   bool takeTB = cw.chTB->isChecked();
   bool blogidIsInt;
   int count, tags;
+  int progressValue;
   QList<QString> tblist;
 
   if( !currentHttpBusiness && !entryBlogged ) {
@@ -2906,6 +2922,13 @@ void EditingWindow::newMTPost()
              this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
     connect( http, SIGNAL( hostLookupFailed() ),
              this, SLOT( handleHostLookupFailed() ) );
+
+    if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
+      progressValue = 16; // approximately a 6th of 100
+    else
+      progressValue = 25;
+    progressBar->setValue( progressValue );
+    progressBar->show();
   }
   else {
     if( currentHttpBusiness ) {
@@ -3039,6 +3062,13 @@ void EditingWindow::submitMTEdit()
     cleanSave = true;
     setDirtySignals( true );
   }
+
+  if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
+    progressBar->setMaximum( 6 );
+  else
+    progressBar->setMaximum( 4 );
+  progressBar->setValue( 1 );
+  progressBar->show();
 
   currentHttpBusiness = 8; // Processing metaWeblog.editPost request
   connect( http, SIGNAL( done( bool ) ),
@@ -3214,6 +3244,11 @@ void EditingWindow::publishPost() // slot
 void EditingWindow::exportEntry()
 {
   saveAs( true );
+}
+
+void EditingWindow::saveAll()
+{
+  qtm->saveAll();
 }
 
 void EditingWindow::saveAs( bool exp )
@@ -4706,3 +4741,10 @@ void EditingWindow::addToConsole( const QString &t )
 
 }
 
+void EditingWindow::hideProgressBarIfMaximum( int val )
+{
+  if( val == progressBar->maximum() ) {
+    progressBar->hide();
+    progressBar->reset();
+  }
+}

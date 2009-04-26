@@ -41,6 +41,7 @@ Q_CLASSINFO( "D-Bus Interface", "uk.co.blogistan.catkin" )
 
 public slots:
   Q_NOREPLY void quit();
+  Q_NOREPLY void saveAll();
   QStringList getQuickpostTemplates();
   QStringList getQuickpostTemplateTitles();
   Q_NOREPLY void newDocument();
@@ -50,6 +51,7 @@ public slots:
 
 signals:
   void aboutToQuit();
+  void allSaved();
   void quickpostTemplatesUpdated( QStringList );
   void quickpostTemplateTitlesUpdated( QStringList );
 

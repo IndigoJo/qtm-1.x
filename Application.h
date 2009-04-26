@@ -47,6 +47,7 @@ public:
 public slots:
   void setRecentFiles( const QStringList &, const QStringList & );
   void addRecentFile( const QString &, const QString & );
+  void saveAll();
 
  signals:
   void recentFilesUpdated( QStringList, QStringList );

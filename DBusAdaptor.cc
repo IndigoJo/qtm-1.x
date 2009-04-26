@@ -68,6 +68,14 @@ Q_NOREPLY void DBusAdaptor::quit()
   _sti->doQuit();
 }
 
+/** saveAll - Saves all open documents
+  */
+Q_NOREPLY void DBusAdaptor::saveAll()
+{
+  Application *qtm = qobject_cast<Application *>( qApp );
+  qtm->saveAll();
+}
+
 /** newDocument - Opens a new blank entry
  */
 Q_NOREPLY void DBusAdaptor::newDocument()

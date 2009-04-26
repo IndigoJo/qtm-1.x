@@ -21,6 +21,7 @@
 
 
 #include "Application.h"
+#include "EditingWindow.h"
 #include <QtCore>
 
   Application::Application( int &argc, char **argv )
@@ -137,6 +138,18 @@ void Application::addRecentFile( const QString &title, const QString &filename )
   _recentFiles.prepend( thisFile );
 
   emit recentFilesUpdated( _recentFiles );
+}
+
+void Application::saveAll()
+{
+  EditingWindow *e;
+  QWidgetList tlw = QApplication::topLevelWidgets();
+
+  Q_FOREACH( QWidget *w, tlw ) {
+    e = qobject_cast<EditingWindow *>( w );
+    if( e )
+      e->save();
+  }
 }
 
 void Application::saveRecentFiles()

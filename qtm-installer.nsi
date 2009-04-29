@@ -52,10 +52,10 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\QTM\QTM.lnk" "$INSTDIR\qtm.exe"
   CreateShortCut "$DESKTOP\QTM.lnk" "$INSTDIR\qtm.exe"
   File "C:\MinGW\bin\mingwm10.dll"
-  File "C:\Qt\4.5.0\bin\QtCore4.dll"
-  File "C:\Qt\4.5.0\bin\QtGui4.dll"
-  File "C:\Qt\4.5.0\bin\QtXml4.dll"
-  File "C:\Qt\4.5.0\bin\QtNetwork4.dll"
+  File "C:\Qt\4.5.1\bin\QtCore4.dll"
+  File "C:\Qt\4.5.1\bin\QtGui4.dll"
+  File "C:\Qt\4.5.1\bin\QtXml4.dll"
+  File "C:\Qt\4.5.1\bin\QtNetwork4.dll"
   File "Markdown\Markdown.pl"
 SectionEnd
 

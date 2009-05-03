@@ -609,9 +609,19 @@ void EditingWindow::doUiSetup()
   progressBar->setMinimum( 0 );
   progressBar->setMaximum( 100 );
   progressBar->setValue( 0 );
-  statusBar()->addPermanentWidget( progressBar );
+  // statusBar()->addPermanentWidget( progressBar, 3 );
+  progressBarContainer = new QWidget;
+  //progressBarContainer->setContentsMargins( 0, 0, 0, 0 );
+  progressBarLayout = new QHBoxLayout( progressBarContainer );
+  progressBarLayout->setMargin( 0 );
+  progressBarLayout->addWidget( progressBar, 1 );
+  progressBarLayout->addStretch( 2 );
+  progressBarAction = ui.toolBar->addWidget( progressBarContainer );
   progressBar->setEnabled( false );
-  progressBar->hide();
+  /* QSize pbSize( progressBar->size() );
+  pbSize.setWidth( width() / 8 );
+  progressBar->resize( pbSize ); */
+  progressBarAction->setVisible( false );
   connect( progressBar, SIGNAL( valueChanged( int ) ),
            this, SLOT( hideProgressBarIfMaximum( int ) ) );
 
@@ -2928,7 +2938,7 @@ void EditingWindow::newMTPost()
     else
       progressValue = 25;
     progressBar->setValue( progressValue );
-    progressBar->show();
+    progressBarAction->setVisible( true );
   }
   else {
     if( currentHttpBusiness ) {
@@ -3068,7 +3078,7 @@ void EditingWindow::submitMTEdit()
   else
     progressBar->setMaximum( 4 );
   progressBar->setValue( 1 );
-  progressBar->show();
+  progressBarAction->setVisible( true );
 
   currentHttpBusiness = 8; // Processing metaWeblog.editPost request
   connect( http, SIGNAL( done( bool ) ),
@@ -4744,7 +4754,7 @@ void EditingWindow::addToConsole( const QString &t )
 void EditingWindow::hideProgressBarIfMaximum( int val )
 {
   if( val == progressBar->maximum() ) {
-    progressBar->hide();
+    progressBarAction->setVisible( false );
     progressBar->reset();
   }
 }

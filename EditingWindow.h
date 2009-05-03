@@ -317,7 +317,10 @@ class EditingWindow : public QMainWindow
   QVBoxLayout *mainWindowLayoutWithSearch;
   QHBoxLayout *mainWindowLayout;
   QPushButton *pbCopyURL;
+  QWidget *progressBarContainer;
+  QHBoxLayout *progressBarLayout;
   QProgressBar *progressBar;
+  QAction *progressBarAction;
   QMenu *recentFilesMenu;
   QAction *noRecentFilesAction;
 

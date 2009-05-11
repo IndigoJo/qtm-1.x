@@ -606,9 +606,6 @@ void EditingWindow::doUiSetup()
   pbCopyURL->hide();
 
   progressBar = new QProgressBar;
-  progressBar->setMinimum( 0 );
-  progressBar->setMaximum( 100 );
-  progressBar->setValue( 0 );
   // statusBar()->addPermanentWidget( progressBar, 3 );
   progressBarContainer = new QWidget;
   //progressBarContainer->setContentsMargins( 0, 0, 0, 0 );
@@ -2600,7 +2597,7 @@ void EditingWindow::tidyPaste()
 {
   QString pastedText = QApplication::clipboard()->text();
   pastedText.replace( QRegExp( " {2,}" ), " " );
-  pastedText.remove( QRegExp( "\n{1}" ) );
+  pastedText.replace( QRegExp( "\n{1}" ), " " );
   EDITOR->insertPlainText( pastedText );
 }
 
@@ -2803,7 +2800,6 @@ void EditingWindow::newMTPost()
   bool takeTB = cw.chTB->isChecked();
   bool blogidIsInt;
   int count, tags;
-  int progressValue;
   QList<QString> tblist;
 
   if( !currentHttpBusiness && !entryBlogged ) {
@@ -2934,10 +2930,10 @@ void EditingWindow::newMTPost()
              this, SLOT( handleHostLookupFailed() ) );
 
     if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
-      progressValue = 16; // approximately a 6th of 100
+      progressBar->setMaximum( 6 );
     else
-      progressValue = 25;
-    progressBar->setValue( progressValue );
+      progressBar->setMaximum( 4 );
+    progressBar->setValue( 1 );
     progressBarAction->setVisible( true );
   }
   else {
@@ -3172,6 +3168,9 @@ void EditingWindow::setPostCategories()
       http->setHost( server );
       http->request( header, requestArray );
 
+      if( progressBarAction->isVisible() )
+        progressBar->setValue( progressBar->value() + 1 );
+
       addToConsole( header.toString() );
       addToConsole( doc.toString() );
 
@@ -3232,6 +3231,9 @@ void EditingWindow::publishPost() // slot
     header.setValue( "User-Agent", userAgentString );
     http->setHost( server );
     http->request( header, requestArray );
+
+    if( progressBarAction->isVisible() )
+      progressBar->setValue( progressBar->value() + 1 );
 
     addToConsole( header.toString() );
     addToConsole( doc.toString() );

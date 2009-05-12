@@ -13,6 +13,8 @@
 #include "ui_QijSearchWidget.h"
 
 class QTextEdit;
+class QObject;
+class QEvent;
 
 #if QT_VERSION >= 0x040400
 class QPlainTextEdit;
@@ -38,6 +40,9 @@ public slots:
   void findAgain();
   void setExpertEnabled( bool );
   void clearSearchText();
+
+protected:
+  bool eventFilter( QObject *, QEvent * );
 
 private:
   enum direction { Forward, Backward, Stay };

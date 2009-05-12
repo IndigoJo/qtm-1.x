@@ -276,6 +276,7 @@ class EditingWindow : public QMainWindow
   void populateAccountList();
   void populateBlogList();
   void hideProgressBarIfMaximum( int );
+  void hideProgressBar();
 
  public slots:
   void refreshCategories();

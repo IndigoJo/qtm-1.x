@@ -4,7 +4,7 @@
  * Firefox search widget
  *
  * Written by Matthew J Smith (Yusuf), 12th Feb 2008
- * Parts adapted from Qt Assistant, by Trolltech ASA
+ * Parts adapted from Qt Assistant, by Qt Software (a Nokia division)
  *
  *******************************************************************************/
 
@@ -18,6 +18,7 @@
 #include <QString>
 #include <QRegExp>
 #include <QPalette>
+#include <QKeyEvent>
 
 #if QT_VERSION >=0x040400
 #include <QPlainTextEdit>
@@ -50,6 +51,8 @@
   chRegExp->hide();
   chRegExp->setChecked( Qt::Unchecked );
 #endif
+
+  leFindText->installEventFilter( this );
 }
 
 QijSearchWidget::QijSearchWidget( QPlainTextEdit *te, QWidget *parent )
@@ -286,5 +289,20 @@ void QijSearchWidget::on_chRegExp_toggled( bool state )
   if( !leFindText->text().isEmpty() )
     findInTextEdit( leFindText->text(), Stay );
 #endif
+}
+
+bool QijSearchWidget::eventFilter( QObject *object, QEvent *event )
+{
+  if( object == leFindText ) {
+    if( event->type() == QEvent::KeyPress ) {
+      QKeyEvent *ke = static_cast<QKeyEvent *>( event );
+      if( ke->key() == Qt::Key_Escape ) {
+        hide();
+        return true;
+      }
+    }
+  }
+
+  return QObject::eventFilter( object, event );
 }
 

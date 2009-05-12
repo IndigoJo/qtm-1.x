@@ -79,6 +79,7 @@
 #include <QTextEdit>
 #include <QProcess>
 #include <QProgressBar>
+#include <QTimer>
 #if QT_VERSION >= 0x040400 && !defined DONT_USE_PTE
 #include <QPlainTextEdit>
 #endif
@@ -4755,8 +4756,12 @@ void EditingWindow::addToConsole( const QString &t )
 
 void EditingWindow::hideProgressBarIfMaximum( int val )
 {
-  if( val == progressBar->maximum() ) {
-    progressBarAction->setVisible( false );
-    progressBar->reset();
-  }
+  if( val == progressBar->maximum() )
+    QTimer::singleShot( 1000, this, SLOT( hideProgressBar() ) );
+}
+
+void EditingWindow::hideProgressBar()
+{
+  progressBarAction->setVisible( false );
+  progressBar->reset();
 }

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CategoryWidget</class>
- <widget class="QWidget" name="CategoryWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="CategoryWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,30 +10,30 @@
     <height>428</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>6</number>
    </property>
-   <property name="margin" >
+   <property name="margin">
     <number>9</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -41,29 +42,34 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="cbPageSelector" >
+      <widget class="QComboBox" name="cbPageSelector">
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Basics</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Categories</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Excerpt</string>
         </property>
        </item>
        <item>
-        <property name="text" >
-         <string>Tags</string>
+        <property name="text">
+         <string>WP tags</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
+         <string>Technorati tags</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Trackbacks</string>
         </property>
        </item>
@@ -71,10 +77,10 @@
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -85,101 +91,101 @@
     </layout>
    </item>
    <item>
-    <widget class="QStackedWidget" name="stackedWidget" >
-     <property name="currentIndex" >
-      <number>1</number>
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="page" >
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+     <widget class="QWidget" name="basicsPage">
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>9</number>
        </property>
        <item>
-        <layout class="QGridLayout" >
-         <property name="margin" >
+        <layout class="QGridLayout">
+         <property name="margin">
           <number>0</number>
          </property>
-         <property name="spacing" >
+         <property name="spacing">
           <number>6</number>
          </property>
-         <item row="0" column="1" >
-          <widget class="QLineEdit" name="leTitle" />
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="leTitle"/>
          </item>
-         <item row="3" column="0" >
-          <widget class="QLabel" name="lStatus" >
-           <property name="whatsThis" >
+         <item row="3" column="0">
+          <widget class="QLabel" name="lStatus">
+           <property name="whatsThis">
             <string>Whether the entry is to be published immediately, or stored in the blog database for publication later</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>&amp;Status</string>
            </property>
-           <property name="buddy" >
+           <property name="buddy">
             <cstring>cbStatus</cstring>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" >
-          <widget class="QComboBox" name="cbBlogSelector" >
-           <property name="whatsThis" >
+         <item row="2" column="1">
+          <widget class="QComboBox" name="cbBlogSelector">
+           <property name="whatsThis">
             <string>If your blog software allows you to publish more than one blog, as with Movable Type, you must choose which blog here.  (If you use Wordpress, ignore this.)</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0" >
-          <widget class="QLabel" name="lBlog" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QLabel" name="lBlog">
+           <property name="text">
             <string>&amp;Blog</string>
            </property>
-           <property name="buddy" >
+           <property name="buddy">
             <cstring>cbBlogSelector</cstring>
            </property>
           </widget>
          </item>
-         <item row="3" column="1" >
-          <widget class="QComboBox" name="cbStatus" >
-           <property name="whatsThis" >
+         <item row="3" column="1">
+          <widget class="QComboBox" name="cbStatus">
+           <property name="whatsThis">
             <string>Whether the entry is to be published immediately, or just stored in the blog database for publication later</string>
            </property>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>Draft</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>Publish</string>
             </property>
            </item>
           </widget>
          </item>
-         <item row="0" column="0" >
-          <widget class="QLabel" name="lTitle" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+         <item row="0" column="0">
+          <widget class="QLabel" name="lTitle">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Entry &amp;title</string>
            </property>
-           <property name="buddy" >
+           <property name="buddy">
             <cstring>leTitle</cstring>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QComboBox" name="cbAccountSelector" />
+         <item row="1" column="1">
+          <widget class="QComboBox" name="cbAccountSelector"/>
          </item>
-         <item row="1" column="0" >
-          <widget class="QLabel" name="lAccount" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QLabel" name="lAccount">
+           <property name="text">
             <string>&amp;Account</string>
            </property>
-           <property name="buddy" >
+           <property name="buddy">
             <cstring>cbAccountSelector</cstring>
            </property>
           </widget>
@@ -187,36 +193,36 @@
         </layout>
        </item>
        <item>
-        <layout class="QGridLayout" >
-         <property name="margin" >
+        <layout class="QGridLayout">
+         <property name="margin">
           <number>0</number>
          </property>
-         <property name="spacing" >
+         <property name="spacing">
           <number>6</number>
          </property>
-         <item rowspan="2" row="0" column="0" >
-          <widget class="QLabel" name="label" >
-           <property name="text" >
-            <string>&lt;b>Feedback&lt;/b></string>
+         <item row="0" column="0" rowspan="2">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>&lt;b&gt;Feedback&lt;/b&gt;</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="QCheckBox" name="chComments" >
-           <property name="whatsThis" >
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="chComments">
+           <property name="whatsThis">
             <string>Click here if comments are to be allowed</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Comments</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QCheckBox" name="chTB" >
-           <property name="whatsThis" >
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="chTB">
+           <property name="whatsThis">
             <string>Trackbacks are links to other sites, or other people's blog entries, placed by other people.  If you want to allow this, tick this box. Note that if you configure your blog software to refuse trackbacks, or not publish trackback locations, ticking this box will have no effect.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Trackback</string>
            </property>
           </widget>
@@ -224,18 +230,18 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbDoTB" >
-         <property name="text" >
+        <widget class="QCheckBox" name="cbDoTB">
+         <property name="text">
           <string>Trackback this entry</string>
          </property>
         </widget>
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>40</height>
@@ -245,77 +251,77 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_3" >
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+     <widget class="QWidget" name="categoryPage">
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>9</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="gbCategory" >
-         <property name="title" >
+        <widget class="QGroupBox" name="gbCategory">
+         <property name="title">
           <string>Categories</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <layout class="QVBoxLayout" >
-            <property name="spacing" >
+           <layout class="QVBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="lMainCat" >
-              <property name="text" >
+             <widget class="QLabel" name="lMainCat">
+              <property name="text">
                <string>Primary</string>
               </property>
-              <property name="buddy" >
+              <property name="buddy">
                <cstring>cbMainCat</cstring>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="cbMainCat" >
-              <property name="whatsThis" >
+             <widget class="QComboBox" name="cbMainCat">
+              <property name="whatsThis">
                <string>The main category under which your entry is to be published.  If you are choosing only one category, choose it here.</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="lOtherCats" >
-              <property name="text" >
+             <widget class="QLabel" name="lOtherCats">
+              <property name="text">
                <string>Others</string>
               </property>
-              <property name="buddy" >
+              <property name="buddy">
                <cstring>lwOtherCats</cstring>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="lwOtherCats" >
-              <property name="whatsThis" >
+             <widget class="QListWidget" name="lwOtherCats">
+              <property name="whatsThis">
                <string>Secondary categories, if your blog system supports them.  To select more than one category, hold down Ctrl and click the main mouse button.</string>
               </property>
-              <property name="selectionMode" >
+              <property name="selectionMode">
                <enum>QAbstractItemView::MultiSelection</enum>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="chNoCats" >
-              <property name="toolTip" >
+             <widget class="QCheckBox" name="chNoCats">
+              <property name="toolTip">
                <string>Don't use any categories</string>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>No categories</string>
               </property>
              </widget>
@@ -323,11 +329,11 @@
            </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="pbRefresh" >
-            <property name="whatsThis" >
+           <widget class="QPushButton" name="pbRefresh">
+            <property name="whatsThis">
              <string>Fetches an updated category list from the blog server</string>
             </property>
-            <property name="text" >
+            <property name="text">
              <string>&amp;Refresh</string>
             </property>
            </widget>
@@ -337,41 +343,41 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_4" >
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+     <widget class="QWidget" name="excerptPage">
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>9</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="gbExcerpt" >
-         <property name="title" >
+        <widget class="QGroupBox" name="gbExcerpt">
+         <property name="title">
           <string>RSS Excerpt</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <widget class="QTextEdit" name="teExcerpt" />
+           <widget class="QTextEdit" name="teExcerpt"/>
           </item>
           <item>
-           <widget class="QLabel" name="lExcerptExplanation" >
-            <property name="text" >
+           <widget class="QLabel" name="lExcerptExplanation">
+            <property name="text">
              <string>RSS E&amp;xcerpt: This will appear in your summarised RSS feeds if you choose to enter anything here.  If you do not, your blog engine will use the first few lines of the post (or the entire post, if it is short enough).</string>
             </property>
-            <property name="alignment" >
+            <property name="alignment">
              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
             </property>
-            <property name="wordWrap" >
+            <property name="wordWrap">
              <bool>true</bool>
             </property>
-            <property name="buddy" >
+            <property name="buddy">
              <cstring>teExcerpt</cstring>
             </property>
            </widget>
@@ -381,57 +387,147 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_5" >
-      <layout class="QHBoxLayout" >
-       <property name="spacing" >
+     <widget class="QWidget" name="keywordTagsPage">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="gbKeywordTags">
+         <property name="title">
+          <string>Wordpress-style tags</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0" colspan="2">
+             <widget class="QListWidget" name="lwKeywordTags">
+              <property name="whatsThis">
+               <string>These are the tags used in wordpress.com (known as keywords in Movable Type and TypePad)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="leAddKeywordTag">
+              <property name="toolTip">
+               <string>Enter tag; no need for quotes</string>
+              </property>
+              <property name="whatsThis">
+               <string>Enter the tag name here; no need to use quotes if there are two or more words</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QToolButton" name="tbAddKeywordTag">
+              <property name="toolTip">
+               <string>Add tag</string>
+              </property>
+              <property name="whatsThis">
+               <string>Click here to add the tag to the list</string>
+              </property>
+              <property name="text">
+               <string>&amp;Add</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tagsPage">
+      <layout class="QHBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>9</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="gbTags" >
-         <property name="title" >
+        <widget class="QGroupBox" name="gbTags">
+         <property name="title">
           <string>Technorati tags</string>
          </property>
-         <layout class="QGridLayout" >
-          <property name="margin" >
+         <layout class="QGridLayout">
+          <property name="margin">
            <number>9</number>
           </property>
-          <property name="spacing" >
+          <property name="spacing">
            <number>6</number>
           </property>
-          <item row="2" column="0" >
-           <widget class="QGroupBox" name="gbTagPlace" >
-            <property name="title" >
+          <item row="2" column="0">
+           <layout class="QHBoxLayout">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLineEdit" name="leAddTag">
+              <property name="whatsThis">
+               <string>Enter a new Technorati tag here; use the Technorati format which uses plus signs, not spaces, to separate</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="tbAddTag">
+              <property name="toolTip">
+               <string>Add this tag</string>
+              </property>
+              <property name="whatsThis">
+               <string>Add this tag to the entry</string>
+              </property>
+              <property name="text">
+               <string>Add</string>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextOnly</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QListWidget" name="lwTags">
+            <property name="contextMenuPolicy">
+             <enum>Qt::ActionsContextMenu</enum>
+            </property>
+            <property name="whatsThis">
+             <string>Technorati tags (see www.technorati.com) for this entry.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="gbTagPlace">
+            <property name="title">
              <string>Position of tags</string>
             </property>
-            <layout class="QVBoxLayout" >
-             <property name="spacing" >
+            <layout class="QVBoxLayout">
+             <property name="spacing">
               <number>6</number>
              </property>
-             <property name="margin" >
+             <property name="margin">
               <number>9</number>
              </property>
              <item>
-              <widget class="QRadioButton" name="rbStartOfMainEntry" >
-               <property name="whatsThis" >
+              <widget class="QRadioButton" name="rbStartOfMainEntry">
+               <property name="whatsThis">
                 <string>Place the tags at the start of the entry</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Start of main entry</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="rbEndOfMainEntry" >
-               <property name="whatsThis" >
+              <widget class="QRadioButton" name="rbEndOfMainEntry">
+               <property name="whatsThis">
                 <string>Place the tags at the end of the main entry, which means before the More tag if there is one</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>End of main entry</string>
                </property>
               </widget>
@@ -439,98 +535,55 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="0" >
-           <layout class="QHBoxLayout" >
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLineEdit" name="leAddTag" >
-              <property name="whatsThis" >
-               <string>Enter a new Technorati tag here; use the Technorati format which uses plus signs, not spaces, to separate</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="tbAddTag" >
-              <property name="toolTip" >
-               <string>Add this tag</string>
-              </property>
-              <property name="whatsThis" >
-               <string>Add this tag to the entry</string>
-              </property>
-              <property name="text" >
-               <string>Add</string>
-              </property>
-              <property name="toolButtonStyle" >
-               <enum>Qt::ToolButtonTextOnly</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="0" >
-           <widget class="QListWidget" name="lwTags" >
-            <property name="contextMenuPolicy" >
-             <enum>Qt::ActionsContextMenu</enum>
-            </property>
-            <property name="whatsThis" >
-             <string>Technorati tags (see www.technorati.com) for this entry.</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_6" >
-      <layout class="QGridLayout" >
-       <property name="margin" >
+     <widget class="QWidget" name="tbPingsPage">
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>6</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QGroupBox" name="gbTrackbacks" >
-         <property name="title" >
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="gbTrackbacks">
+         <property name="title">
           <string>Trackback pings</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <widget class="QListWidget" name="lwTBPings" >
-            <property name="contextMenuPolicy" >
+           <widget class="QListWidget" name="lwTBPings">
+            <property name="contextMenuPolicy">
              <enum>Qt::ActionsContextMenu</enum>
             </property>
-            <property name="whatsThis" >
+            <property name="whatsThis">
              <string>Locations of web articles (usually blog entries) you want to trackback when posting this entry.</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" >
-            <property name="spacing" >
+           <layout class="QHBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>0</number>
             </property>
             <item>
-             <widget class="QLineEdit" name="leTBPingURL" />
+             <widget class="QLineEdit" name="leTBPingURL"/>
             </item>
             <item>
-             <widget class="QToolButton" name="tbTBAdd" >
-              <property name="text" >
+             <widget class="QToolButton" name="tbTBAdd">
+              <property name="text">
                <string>Add</string>
               </property>
              </widget>
@@ -576,11 +629,11 @@
    <receiver>stackedWidget</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>177</x>
      <y>31</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>252</x>
      <y>90</y>
     </hint>
@@ -592,11 +645,11 @@
    <receiver>cbMainCat</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>38</x>
      <y>91</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>138</y>
     </hint>
@@ -608,11 +661,11 @@
    <receiver>lwOtherCats</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>58</x>
      <y>88</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>71</x>
      <y>217</y>
     </hint>

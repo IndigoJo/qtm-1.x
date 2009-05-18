@@ -251,9 +251,13 @@ class EditingWindow : public QMainWindow
   void doViewCategories();
   void changeOtherCatsHeading();
   void doViewExcerpt();
+  void doViewKeywordTags();
   void doViewTechTags();
   void doViewTBPings();
   void handleSideWidgetPageSwitch( int );
+  void addKeywordTag();
+  void addKeywordTagFromLineEdit();
+  void removeKeywordTag();
   void addTechTag();
   void addClipTag();
   void addTechTagFromLineEdit();

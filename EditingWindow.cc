@@ -336,8 +336,9 @@ void EditingWindow::doUiSetup()
   ui.action_BES->setShortcut( QKeySequence( "Ctrl+1" ) );
   ui.actionC_ategories->setShortcut( QKeySequence( "Ctrl+2" ) );
   ui.action_Show_Excerpt_window->setShortcut( QKeySequence( "Ctrl+3" ) );
-  ui.actionTechnorati_tags->setShortcut( QKeySequence( "Ctrl+4" ) );
-  ui.actionTrackback_pings->setShortcut( QKeySequence( "Ctrl+5" ) );
+  ui.actionKeyword_tags->setShortcut( QKeySequence( "Ctrl+4" ) );
+  ui.actionTechnorati_tags->setShortcut( QKeySequence( "Ctrl+5" ) );
+  ui.actionTrackback_pings->setShortcut( QKeySequence( "Ctrl+6" ) );
   ui.actionAdd_tag->setShortcut( QKeySequence( "Ctrl++" ) );
   ui.actionAdd_tag_from_clipboard->setShortcut( QKeySequence( "Shift+Ctrl++" ) );
   ui.action_Remove_tag->setShortcut( QKeySequence( "Ctrl+-" ) );
@@ -457,6 +458,8 @@ void EditingWindow::doUiSetup()
            this, SLOT( doViewCategories() ) );
   connect( ui.action_Show_Excerpt_window, SIGNAL( triggered( bool ) ),
            this, SLOT( doViewExcerpt() ) );
+  connect( ui.actionKeyword_tags, SIGNAL( triggered( bool ) ),
+           this, SLOT( doViewKeywordTags() ) );
   connect( ui.actionTechnorati_tags, SIGNAL( triggered( bool ) ),
            this, SLOT( doViewTechTags() ) );
   connect( ui.actionTrackback_pings, SIGNAL( triggered( bool ) ),
@@ -494,12 +497,19 @@ void EditingWindow::doUiSetup()
            this, SLOT( changeOtherCatsHeading() ) );
   cw.cbBlogSelector->setMaxVisibleItems( 10 );
   cw.cbMainCat->setMaxVisibleItems( 10 );
+  cw.lwKeywordTags->addAction( ui.actionAdd_Keyword_tag );
+  cw.lwKeywordTags->addAction( ui.actionRemove_Keyword_tag );
   cw.lwTags->addAction( ui.actionAdd_tag );
   cw.lwTags->addAction( ui.actionAdd_tag_from_clipboard );
   cw.lwTags->addAction( ui.action_Remove_tag );
   cw.lwTBPings->addAction( ui.actionAdd_trackback_ping );
   cw.lwTBPings->addAction( ui.actionAdd_ping_from_clip_board );
   cw.lwTBPings->addAction( ui.actionRe_move_ping );
+
+  connect( cw.leAddKeywordTag, SIGNAL( returnPressed() ),
+           this, SLOT( addKeywordTagFromLineEdit() ) );
+  connect( cw.tbAddKeywordTag, SIGNAL( clicked( bool ) ),
+           this, SLOT( addKeywordTagFromLineEdit() ) );
 
 #ifdef Q_WS_MAC
   cw.lwOtherCats->setWhatsThis( tr( "Secondary categories, if your blog system supports "
@@ -1041,7 +1051,7 @@ void EditingWindow::readSettings()
     setNetworkActionsEnabled( false );
   }
 
-  cw.page_3->setEnabled( true );
+  cw.categoryPage->setEnabled( true );
   cw.chComments->setEnabled( true );
   cw.chTB->setEnabled( true );
 #if QT_VERSION >= 0x040200
@@ -1664,7 +1674,7 @@ void EditingWindow::getPreferences( const QString &title )
       server = "";
       location = "";
     } else
-      cw.page_3->setEnabled( true );
+      cw.categoryPage->setEnabled( true );
 
     handleEnableCategories();
 
@@ -2796,7 +2806,7 @@ void EditingWindow::newMTPost()
   QDomDocument doc;
   QDomElement methodCall, params, param, member, value, integer,
               string, rpcstruct, rpcarray, actualValue;
-  QString description, extEntry, techTagString, convertedString;
+  QString description, extEntry, techTagString, convertedString, keywordTagList;
   bool takeComms = cw.chComments->isChecked();
   bool takeTB = cw.chTB->isChecked();
   bool blogidIsInt;
@@ -2885,7 +2895,15 @@ void EditingWindow::newMTPost()
                                         cw.teExcerpt->toPlainText().replace( QChar( '&' ), "&amp;" ) ) );
     else
       rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string", "" ) );
-    rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", "" ) );
+    if( !cw.lwKeywordTags->count() )
+      rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", "" ) );
+    else {
+      for( count = 0; count < cw.lwKeywordTags->count(); count++ ) {
+        keywordTagList.append( cw.lwKeywordTags->item( count )->text() );
+        keywordTagList.append( ';' );
+      }
+      rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", keywordTagList ) );
+    }
 
     if( cw.lwTBPings->count() ) {
       for( count = 0; count < cw.lwTBPings->count(); count++ )
@@ -2955,7 +2973,7 @@ void EditingWindow::submitMTEdit()
 {
   QDomDocument doc;
   QDomElement methodCall, params, param, value, rpcstruct, rpcarray;
-  QString description, extEntry, techTagString, convertedString;
+  QString description, extEntry, techTagString, convertedString, keywordTagList;
   int count, tags;
   bool takeComms = cw.chComments->isChecked();
   bool takeTB = cw.chTB->isChecked();
@@ -3028,12 +3046,22 @@ void EditingWindow::submitMTEdit()
   rpcstruct.appendChild( XmlMember( doc, "mt_allow_pings", "boolean",
                                     takeTB ? "1" : "0" ) );
   rpcstruct.appendChild( XmlMember( doc, "mt_text_more", "string", extEntry ) );
+
   if( cw.teExcerpt->toPlainText().length() )
     rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string",
                                       cw.teExcerpt->toPlainText().replace( QChar( '&' ), "&amp;" ) ) );
   else
     rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string", "" ) );
-  rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", "" ) );
+
+  if( !cw.lwKeywordTags->count() )
+    rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", "" ) );
+  else {
+    for( count = 0; count < cw.lwKeywordTags->count(); count++ ) {
+      keywordTagList.append( cw.lwKeywordTags->item( count )->text() );
+      keywordTagList.append( ';' );
+    }
+    rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", keywordTagList ) );
+  }
 
   if( cw.lwTBPings->count() ) {
     for( count = 0; count < cw.lwTBPings->count(); count++ )
@@ -4102,14 +4130,19 @@ void EditingWindow::doViewExcerpt()
   cw.teExcerpt->setFocus();
 }
 
-void EditingWindow::doViewTechTags()
+void EditingWindow::doViewKeywordTags()
 {
   cw.cbPageSelector->setCurrentIndex( 3 );
 }
 
-void EditingWindow::doViewTBPings()
+void EditingWindow::doViewTechTags()
 {
   cw.cbPageSelector->setCurrentIndex( 4 );
+}
+
+void EditingWindow::doViewTBPings()
+{
+  cw.cbPageSelector->setCurrentIndex( 5 );
 }
 
 // This slot is to refresh categories automatically if there are none when the user
@@ -4143,9 +4176,39 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
   }
 }
 
-void EditingWindow::addTechTag()
+void EditingWindow::addKeywordTag()
 {
   cw.cbPageSelector->setCurrentIndex( 3 );
+  cw.leAddKeywordTag->setFocus();
+}
+
+void EditingWindow::addKeywordTagFromLineEdit()
+{
+  QString text( cw.leAddKeywordTag->text() );
+
+  if( !text.isEmpty() ) {
+    text.remove( QRegExp( "^\"" ) );
+    text.remove( QRegExp( "\"$" ) );
+
+    cw.lwKeywordTags->addItem( text );
+    cw.leAddKeywordTag->clear();
+
+    if( !isWindowModified() )
+      dirtify();
+  }
+}
+
+void EditingWindow::removeKeywordTag()
+{
+  int c = cw.lwKeywordTags->currentRow();
+  cw.lwKeywordTags->takeItem( c );
+  if( !isWindowModified() )
+    dirtify();
+}
+
+void EditingWindow::addTechTag()
+{
+  cw.cbPageSelector->setCurrentIndex( 4 );
   cw.leAddTag->setFocus();
 }
 
@@ -4156,7 +4219,7 @@ void EditingWindow::addClipTag()
                               this );
   QString tagText = QApplication::clipboard()->text();
 
-  cw.cbPageSelector->setCurrentIndex( 3 );
+  cw.cbPageSelector->setCurrentIndex( 4 );
   addToConsole( QString( "Validating %1" ).arg( tagText ) );
   if( tagFormat.validate( tagText, l ) != QValidator::Acceptable ) {
     statusBar()->showMessage( tr( "This is not a valid tag." ), 2000 );
@@ -4199,7 +4262,7 @@ void EditingWindow::addTechTagFromAddButton()
 
 void EditingWindow::addTBPing()
 {
-  cw.cbPageSelector->setCurrentIndex( 4 );
+  cw.cbPageSelector->setCurrentIndex( 5 );
   cw.leTBPingURL->setFocus();
 }
 

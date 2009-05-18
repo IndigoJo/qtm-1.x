@@ -190,6 +190,8 @@ class EditingWindow : public QMainWindow
     QString title;
     } recentFile; */
   QAction *recentFileActions[10];
+  QAction *removeWPTag_forList;
+  QAction *addWPTag_forList;
   QList<Application::recentFile> recentFiles;
 #ifdef USE_SYSTRAYICON
   SysTrayIcon *sti;

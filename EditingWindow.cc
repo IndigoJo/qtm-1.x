@@ -460,6 +460,10 @@ void EditingWindow::doUiSetup()
            this, SLOT( doViewExcerpt() ) );
   connect( ui.actionKeyword_tags, SIGNAL( triggered( bool ) ),
            this, SLOT( doViewKeywordTags() ) );
+  connect( ui.actionAdd_Keyword_tag, SIGNAL( triggered( bool ) ),
+           this, SLOT( addKeywordTag() ) );
+  connect( ui.actionRemove_Keyword_tag, SIGNAL( triggered( bool ) ),
+           this, SLOT( removeKeywordTag() ) );
   connect( ui.actionTechnorati_tags, SIGNAL( triggered( bool ) ),
            this, SLOT( doViewTechTags() ) );
   connect( ui.actionTrackback_pings, SIGNAL( triggered( bool ) ),
@@ -497,14 +501,21 @@ void EditingWindow::doUiSetup()
            this, SLOT( changeOtherCatsHeading() ) );
   cw.cbBlogSelector->setMaxVisibleItems( 10 );
   cw.cbMainCat->setMaxVisibleItems( 10 );
-  cw.lwKeywordTags->addAction( ui.actionAdd_Keyword_tag );
-  cw.lwKeywordTags->addAction( ui.actionRemove_Keyword_tag );
   cw.lwTags->addAction( ui.actionAdd_tag );
   cw.lwTags->addAction( ui.actionAdd_tag_from_clipboard );
   cw.lwTags->addAction( ui.action_Remove_tag );
   cw.lwTBPings->addAction( ui.actionAdd_trackback_ping );
   cw.lwTBPings->addAction( ui.actionAdd_ping_from_clip_board );
   cw.lwTBPings->addAction( ui.actionRe_move_ping );
+
+  addWPTag_forList = new QAction( tr( "Add tag" ), 0 );
+  removeWPTag_forList = new QAction( tr( "Remove this tag" ), 0 );
+  connect( addWPTag_forList, SIGNAL( triggered( bool ) ),
+           this, SLOT( addKeywordTag() ) );
+  connect( removeWPTag_forList, SIGNAL( triggered( bool ) ),
+           this, SLOT( removeKeywordTag() ) );
+  cw.lwKeywordTags->addAction( removeWPTag_forList );
+  cw.lwKeywordTags->addAction( addWPTag_forList );
 
   connect( cw.leAddKeywordTag, SIGNAL( returnPressed() ),
            this, SLOT( addKeywordTagFromLineEdit() ) );
@@ -2900,7 +2911,8 @@ void EditingWindow::newMTPost()
     else {
       for( count = 0; count < cw.lwKeywordTags->count(); count++ ) {
         keywordTagList.append( cw.lwKeywordTags->item( count )->text() );
-        keywordTagList.append( ';' );
+        if( count != cw.lwKeywordTags->count() - 1 )
+          keywordTagList.append( ", " );
       }
       rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", keywordTagList ) );
     }
@@ -3058,7 +3070,8 @@ void EditingWindow::submitMTEdit()
   else {
     for( count = 0; count < cw.lwKeywordTags->count(); count++ ) {
       keywordTagList.append( cw.lwKeywordTags->item( count )->text() );
-      keywordTagList.append( ';' );
+      if( count != cw.lwKeywordTags->count() - 1 )
+        keywordTagList.append( ", " );
     }
     rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", keywordTagList ) );
   }

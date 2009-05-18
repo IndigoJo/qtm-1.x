@@ -3398,13 +3398,22 @@ void EditingWindow::save( const QString &fname, bool exp )
       .arg( cw.cbBlogSelector->itemText( cw.cbBlogSelector->currentIndex() ) );
   }
   tags = cw.lwTags->count();
-	if( tags ) {
-		out << "Tags:";
-		for( count = 0; count < tags; count++ ) {
-			out << QString( count ? ";%1" : "%1" )
-				.arg( cw.lwTags->item( count )->text().replace( ' ', '+' ) );
-		}
-		out << "\n";
+  if( tags ) {
+    out << "Tags:";
+    for( count = 0; count < tags; count++ ) {
+      out << QString( count ? ";%1" : "%1" )
+        .arg( cw.lwTags->item( count )->text().replace( ' ', '+' ) );
+    }
+    out << "\n";
+  }
+  tags = cw.lwKeywordTags->count();
+  if( tags ) {
+    out << "Keywords:";
+    for( count = 0; count < tags; count++ ) {
+      out << QString( count ? ",%1" : "%1" )
+        .arg( cw.lwKeywordTags->item( count )->text() );
+    }
+    out << "\n";
   }
 
   if( !cw.chNoCats->isChecked() ) {
@@ -3516,7 +3525,7 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
   Ui::dPassword pui;
   addToConsole( "Starting load" );
   QMap<QString, QString> emap;
-  QString currentLine, key, value, fetchedText, tags;
+  QString currentLine, key, value, fetchedText, tags, keywords;
   QStringList otherCatStringList;
   QDomNodeList accts;
   bool getDetailsAgain = false;
@@ -3621,6 +3630,16 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
         cw.lwTags->addItem( tags.section( QChar( ';' ), c, c ) );
     } else
       cw.lwTags->addItem( tags );
+  }
+
+  if( emap.contains( "Keywords" ) ) {
+    keywords = emap.value( "Keywords" );
+    d = keywords.count( QChar( ',' ) );
+    if( d ) {
+      for( c = 0; c <= d; c++ )
+        cw.lwKeywordTags->addItem( keywords.section( QChar( ',' ), c, c ) );
+    } else
+      cw.lwKeywordTags->addItem( keywords );
   }
 
   if( emap.contains( "Blog" ) ) {

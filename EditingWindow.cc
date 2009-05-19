@@ -2052,7 +2052,7 @@ void EditingWindow::changeBlog( int b ) // slot
 
     currentBlogElement = currentAccountElement.elementsByTagName( "blog" ).at( currentBlog ).toElement();
     currentBlogid = currentBlogElement.firstChildElement( "blogid" ).text();
-    qDebug() << currentBlogid;
+    // qDebug() << currentBlogid;
 
     QDomElement catsElement = currentBlogElement.firstChildElement( "categories" );
     if( !catsElement.isNull() ) {
@@ -2195,6 +2195,7 @@ void EditingWindow::metaWeblog_newPost( QByteArray response )
     statusBar()->showMessage( tr( "The submission returned a fault - see console." ), 2000 );
     if( QApplication::overrideCursor() )
       QApplication::restoreOverrideCursor();
+    QTimer::singleShot( 1000, this, SLOT( hideProgressBar() ) );
   }
   else {
     QString parsedData( response );
@@ -2223,6 +2224,7 @@ void EditingWindow::metaWeblog_editPost( QByteArray response )
 
   if( response.contains( "<fault>" ) ) {
     statusBar()->showMessage( tr( "The submission returned a fault - see console." ), 2000 );
+    QTimer::singleShot( 1000, this, SLOT( hideProgressBar() ) );
   }
   else {
     connect( this, SIGNAL( httpBusinessFinished() ),
@@ -2407,8 +2409,10 @@ void EditingWindow::mt_setPostCategories( QByteArray response )
   QList<QString> parsedData;
   QString rdata( response );
 
-  if( rdata.contains( "<fault>" ) )
+  if( rdata.contains( "<fault>" ) ) {
     statusBar()->showMessage( tr( "Categories not set successfully; see console." ), 2000 );
+    QTimer::singleShot( 1000, this, SLOT( hideProgressBar() ) );
+  }
   else {
     statusBar()->showMessage( tr( "Categories set successfully." ), 2000 );
 
@@ -2619,7 +2623,7 @@ void EditingWindow::tidyPaste()
 {
   QString pastedText = QApplication::clipboard()->text();
   pastedText.replace( QRegExp( " {2,}" ), " " );
-  pastedText.replace( QRegExp( "\n{1}" ), " " );
+  pastedText.replace( QRegExp( " *\n{1} *" ), " " );
   EDITOR->insertPlainText( pastedText );
 }
 

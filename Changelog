@@ -1,5 +1,17 @@
 Changelog:
 
+0.7.5
+
+User interface: Pressing Esc closes the search widget
+User interface: Progress bar, which monitors progress of posting operations
+(only, at the moment)
+New feature: Save all
+Build system: New "confclean" target
+Bug fix: About box didn't display version number when invoked from the Mac
+supermenu
+Bug fix: In Tidy Paste, replace single newlines with single spaces rather
+than just removing them
+
 0.7.4.1 (25th April 2009):
 
 Bug fix: Removed ampersands from commands in the desktop entry spec files,

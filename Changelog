@@ -2,6 +2,7 @@ Changelog:
 
 0.7.5
 
+New feature: Support for Wordpress-style tags
 User interface: Pressing Esc closes the search widget
 User interface: Progress bar, which monitors progress of posting operations
 (only, at the moment)

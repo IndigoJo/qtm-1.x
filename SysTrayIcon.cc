@@ -423,10 +423,17 @@ void SysTrayIcon::quickpost( QClipboard::Mode mode )
 
   cbtext = QApplication::clipboard()->text( mode );
 
-  if( cbtext == "" )
+  if( cbtext == "" ) {
+#ifdef Q_WS_MAC
+    QMessageBox::warning( 0, tr( "No selection! - QTM" ),
+                          tr( "No web location specified to blog about." ),
+                          QMessageBox::Cancel );
+#else
     showMessage( tr( "No selection!" ),
                  tr( "No web location specified to blog about." ),
                  QSystemTrayIcon::Warning );
+#endif
+  }
   else {
     if( !cbtext.startsWith( "http://" )
 #if QT_VERSION >= 0x040300 && !defined DONT_USE_SSL
@@ -436,11 +443,12 @@ void SysTrayIcon::quickpost( QClipboard::Mode mode )
 
       // If it's not obviously an URL.
       if( cbtext.startsWith( "https" ) ) {
-        if( supportsMessages() )
+#ifndef Q_WS_MAC
           showMessage( tr( "Error" ), tr( "This version of QTM does not support HTTPS." ) );
-        else
+#else
           QMessageBox::information( 0, tr( "Quickpost Error" ),
                                     tr( "This version of QTM does not support HTTPS." ) );
+#endif
       }
       doQP( "" );
     }
@@ -449,10 +457,17 @@ void SysTrayIcon::quickpost( QClipboard::Mode mode )
         if( cbtext.contains( QChar( ' ' ) ) ) {
           doQP( "" );
         }
-        else
+        else {
+#ifdef Q_WS_MAC
+          QMessageBox::warning( 0, tr( "Invalid web location" ),
+                                tr( "Quick Post requires valid web location." ),
+                                QMessageBox::Cancel );
+#else
           showMessage( tr( "Invalid web location" ),
                        tr( "Quick Post requires valid web location." ),
                        QSystemTrayIcon::Warning );
+#endif
+        }
       }
       else {
         // Otherwise, it's an URL, and has to be downloaded to extract the title.
@@ -534,9 +549,15 @@ void SysTrayIcon::quickpostFromTemplate( int id, QString templateString, QString
   }
 
   if( !QUrl( cbtext, QUrl::StrictMode ).isValid() ) {
+#ifdef Q_WS_MAC
+    QMessageBox::warning( 0, tr( "No selection!" ),
+                          tr( "The selection is not a web location, or is invalid." ),
+                          QMessageBox::Cancel );
+#else
     showMessage( tr( "No selection!" ),
                  tr( "The selection is not a web location, or is invalid." ),
                  QSystemTrayIcon::Warning );
+#endif
   }
   else {
     if( !httpBusy ) {
@@ -606,11 +627,19 @@ void SysTrayIcon::handleHostLookupFailed()
   abortAction->setEnabled( false );
   httpBusy = false;
   http->abort();
+#ifdef Q_WS_MAC
+  QMessageBox::warning( 0, tr( "Cannot find page" ),
+                        tr( "QTM cannot find the resource you specified.\n"
+                            "Check that it is spelled right and that your "
+                            "network is working." ),
+                        QMessageBox::Cancel );
+#else
   showMessage( tr( "Cannot find page" ),
                tr( "QTM cannot find the resource you specified.\n"
                    "Check that it is spelled right and that your "
                    "network is working." ),
                QSystemTrayIcon::Warning );
+#endif
 }
 
 void SysTrayIcon::handleDone( bool error )
@@ -635,8 +664,14 @@ void SysTrayIcon::handleDone( bool error )
       case QHttp::UnknownError:
         errorString = tr( "Document was not received correctly." ); break;
     }
-    if( httpError != QHttp::Aborted )
+    if( httpError != QHttp::Aborted ) {
+#ifdef Q_WS_MAC
+      QMessageBox::warning( 0, tr( "Quickpost Error" ),
+                            errorString, QMessageBox::Cancel );
+#else
       showMessage( tr( "Quickpost Error" ), errorString, QSystemTrayIcon::Warning );
+#endif
+    }
   }
   else {
     doQP( QString( responseData ) );
@@ -653,10 +688,17 @@ void SysTrayIcon::handleDone( bool error )
 void SysTrayIcon::handleResponseHeader( const QHttpResponseHeader &header ) // slot
 {
   if( header.statusCode() == 404 ) {
+#ifdef Q_WS_MAC
+    QMessageBox::warning( 0, tr( "Error 404" ),
+                          tr( "The file or entry you specified could not be\n"
+                              "found." ),
+                          QMessageBox::Cancel );
+#else
     showMessage( tr( "Error 404" ),
                  tr( "The file or entry you specified could not be\n"
                      "found." ),
                  QSystemTrayIcon::Warning );
+#endif
     http->disconnect();
     http->abort();
     abortAction->setEnabled( false );
@@ -987,8 +1029,14 @@ void SysTrayIcon::configureQuickpostTemplates( QWidget *parent )
       templateFile->close();
     }
     else
+#ifdef Q_WS_MAC
+      QMessageBox::warning( 0, tr( "Error" ),
+                            tr( "Could not write to templates file" ),
+                            QMessageBox::Cancel );
+#else
       showMessage( tr( "Error" ),
                    tr( "Could not write to templates file" ), Warning );
+#endif
     emit quickpostTemplateTitlesUpdated( templateTitles() );
     emit quickpostTemplatesUpdated( templates() );
     templateFile->deleteLater();

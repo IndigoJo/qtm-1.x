@@ -46,9 +46,12 @@ class QuickpostTemplate;
 
 #ifdef Q_WS_MAC
 extern void qt_mac_set_dock_menu( QMenu * );
+#define STI_SUPERCLASS QObject
+#else
+#define STI_SUPERCLASS QSystemTrayIcon
 #endif
 
-class SysTrayIcon : public QSystemTrayIcon
+class SysTrayIcon : public STI_SUPERCLASS
 {
 Q_OBJECT
 

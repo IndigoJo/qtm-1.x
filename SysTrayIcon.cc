@@ -28,7 +28,10 @@
 #if QT_VERSION >= 0x040200
 #ifdef USE_SYSTRAYICON
 
+#ifdef Q_WS_MAC
 #include <QSystemTrayIcon>
+#endif
+
 #include <QMenu>
 #include <QAction>
 #include <QSettings>
@@ -75,7 +78,7 @@
 #include "qtm_version.h"
 
   SysTrayIcon::SysTrayIcon( bool noWindow, QObject *parent )
-: QSystemTrayIcon( parent )
+: STI_SUPERCLASS( parent )
 {
   bool newWindow;
   bool noNewWindow = false;

@@ -147,9 +147,10 @@
 #endif
   // quitAction->setMenuRole( QAction::QuitRole );
   menu->setObjectName( "iconMenu" );
-  setContextMenu( menu );
 #ifdef Q_WS_MAC
   qt_mac_set_dock_menu( menu );
+#else
+  setContextMenu( menu );
 #endif
   //show();
 
@@ -540,12 +541,13 @@ void SysTrayIcon::quickpostFromTemplate( int id, QString templateString, QString
     cbtext = t;
 
   if( cbtext.startsWith( "https://" ) ) {
-    if( supportsMessages() )
+#ifndef Q_WS_MAC
       showMessage( tr( "Error" ),
                    tr( "This version of QTM does not support HTTPS." ) );
-    else
+#else
       QMessageBox::information( 0, tr( "Quickpost Error" ),
                                 tr( "This version of QTM does not support HTTPS." ) );
+#endif
   }
 
   if( !QUrl( cbtext, QUrl::StrictMode ).isValid() ) {

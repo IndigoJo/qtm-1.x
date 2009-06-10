@@ -278,8 +278,6 @@ void EditingWindow::doUiSetup()
   ui.actionPrint->setEnabled( false );    // implemented
   ui.actionClose_and_Delete->setEnabled( false );
 
-  connect( ui.actionAbout_Qt, SIGNAL( triggered( bool ) ),
-           qApp, SLOT( aboutQt() ) );
   connect( ui.action_About, SIGNAL( triggered( bool ) ),
            this, SLOT( about() ) );
   connect( ui.actionE_xit, SIGNAL( triggered( bool ) ),
@@ -724,6 +722,7 @@ void EditingWindow::about() // slot
   Ui::AboutBox abui;
   abui.setupUi( &about_box );
   abui.label->setText( abui.label->text().replace( "(VERSION)", QTM_VERSION ) );
+  abui.label->setText( abui.label->text().replace( "(QT_VERSION)", QT_VERSION_STR ) );
   about_box.exec();
 }
 

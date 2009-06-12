@@ -220,7 +220,7 @@ class EditingWindow : public QMainWindow
   void changeCurrentBlog( int );
   void changeAccount( int );
   void extractAccountDetails();
-  void changeBlog( int );
+  void changeBlog( int, bool fromChangeAccount = false );
   void handleConsole( bool );
   void makeBold();
   void makeItalic();

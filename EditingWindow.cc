@@ -2015,7 +2015,7 @@ void EditingWindow::changeAccount( int a ) // slot
           cw.cbBlogSelector->addItem( blogsList.at( i ).firstChildElement( "blogName" ).text(),
                                       blogsList.at( i ).firstChildElement( "blogid" ).text() );
         cw.cbBlogSelector->setEnabled( true );
-        changeBlog( 0 );
+        changeBlog( 0, true );
         currentBlogid = cw.cbBlogSelector->itemData( 0 ).toString();
         cw.cbBlogSelector->disconnect( this, SLOT( changeBlog( int ) ) ); // eliminate duplicate connections
         connect( cw.cbBlogSelector, SIGNAL( activated( int ) ),
@@ -2043,12 +2043,13 @@ void EditingWindow::extractAccountDetails() // slot
   currentAccountId = currentAccountElement.attribute( "id" );
 }
 
-void EditingWindow::changeBlog( int b ) // slot
+void EditingWindow::changeBlog( int b, bool fromChangeAccount ) // slot
 {
   QString currentCategoryText;
-  // qDebug() << "Starting changeblog" << b;
+  //qDebug() << "Starting changeblog" << b;
 
-  if( currentBlog != b ) {
+  if( currentBlog != b || fromChangeAccount ) {
+    //qDebug() << "changing the blog anyway";
     currentBlog = b;
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
@@ -2062,9 +2063,9 @@ void EditingWindow::changeBlog( int b ) // slot
       QDomNodeList catsList = catsElement.elementsByTagName( "category" );
       int c = catsList.count();
       if( c ) {
-#ifndef NO_DEBUG_OUTPUT
+//#ifndef NO_DEBUG_OUTPUT
         // qDebug() << "Categories: " << c;
-#endif
+//#endif
         cw.cbMainCat->clear();
         cw.lwOtherCats->clear();
         for( int i = 0; i < c; i++ ) {
@@ -3136,7 +3137,7 @@ void EditingWindow::submitMTEdit()
 
 void EditingWindow::updatePostCategories()
 {
-  if( entryBlogged )
+  if( !entryNumber.isEmpty() )
     setPostCategories();
   else
     statusBar()->showMessage( tr( "This entry has not been posted yet." ), 2000 );

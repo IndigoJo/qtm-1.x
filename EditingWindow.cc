@@ -2217,7 +2217,7 @@ void EditingWindow::metaWeblog_newPost( QByteArray response )
     }
   }
 
-  addToConsole( response );
+  addToConsole( QString( "Entry number: %1\n" ).arg( entryNumber ) );
   entryBlogged = true;
 }
 

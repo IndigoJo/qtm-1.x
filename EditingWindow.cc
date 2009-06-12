@@ -85,11 +85,15 @@
 #endif
 
 #include "XmlRpcHandler.h"
-#include "SafeHttp.h"
 #include "Application.h"
 #include "EditingWindow.h"
 #ifdef USE_SYSTRAYICON
 #include "SysTrayIcon.h"
+#endif
+#ifdef USE_SAFEHTTP
+#include "SafeHttp.h"
+#else
+#include <QHttp>
 #endif
 
 #ifdef Q_WS_MAC
@@ -271,7 +275,7 @@ void EditingWindow::doUiSetup()
   ui.setupUi( this );
   currentHttpBusiness = 0;
   entryBlogged = false;
-  http = new SafeHttp;
+  http = new _HTTP;
 
   // Setup main signals and slots
 

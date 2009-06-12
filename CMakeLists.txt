@@ -171,6 +171,12 @@ else( USE_DBUS )
   cmake_minimum_required(VERSION 2.4.0)
 endif( USE_DBUS )
 
+if( USE_SAFEHTTP )
+  set( SAFEHTTP_CC SafeHttp.cc )
+  set( SAFEHTTP_H  SafeHttp.h )
+  add_definitions( -DUSE_SAFEHTTP )
+endif( USE_SAFEHTTP )
+
 set(QTM_SRCS
     AccountsDialog.cc
     Application.cc
@@ -181,7 +187,7 @@ set(QTM_SRCS
     QijSearchWidget.cc
     ${QUICKPOSTTEMPLATE_CC}
     ${QUICKPOSTTEMPLATEDIALOG_CC}
-    SafeHttp.cc
+    ${SAFEHTTP_CC}
     ${SUPERMENU_CC}
     ${SYSTRAYICON_CC}
     ${DBUSADAPTOR_CC}
@@ -197,7 +203,7 @@ set(QTM_MOC_HDRS
     QijSearchWidget.h
     ${QUICKPOSTTEMPLATE_H}
     ${QUICKPOSTTEMPLATEDIALOG_H}
-    SafeHttp.h
+    ${SAFEHTTP_H}
     ${SUPERMENU_H}
     ${SYSTRAYICON_H}
     ${DBUSADAPTOR_H}

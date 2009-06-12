@@ -58,11 +58,16 @@
 #endif
 
 #include "Application.h"
-#include "SafeHttp.h"
 #include "SysTrayIcon.h"
 #include "EditingWindow.h"
 #include "QuickpostTemplate.h"
 #include "QuickpostTemplateDialog.h"
+
+#ifdef USE_SAFEHTTP
+#include "SafeHttp.h"
+#else
+#include <QHttp>
+#endif
 
 //#include "ui_QuickpostTemplateForm.h"
 
@@ -188,7 +193,7 @@
     c->activateWindow();
   }
   //cbtextIsURL = Untested;
-  http = new SafeHttp;
+  http = new _HTTP;
   httpBusy = false;
   templateQPActive = false;
   activeTemplate = -1;

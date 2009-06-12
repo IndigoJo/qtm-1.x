@@ -1,7 +1,7 @@
 /*********************************************************************************
 
     SysTrayIcon.h - Header file for QTM system tray icon
-    Copyright (C) 2006, 2007, 2008 Matthew J Smith
+    Copyright (C) 2006-2009 Matthew J Smith
 
     This file is part of QTM.
 
@@ -40,9 +40,16 @@
 #include "Application.h"
 class QMenu;
 class QAction;
-class SafeHttp;
 class QHttpResponseHeader;
 class QuickpostTemplate;
+
+#ifdef USE_SAFEHTTP
+class SafeHttp;
+#define _HTTP SafeHttp
+#else
+class QHttp;
+#define _HTTP QHttp
+#endif
 
 #ifdef Q_WS_MAC
 extern void qt_mac_set_dock_menu( QMenu * );
@@ -105,7 +112,7 @@ private:
   QMenu *menu;
   QMenu *templateMenu;
   bool _newWindowAtStartup;
-  SafeHttp *http;
+  _HTTP *http;
   QByteArray responseData;
   QString cbtext;
   // bool cbtextIsURL;

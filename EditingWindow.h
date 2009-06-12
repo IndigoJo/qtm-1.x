@@ -53,7 +53,7 @@ class QAction;
 class QResizeEvent;
 class QComboBox;
 //class QHttp;
-class SafeHttp;
+//class SafeHttp;
 class QHttpResponseHeader;
 class QTextEdit;
 class QHBoxLayout;
@@ -61,6 +61,14 @@ class QRegExpValidator;
 class QHostInfo;
 class QSystemTrayIcon;
 class QMenu;
+
+#if defined USE_SAFEHTTP
+class SafeHttp;
+#define _HTTP SafeHttp
+#else
+class QHttp;
+#define _HTTP QHttp
+#endif
 
 using namespace Ui;
 
@@ -318,7 +326,7 @@ class EditingWindow : public QMainWindow
   QPushButton *previewButton;
   QPushButton *blogThisButton;
   QAction *blogThisIntlAction;
-  SafeHttp *http;
+  _HTTP *http;
   TEXTEDIT *console;
   TEXTEDIT *ed;
   QVBoxLayout *mainWindowLayoutWithSearch;

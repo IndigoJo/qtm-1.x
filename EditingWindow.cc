@@ -2820,8 +2820,6 @@ void EditingWindow::showHighlightedURL( const QString &highlightedURL )
 
 void EditingWindow::newMTPost()
 {
-  // For the time being we are presuming that this is a MT or Wordpress blog.
-
   QDomDocument doc;
   QDomElement methodCall, params, param, member, value, integer,
               string, rpcstruct, rpcarray, actualValue;
@@ -3149,9 +3147,9 @@ void EditingWindow::setPostCategories()
   QString secCatId, secCatName;
   QDomElement cat;
 
-#ifndef NO_DEBUG_OUTPUT
-  // qDebug() << "starting to post categories";
-#endif
+//#ifndef NO_DEBUG_OUTPUT
+  qDebug() << "starting to post categories";
+//#endif
   if( categoriesEnabled ) {
     if( !currentHttpBusiness ) {
       QDomElement methodCall = doc.createElement( "methodCall" );

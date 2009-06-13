@@ -1976,7 +1976,6 @@ void EditingWindow::changeCurrentBlog( int b ) // slot
 void EditingWindow::changeAccount( int a ) // slot
 {
   QString currentBlogText;
-  int i;
 
   if( currentAccount != a ) {
     currentAccount = a;
@@ -1992,21 +1991,11 @@ void EditingWindow::changeAccount( int a ) // slot
       .firstChildElement( "title" ).text();
 */
     QStringList accountStringNames( accountStrings.keys() );
-    QStringList accountAttribNames( accountAttributes.keys() );
-    QDomNodeList attribNodes = currentAccountElement.firstChildElement( "details" )
-      .elementsByTagName( "attribute" );
-
     Q_FOREACH( QString s, accountStringNames )
       *(accountStrings[s]) = currentAccountElement.firstChildElement( "details" )
       .firstChildElement( s ).text();
 
-    Q_FOREACH( QString t, accountAttribNames ) {
-      *(accountAttributes[t]) = false;
-      for( i = 0; i < attribNodes.count(); i++ ) {
-        if( attribNodes.at( i ).toElement().attribute( "name" ) == t )
-          *(accountAttributes[t]) = true;
-      }
-    }
+    extractAccountAttributes();
 
     QDomElement blogsElement = currentAccountElement.firstChildElement( "blogs" );
     if( !blogsElement.isNull() ) {
@@ -2045,7 +2034,28 @@ void EditingWindow::extractAccountDetails() // slot
   login = caDetails.firstChildElement( "login" ).text();
   password = caDetails.firstChildElement( "password" ).text();
   currentAccountId = currentAccountElement.attribute( "id" );
+
+  extractAccountAttributes();
 }
+
+void EditingWindow::extractAccountAttributes()
+{
+  QStringList accountAttribNames( accountAttributes.keys() );
+  QDomNodeList attribNodes = currentAccountElement.firstChildElement( "details" )
+                             .elementsByTagName( "attribute" );
+
+  Q_FOREACH( QString t, accountAttribNames ) {
+    *(accountAttributes[t]) = false;
+    for( int i = 0; i < attribNodes.count(); i++ ) {
+      if( attribNodes.at( i ).toElement().attribute( "name" ) == t )
+        *(accountAttributes[t]) = true;
+    }
+  }
+
+  cw.chComments->setCheckState( allowComments ? Qt::Checked : Qt::Unchecked );
+  cw.chTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
+}
+
 
 void EditingWindow::changeBlog( int b, bool fromChangeAccount ) // slot
 {

@@ -142,6 +142,7 @@ class EditingWindow : public QMainWindow
   void updateRecentFileList( const QString &, const QString & );
   void updateRecentFileMenu();
   void saveAccountsDom();
+  void extractAccountAttributes();
 
   int currentAccount, currentBlog, loadedEntryBlog;
   QString loadedAccountId;

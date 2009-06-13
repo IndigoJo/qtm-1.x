@@ -3260,6 +3260,7 @@ void EditingWindow::setPostCategories()
   else {
     // An override cursor might have been set when posting an entry in a
     // non-category-enabled blog
+    qDebug() << "categories not enabled";
     if( QApplication::overrideCursor() != 0 )
       QApplication::restoreOverrideCursor();
   }

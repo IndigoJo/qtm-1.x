@@ -534,7 +534,7 @@ void AccountsDialog::on_chPostDateTime_clicked( bool )
 
 void AccountsDialog::on_chComments_clicked( bool )
 {
-  if( currentRow != 1 )
+  if( currentRow != -1 )
     accountList[currentRow].comments = chComments->isChecked();
 }
 

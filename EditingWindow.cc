@@ -2987,7 +2987,9 @@ void EditingWindow::newMTPost()
     else
       progressBar->setMaximum( 4 );
     progressBar->setValue( 1 );
+#ifndef Q_WS_MAC
     progressBarAction->setVisible( true );
+#endif
   }
   else {
     if( currentHttpBusiness ) {
@@ -3138,7 +3140,9 @@ void EditingWindow::submitMTEdit()
   else
     progressBar->setMaximum( 4 );
   progressBar->setValue( 1 );
+#ifndef Q_WS_MAC
   progressBarAction->setVisible( true );
+#endif
 
   currentHttpBusiness = 8; // Processing metaWeblog.editPost request
   connect( http, SIGNAL( done( bool ) ),

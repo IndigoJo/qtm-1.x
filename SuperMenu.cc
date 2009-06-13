@@ -35,6 +35,7 @@
 #include "SuperMenu.h"
 #include "SysTrayIcon.h"
 #include "ui_aboutbox.h"
+#include "qtm_version.h"
 
 SuperMenu::SuperMenu( QWidget *parent, SysTrayIcon *sti )
   : QMenuBar( parent )

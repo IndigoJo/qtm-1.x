@@ -1223,8 +1223,10 @@ void EditingWindow::refreshCategories()
              this, SLOT( handleDone( bool ) ) );
     connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
              this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
     connect( http, SIGNAL( hostLookupFailed() ),
              this, SLOT( handleHostLookupFailed() ) );
+#endif
   }
   else {
 #ifdef QTM_DEBUG
@@ -1899,8 +1901,10 @@ void EditingWindow::refreshBlogList() // slot
            this, SLOT( handleDone( bool ) ) );
   connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
            this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
   connect( http, SIGNAL( hostLookupFailed() ),
            this, SLOT( handleHostLookupFailed() ) );
+#endif
 }
 
 void EditingWindow::handleResponseHeader( const QHttpResponseHeader &header ) // slot
@@ -2963,8 +2967,10 @@ void EditingWindow::newMTPost()
              this, SLOT( handleDone( bool ) ) );
     connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
              this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
     connect( http, SIGNAL( hostLookupFailed() ),
              this, SLOT( handleHostLookupFailed() ) );
+#endif
 
     if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
       progressBar->setMaximum( 6 );
@@ -3129,8 +3135,10 @@ void EditingWindow::submitMTEdit()
            this, SLOT( handleDone( bool ) ) );
   connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
            this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
   connect( http, SIGNAL( hostLookupFailed() ),
            this, SLOT( handleHostLookupFailed() ) );
+#endif
 }
 
 void EditingWindow::updatePostCategories()
@@ -3151,7 +3159,9 @@ void EditingWindow::setPostCategories()
   qDebug() << "starting to post categories";
 //#endif
   if( categoriesEnabled ) {
+    qDebug() << "categories enabled";
     if( !currentHttpBusiness ) {
+      qDebug() << "no biz";
       QDomElement methodCall = doc.createElement( "methodCall" );
       methodCall.appendChild( XmlMethodName( doc, "mt.setPostCategories" ) );
       QDomElement params = doc.createElement( "params" );
@@ -3232,8 +3242,10 @@ void EditingWindow::setPostCategories()
                this, SLOT( handleDone( bool ) ) );
       connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
                this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
       connect( http, SIGNAL( hostLookupFailed() ),
                this, SLOT( handleHostLookupFailed() ) );
+#endif
     }
     else {
 #ifdef QTM_DEBUG
@@ -3293,8 +3305,10 @@ void EditingWindow::publishPost() // slot
              this, SLOT( handleDone( bool ) ) );
     connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
              this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
     connect( http, SIGNAL( hostLookupFailed() ),
              this, SLOT( handleHostLookupFailed() ) );
+#endif
 
   }
   else
@@ -4116,8 +4130,10 @@ void EditingWindow::uploadFile()
                        this, SLOT( handleDone( bool ) ) );
               connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
                        this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
               connect( http, SIGNAL( hostLookupFailed() ),
                        this, SLOT( handleHostLookupFailed() ) );
+#endif
 #ifndef NO_DEBUG_OUTPUT
               // qDebug() << "Posted image.";
 #endif

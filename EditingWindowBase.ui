@@ -26,7 +26,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
@@ -343,12 +343,12 @@
   </action>
   <action name="actionLink_from_C_lipboard">
    <property name="text">
-    <string>Link from C&amp;lipboard</string>
+    <string>Lin&amp;k from Clipboard</string>
    </property>
   </action>
   <action name="actionI_mage">
    <property name="text">
-    <string>I&amp;mage ...</string>
+    <string>&amp;Image ...</string>
    </property>
    <property name="whatsThis">
     <string>Insert an image into the text, the location, alignment and alternate text to be specified now</string>

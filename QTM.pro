@@ -19,7 +19,7 @@ CONFIG += release
 # CMake (http://www.cmake.org/), rather than qmake.
 
 # Input
-HEADERS += catkin.h \
+HEADERS += EditingWindow.h \
            locationlineedit.h \
            PrefsDialog.h \
            QuickpostTemplate.h \
@@ -28,7 +28,7 @@ HEADERS += catkin.h \
            SuperMenu.h \
            SysTrayIcon.h \
            XmlRpcHandler.h \
-		   QijSearchWidget.h \
+           QijSearchWidget.h \
            addimg.xpm \
            addlink.xpm \
            blog-this.xpm \
@@ -47,16 +47,17 @@ HEADERS += catkin.h \
            susesystray.xpm \
            winsystray.xpm
 FORMS += aboutbox.ui \
-         account_form.ui \
-         account_form41.ui \
-         CatkinMainWindow.ui \
+         AccountsForm.ui \
+         PrefsForm.ui \
+         PrefsForm41.ui \
+         EditingWindowBase.ui \
          ImageEntry.ui \
          LinkEntry.ui \
          password-form.ui \
          QuickpostTemplateForm.ui \
          SideWidget.ui \
-		 QijSearchWidget.ui
-SOURCES += catkin.cc \
+         QijSearchWidget.ui
+SOURCES += EditingWindow.cc \
            locationlineedit.cc \
            main.cc \
            PrefsDialog.cc \
@@ -66,9 +67,10 @@ SOURCES += catkin.cc \
            SuperMenu.cc \
            SysTrayIcon.cc \
            XmlRpcHandler.cc \
-		   QijSearchWidget.cc
+           QijSearchWidget.cc
 RESOURCES += qtm.qrc \
-			 QijSearchWidget.qrc
+             QijSearchWidget.qrc
+TRANSLATIONS += qtm_fr.ts
 		  
 RC_FILE += qtm.rc
 

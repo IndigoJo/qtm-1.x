@@ -1,6 +1,6 @@
 Changelog:
 
-0.7.5
+1.0 (14th June 2009):
 
 New feature: Support for Wordpress-style tags
 User interface: Pressing Esc closes the search widget
@@ -13,6 +13,13 @@ supermenu
 Bug fix: In Tidy Paste, replace single newlines with single spaces rather
 than just removing them
 Bug fix: Now fetches the first blog's categories when switching accounts
+Bug fix: Now fetches account attributes (allow comments, etc) when starting
+up (may have fixed bug where categories were not posted)
+Bug fix: Now sets allow comments/trackback boxes in side widget according to
+preferences
+Bug fix: Changed the shortcuts in the Insert menu to make them unique
+Bug fix: Fixed typo which was preventing "allow comments" working in the
+second account in the list
 
 0.7.4.1 (25th April 2009):
 

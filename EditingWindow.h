@@ -157,8 +157,9 @@ class EditingWindow : public QMainWindow
   QString remoteFileLocation;
   QString lastAccountID;
   bool categoriesEnabled, entryBlogged, useNewWindows, savePassword,
-      postAsSave, noPassword, initialChangeBlog, allowComments, allowTB, postDateTime,
-      copyTitle, allowRegexSearch, useTwoNewlines, 
+      postAsSave, noPassword, initialChangeBlog,
+      allowComments, allowTB, postDateTime, copyTitle, useWordpressAPI,
+      allowRegexSearch, useTwoNewlines, 
       useMarkdown, doMarkdownWhenPosting, stripParaTags;
   QHash<QString, bool *> accountAttributes;
   QHash<QString, QString *> accountStrings;
@@ -202,6 +203,7 @@ class EditingWindow : public QMainWindow
   QAction *removeWPTag_forList;
   QAction *addWPTag_forList;
   QList<Application::recentFile> recentFiles;
+  QString checkBoxName( QString );
 #ifdef USE_SYSTRAYICON
   SysTrayIcon *sti;
 #endif

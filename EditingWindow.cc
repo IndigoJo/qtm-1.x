@@ -147,10 +147,10 @@ EditingWindow::EditingWindow( QString newPost, QWidget *parent )
   setEditorColors();
   setTextFonts();
 
-  cw.chComments->setEnabled( true );
-  cw.chComments->setCheckState( allowComments ? Qt::Checked :
+  cw.chAllowComments->setEnabled( true );
+  cw.chAllowComments->setCheckState( allowComments ? Qt::Checked :
                                 Qt::Unchecked );
-  cw.chTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
+  cw.chAllowTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
 
   handleEnableCategories();
 
@@ -655,8 +655,9 @@ void EditingWindow::doUiSetup()
   // Set up hash of entry attributes
   accountAttributes["categoriesEnabled"] = &categoriesEnabled;
   accountAttributes["postDateTime"] = &postDateTime;
-  accountAttributes["comments"] = &allowComments;
-  accountAttributes["trackback"] = &allowTB;
+  accountAttributes["allowComments"] = &allowComments;
+  accountAttributes["allowTB"] = &allowTB;
+  accountAttributes["useWordpressAPI"] = &useWordpressAPI;
 
   accountStrings["server"] = &server;
   accountStrings["location"] = &location;
@@ -1066,8 +1067,8 @@ void EditingWindow::readSettings()
   }
 
   cw.categoryPage->setEnabled( true );
-  cw.chComments->setEnabled( true );
-  cw.chTB->setEnabled( true );
+  cw.chAllowComments->setEnabled( true );
+  cw.chAllowTB->setEnabled( true );
 #if QT_VERSION >= 0x040200
   searchWidget->setExpertEnabled( allowRegexSearch );
 #endif
@@ -1322,8 +1323,8 @@ void EditingWindow::getAccounts( const QString &title )
 
     acct.categoriesEnabled = false;
     acct.postDateTime = false;
-    acct.comments = false;
-    acct.trackback = false;
+    acct.allowComments = false;
+    acct.allowTB = false;
 
     thisAccountsAttribs = accountsList.at( i ).toElement().firstChildElement( "details" )
       .firstChildElement( "attributes" ).elementsByTagName( "attribute" );
@@ -1337,11 +1338,14 @@ void EditingWindow::getAccounts( const QString &title )
     if( thisAccountsAttribStrings.contains( "postDateTime" ) ) {
       acct.postDateTime = true;
     }
-    if( thisAccountsAttribStrings.contains( "comments" ) ) {
-      acct.comments = true;
+    if( thisAccountsAttribStrings.contains( "allowComments" ) ) {
+      acct.allowComments = true;
     }
-    if( thisAccountsAttribStrings.contains( "trackback" ) ) {
-      acct.trackback = true;
+    if( thisAccountsAttribStrings.contains( "allowTB" ) ) {
+      acct.allowTB = true;
+    }
+    if( thisAccountsAttribStrings.contains( "useWordpressAPI" ) ) {
+      acct.useWordpressAPI = true;
     }
 
     acctsList.append( acct );
@@ -1390,7 +1394,7 @@ void EditingWindow::getAccounts( const QString &title )
       detailElement.appendChild( pwdElement );
 
       if( returnedAccountsList.at( i ).categoriesEnabled || returnedAccountsList.at( i ).postDateTime ||
-          returnedAccountsList.at( i ).comments || returnedAccountsList.at( i ).trackback )
+          returnedAccountsList.at( i ).allowComments || returnedAccountsList.at( i ).allowTB )
         attribsElement = newAccountsDom.createElement( "attributes" );
 
       if( returnedAccountsList.at( i ).categoriesEnabled ) {
@@ -1403,16 +1407,21 @@ void EditingWindow::getAccounts( const QString &title )
         boolElement.setAttribute( "name", "postDateTime" );
         attribsElement.appendChild( boolElement );
       }
-      if( returnedAccountsList.at( i ).comments ) {
+      if( returnedAccountsList.at( i ).allowComments ) {
         // qDebug() << "comments attribute set";
         boolElement = newAccountsDom.createElement( "attribute" );
-        boolElement.setAttribute( "name", "comments" );
+        boolElement.setAttribute( "name", "allowComments" );
         attribsElement.appendChild( boolElement );
       }
-      if( returnedAccountsList.at( i ).trackback ) {
+      if( returnedAccountsList.at( i ).allowTB ) {
         // qDebug() << "TB attribute set";
         boolElement = newAccountsDom.createElement( "attribute" );
-        boolElement.setAttribute( "name", "trackback" );
+        boolElement.setAttribute( "name", "allowTB" );
+        attribsElement.appendChild( boolElement );
+      }
+      if( returnedAccountsList.at( i ).useWordpressAPI ) {
+        boolElement = newAccountsDom.createElement( "attribute" );
+        boolElement.setAttribute( "name", "useWordpressAPI" );
         attribsElement.appendChild( boolElement );
       }
 
@@ -2041,19 +2050,27 @@ void EditingWindow::extractAccountDetails() // slot
 void EditingWindow::extractAccountAttributes()
 {
   QStringList accountAttribNames( accountAttributes.keys() );
+  QString attribName;
   QDomNodeList attribNodes = currentAccountElement.firstChildElement( "details" )
                              .elementsByTagName( "attribute" );
 
   Q_FOREACH( QString t, accountAttribNames ) {
     *(accountAttributes[t]) = false;
     for( int i = 0; i < attribNodes.count(); i++ ) {
-      if( attribNodes.at( i ).toElement().attribute( "name" ) == t )
+      attribName = attribNodes.at( i ).toElement().attribute( "name" );
+
+      if( attribName == "comments" )
+        attribName = "allowComments";
+      if( attribName == "trackback" )
+        attribName = "allowTB";     
+
+      if( attribName == t )
         *(accountAttributes[t]) = true;
     }
   }
 
-  cw.chComments->setCheckState( allowComments ? Qt::Checked : Qt::Unchecked );
-  cw.chTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
+  cw.chAllowComments->setCheckState( allowComments ? Qt::Checked : Qt::Unchecked );
+  cw.chAllowTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
 }
 
 
@@ -2838,8 +2855,8 @@ void EditingWindow::newMTPost()
   QDomElement methodCall, params, param, member, value, integer,
               string, rpcstruct, rpcarray, actualValue;
   QString description, extEntry, techTagString, convertedString, keywordTagList;
-  bool takeComms = cw.chComments->isChecked();
-  bool takeTB = cw.chTB->isChecked();
+  bool takeComms = cw.chAllowComments->isChecked();
+  bool takeTB = cw.chAllowTB->isChecked();
   bool blogidIsInt;
   int count, tags;
   QList<QString> tblist;
@@ -3011,8 +3028,8 @@ void EditingWindow::submitMTEdit()
   QDomElement methodCall, params, param, value, rpcstruct, rpcarray;
   QString description, extEntry, techTagString, convertedString, keywordTagList;
   int count, tags;
-  bool takeComms = cw.chComments->isChecked();
-  bool takeTB = cw.chTB->isChecked();
+  bool takeComms = cw.chAllowComments->isChecked();
+  bool takeTB = cw.chAllowTB->isChecked();
   QList<QString> tblist;
 
   if( EDITOR->toPlainText().contains( "<!--more-->" ) ) {
@@ -3417,8 +3434,8 @@ void EditingWindow::save( const QString &fname, bool exp )
   out << QString( "Publish:%1\n" ).arg( QString::number( cw.cbStatus->currentIndex() ) );
   if( entryBlogged )
     out << QString( "EntryNumber:%1\n" ).arg( entryNumber );
-  out << QString( "Comments:%1\n" ).arg( cw.chComments->isChecked() ? "1" : "0" );
-  out << QString( "TB:%1\n" ).arg( cw.chTB->isChecked() ? "1" : "0" );
+  out << QString( "Comments:%1\n" ).arg( cw.chAllowComments->isChecked() ? "1" : "0" );
+  out << QString( "TB:%1\n" ).arg( cw.chAllowTB->isChecked() ? "1" : "0" );
   if( exp ) {
     out << QString( "Server:%1\n" ).arg( server );
     out << QString( "Location:%1\n" ).arg( location );
@@ -3620,10 +3637,10 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
   }
 
   if( emap.contains( "Comments" ) )
-    cw.chComments->setChecked( emap.value( "Comments" ) == "1" ? true : false );
+    cw.chAllowComments->setChecked( emap.value( "Comments" ) == "1" ? true : false );
 
   if( emap.contains( "TB" ) )
-    cw.chTB->setChecked( emap.value( "TB" ) == "1" ? true : false );
+    cw.chAllowTB->setChecked( emap.value( "TB" ) == "1" ? true : false );
 
   if( emap.contains( "Server" ) ) {
     if( emap.value( "Server" ) != server ) {
@@ -4463,15 +4480,15 @@ void EditingWindow::setDirtySignals( bool d )
 {
   QList<QWidget *> widgetList;
   widgetList << EDITOR << cw.cbAccountSelector << cw.cbBlogSelector << cw.cbStatus
-    << cw.chComments << cw.chTB << cw.cbMainCat << cw.lwOtherCats << cw.teExcerpt;
+    << cw.chAllowComments << cw.chAllowTB << cw.cbMainCat << cw.lwOtherCats << cw.teExcerpt;
 
   if( d ) {
     connect( EDITOR, SIGNAL( textChanged() ), this, SLOT( dirtify() ) );
     connect( cw.cbAccountSelector, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.cbBlogSelector, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.cbStatus, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
-    connect( cw.chComments, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
-    connect( cw.chTB, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.chAllowComments, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.chAllowTB, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.cbMainCat, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.lwOtherCats, SIGNAL( activated( const QModelIndex & ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.teExcerpt, SIGNAL( textChanged() ), this, SLOT( dirtify() ) );
@@ -4897,3 +4914,13 @@ void EditingWindow::hideProgressBar()
   progressBarAction->setVisible( false );
   progressBar->reset();
 }
+
+QString EditingWindow::checkBoxName( QString source )
+{
+  QChar firstLetter( source.at( 1 ) );
+  return QString( "%1%2%3" )
+    .arg( "ch" )
+    .arg( firstLetter.toUpper() )
+    .arg( source.section( 1, -1 ) );
+}
+

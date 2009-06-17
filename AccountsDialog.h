@@ -53,8 +53,9 @@ public:
     QString password;
     bool categoriesEnabled;
     bool postDateTime;
-    bool comments;
-    bool trackback;
+    bool allowComments;
+    bool allowTB;
+    bool useWordpressAPI;
   } Account;
 
   AccountsDialog( QList<AccountsDialog::Account> &, int,
@@ -109,6 +110,8 @@ private slots:
   void on_pbWhatsThis_clicked();
   void on_pbOK_clicked();
   void on_pbCancel_clicked() { reject(); }
+
+  // Handle changes to account variables
   void on_leName_textEdited( const QString & );
   void on_leServer_textEdited( const QString & );
   void on_leLocation_textEdited( const QString & );
@@ -118,8 +121,10 @@ private slots:
   void on_cbHostedBlogType_activated( int );
   void on_chCategoriesEnabled_clicked( bool );
   void on_chPostDateTime_clicked( bool );
-  void on_chComments_clicked( bool );
-  void on_chTB_clicked( bool );
+  void on_chAllowComments_clicked( bool );
+  void on_chAllowTB_clicked( bool );
+  void on_chUseWordpressAPI_clicked( bool );
+
   void handleRequestFinished( int, bool );
 
  protected:

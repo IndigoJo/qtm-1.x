@@ -83,7 +83,7 @@ AccountsDialog::AccountsDialog( QList<AccountsDialog::Account> &acctList,
   // Set up list of account widgets;
   accountWidgets << leName << cbHostedBlogType << leServer << leLocation
     << lePort << leLogin << lePassword
-    << chCategoriesEnabled << chPostDateTime << chComments << chTB;
+    << chCategoriesEnabled << chPostDateTime << chAllowComments << chAllowTB;
 
   pbReset->setVisible( false );
 
@@ -144,9 +144,9 @@ void AccountsDialog::changeListIndex( int index )
                                       Qt::Checked : Qt::Unchecked );
   chPostDateTime->setCheckState( accountList[currentRow].postDateTime ?
                                  Qt::Checked : Qt::Unchecked );
-  chComments->setCheckState( accountList[currentRow].comments ? Qt::Checked :
+  chAllowComments->setCheckState( accountList[currentRow].allowComments ? Qt::Checked :
                              Qt::Unchecked );
-  chTB->setCheckState( accountList[currentRow].trackback ? Qt::Checked : Qt::Unchecked );
+  chAllowTB->setCheckState( accountList[currentRow].allowTB ? Qt::Checked : Qt::Unchecked );
 
   Q_FOREACH( QWidget *w, accountWidgets )
     w->setEnabled( true );
@@ -532,16 +532,22 @@ void AccountsDialog::on_chPostDateTime_clicked( bool )
     accountList[currentRow].postDateTime = chPostDateTime->isChecked();
 }
 
-void AccountsDialog::on_chComments_clicked( bool )
+void AccountsDialog::on_chAllowComments_clicked( bool )
 {
   if( currentRow != -1 )
-    accountList[currentRow].comments = chComments->isChecked();
+    accountList[currentRow].allowComments = chAllowComments->isChecked();
 }
 
-void AccountsDialog::on_chTB_clicked( bool )
+void AccountsDialog::on_chAllowTB_clicked( bool )
 {
-  if( currentRow != 1 )
-    accountList[currentRow].trackback = chTB->isChecked();
+  if( currentRow != -1 )
+    accountList[currentRow].allowTB = chAllowTB->isChecked();
+}
+
+void AccountsDialog::on_chUseWordpressAPI_clicked( bool )
+{
+  if( currentRow != -1 )
+    accountList[currentRow].useWordpressAPI = chUseWordpressAPI->isChecked();
 }
 
 void AccountsDialog::on_cbHostedBlogType_activated( int newIndex )
@@ -566,7 +572,7 @@ void AccountsDialog::on_cbHostedBlogType_activated( int newIndex )
       break;
     case 6: // Drupal  
     case 7: // TextPattern
-      chTB->setChecked( false ); // these platforms don't support it
+      chAllowTB->setChecked( false ); // these platforms don't support it
       leServer->clear();
       leLocation->clear();
       break;

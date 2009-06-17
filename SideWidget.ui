@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CategoryWidget</class>
  <widget class="QWidget" name="CategoryWidget">
@@ -207,7 +208,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QCheckBox" name="chComments">
+          <widget class="QCheckBox" name="chAllowComments">
            <property name="whatsThis">
             <string>Click here if comments are to be allowed</string>
            </property>
@@ -217,7 +218,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QCheckBox" name="chTB">
+          <widget class="QCheckBox" name="chAllowTB">
            <property name="whatsThis">
             <string>Trackbacks are links to other sites, or other people's blog entries, placed by other people.  If you want to allow this, tick this box. Note that if you configure your blog software to refuse trackbacks, or not publish trackback locations, ticking this box will have no effect.</string>
            </property>
@@ -263,77 +264,68 @@
          <property name="title">
           <string>Categories</string>
          </property>
-         <layout class="QVBoxLayout">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="margin">
-           <number>9</number>
-          </property>
-          <item>
-           <layout class="QVBoxLayout">
-            <property name="spacing">
-             <number>6</number>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="lMainCat">
+            <property name="text">
+             <string>Primary</string>
             </property>
-            <property name="margin">
-             <number>0</number>
+            <property name="buddy">
+             <cstring>cbMainCat</cstring>
             </property>
-            <item>
-             <widget class="QLabel" name="lMainCat">
-              <property name="text">
-               <string>Primary</string>
-              </property>
-              <property name="buddy">
-               <cstring>cbMainCat</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="cbMainCat">
-              <property name="whatsThis">
-               <string>The main category under which your entry is to be published.  If you are choosing only one category, choose it here.</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="lOtherCats">
-              <property name="text">
-               <string>Others</string>
-              </property>
-              <property name="buddy">
-               <cstring>lwOtherCats</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QListWidget" name="lwOtherCats">
-              <property name="whatsThis">
-               <string>Secondary categories, if your blog system supports them.  To select more than one category, hold down Ctrl and click the main mouse button.</string>
-              </property>
-              <property name="selectionMode">
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chNoCats">
-              <property name="toolTip">
-               <string>Don't use any categories</string>
-              </property>
-              <property name="text">
-               <string>No categories</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           </widget>
           </item>
-          <item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QComboBox" name="cbMainCat">
+            <property name="whatsThis">
+             <string>The main category under which your entry is to be published.  If you are choosing only one category, choose it here.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lOtherCats">
+            <property name="text">
+             <string>Others</string>
+            </property>
+            <property name="buddy">
+             <cstring>lwOtherCats</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QListWidget" name="lwOtherCats">
+            <property name="whatsThis">
+             <string>Secondary categories, if your blog system supports them.  To select more than one category, hold down Ctrl and click the main mouse button.</string>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::MultiSelection</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" colspan="2">
+           <widget class="QCheckBox" name="chNoCats">
+            <property name="toolTip">
+             <string>Don't use any categories</string>
+            </property>
+            <property name="text">
+             <string>No categories</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
            <widget class="QPushButton" name="pbRefresh">
             <property name="whatsThis">
              <string>Fetches an updated category list from the blog server</string>
             </property>
             <property name="text">
              <string>&amp;Refresh</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QPushButton" name="pbAddCategory">
+            <property name="text">
+             <string>Add category</string>
             </property>
            </widget>
           </item>
@@ -607,8 +599,8 @@
   <tabstop>cbAccountSelector</tabstop>
   <tabstop>cbBlogSelector</tabstop>
   <tabstop>cbStatus</tabstop>
-  <tabstop>chComments</tabstop>
-  <tabstop>chTB</tabstop>
+  <tabstop>chAllowComments</tabstop>
+  <tabstop>chAllowTB</tabstop>
   <tabstop>cbDoTB</tabstop>
   <tabstop>cbMainCat</tabstop>
   <tabstop>lwOtherCats</tabstop>

@@ -83,7 +83,7 @@ AccountsDialog::AccountsDialog( QList<AccountsDialog::Account> &acctList,
   // Set up list of account widgets;
   accountWidgets << leName << cbHostedBlogType << leServer << leLocation
     << lePort << leLogin << lePassword
-    << chCategoriesEnabled << chPostDateTime << chAllowComments << chAllowTB;
+    << chCategoriesEnabled << chPostDateTime << chAllowComments << chAllowTB << chUseWordpressAPI;
 
   pbReset->setVisible( false );
 
@@ -147,6 +147,8 @@ void AccountsDialog::changeListIndex( int index )
   chAllowComments->setCheckState( accountList[currentRow].allowComments ? Qt::Checked :
                              Qt::Unchecked );
   chAllowTB->setCheckState( accountList[currentRow].allowTB ? Qt::Checked : Qt::Unchecked );
+  chUseWordpressAPI->setCheckState( accountList[currentRow].useWordpressAPI ?
+                                    Qt::Checked : Qt::Unchecked );
 
   Q_FOREACH( QWidget *w, accountWidgets )
     w->setEnabled( true );

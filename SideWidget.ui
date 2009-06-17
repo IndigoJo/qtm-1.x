@@ -324,6 +324,12 @@
           </item>
           <item row="5" column="1">
            <widget class="QPushButton" name="pbAddCategory">
+            <property name="toolTip">
+             <string>Add a category</string>
+            </property>
+            <property name="whatsThis">
+             <string>Add a new category to your blog.  Your blog needs to support the Wordpress API for this to work.</string>
+            </property>
             <property name="text">
              <string>Add category</string>
             </property>

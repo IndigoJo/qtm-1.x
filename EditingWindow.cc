@@ -1325,6 +1325,7 @@ void EditingWindow::getAccounts( const QString &title )
     acct.postDateTime = false;
     acct.allowComments = false;
     acct.allowTB = false;
+    acct.useWordpressAPI = false;
 
     thisAccountsAttribs = accountsList.at( i ).toElement().firstChildElement( "details" )
       .firstChildElement( "attributes" ).elementsByTagName( "attribute" );
@@ -1338,10 +1339,12 @@ void EditingWindow::getAccounts( const QString &title )
     if( thisAccountsAttribStrings.contains( "postDateTime" ) ) {
       acct.postDateTime = true;
     }
-    if( thisAccountsAttribStrings.contains( "allowComments" ) ) {
+    if( thisAccountsAttribStrings.contains( "allowComments" ) ||
+        thisAccountsAttribStrings.contains( "comments" ) ) {
       acct.allowComments = true;
     }
-    if( thisAccountsAttribStrings.contains( "allowTB" ) ) {
+    if( thisAccountsAttribStrings.contains( "allowTB" ) ||
+        thisAccountsAttribStrings.contains( "trackback" ) ) {
       acct.allowTB = true;
     }
     if( thisAccountsAttribStrings.contains( "useWordpressAPI" ) ) {
@@ -2071,6 +2074,7 @@ void EditingWindow::extractAccountAttributes()
 
   cw.chAllowComments->setCheckState( allowComments ? Qt::Checked : Qt::Unchecked );
   cw.chAllowTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
+  cw.pbAddCategory->setEnabled( useWordpressAPI );
 }
 
 

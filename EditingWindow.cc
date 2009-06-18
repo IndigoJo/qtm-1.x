@@ -452,6 +452,8 @@ void EditingWindow::doUiSetup()
   connect( ui.actionConsole_font, SIGNAL( triggered( bool ) ),
            this, SLOT( doConsoleFont() ) );
 #endif
+  connect( ui.action_Add_category, SIGNAL( triggered( bool ) ),
+           this, SLOT( newCategory() ) );
   connect( ui.actionP_review, SIGNAL( toggled( bool ) ),
            this, SLOT( doPreview( bool ) ) );
   connect( ui.action_BES, SIGNAL( triggered( bool ) ),
@@ -587,6 +589,8 @@ void EditingWindow::doUiSetup()
            this, SLOT( refreshCategories() ) );
   connect( cw.pbRefresh, SIGNAL( clicked( bool ) ),
            cw.cbMainCat, SLOT( clear() ) );
+  connect( cw.pbAddCategory, SIGNAL( clicked( bool ) ),
+           this, SLOT( newCategory() ) ); 
   connect( cw.pbRefresh, SIGNAL( clicked( bool ) ),
            cw.lwOtherCats, SLOT( clear() ) );
   connect( ui.action_View_Console, SIGNAL( toggled( bool ) ),
@@ -1972,6 +1976,8 @@ void EditingWindow::handleDone( bool error ) // slot
       mt_getCategoryList( responseData ); break;
     case 15: // if handling mt.setPostCategories
       mt_setPostCategories( responseData ); break;
+    case 121: // if handling wp.newCategory
+      wp_newCategory( responseData ); break;  
   }
 
   http->disconnect();
@@ -2075,6 +2081,7 @@ void EditingWindow::extractAccountAttributes()
   cw.chAllowComments->setCheckState( allowComments ? Qt::Checked : Qt::Unchecked );
   cw.chAllowTB->setCheckState( allowTB ? Qt::Checked : Qt::Unchecked );
   cw.pbAddCategory->setEnabled( useWordpressAPI );
+  ui.action_Add_category->setEnabled( useWordpressAPI );
 }
 
 
@@ -2460,6 +2467,15 @@ void EditingWindow::mt_setPostCategories( QByteArray response )
                this, SLOT( publishPost() ) );
   }
   addToConsole( rdata );
+  QApplication::restoreOverrideCursor();
+}
+
+void EditingWindow::wp_newCategory( QByteArray response )
+{
+  disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
+
+  // Parse the XML
+
   QApplication::restoreOverrideCursor();
 }
 
@@ -4263,6 +4279,14 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
         }
       }
     }
+  }
+}
+
+void EditingWindow::newCategory()
+{
+  // This feature uses a Wordpress API call
+  if( useWordpressAPI ) {
+
   }
 }
 

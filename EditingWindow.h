@@ -122,6 +122,7 @@ class EditingWindow : public QMainWindow
   void mt_publishPost( QByteArray );
   void mt_getCategoryList( QByteArray );
   void mt_setPostCategories( QByteArray );
+  void wp_newCategory( QByteArray );
   //void submitBloggerEdit();
   void submitMTEdit();
   bool saveCheck();
@@ -268,6 +269,7 @@ class EditingWindow : public QMainWindow
   void doViewTechTags();
   void doViewTBPings();
   void handleSideWidgetPageSwitch( int );
+  void newCategory();
   void addKeywordTag();
   void addKeywordTagFromLineEdit();
   void removeKeywordTag();

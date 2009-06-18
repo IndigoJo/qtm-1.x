@@ -4284,8 +4284,30 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
 
 void EditingWindow::newCategory()
 {
+  QDomElement catsElement;
+  QDomNodeList catNodeList;
+  int b, j;
+
   // This feature uses a Wordpress API call
   if( useWordpressAPI ) {
+    QDialog newCategoryDialog( this );
+    Ui::NewCategoryForm ncui;
+    ncui.setupUi( newCategoryDialog );
+
+    catsElement = currentBlogElement.firstChildElement( "categories" );
+    if( !catsElement.isNull() ) {
+      catNodeList = catsElement.elementsByTagName( "category" );
+      b = catNodeList.count();
+      if( b ) {
+        ncui.cbParent->clear();
+        for( j = 0; j < b; j++ )
+          ncui.cbParent->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
+                                 QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
+      }
+
+      if( newCategoryDialog.exec() ) {
+
+      }
 
   }
 }

@@ -80,6 +80,12 @@ class QPlainTextEdit;
 #define TEXTEDIT QTextEdit
 #endif
 
+#ifdef Q_WS_WIN
+#define PROPERSEPS( x ) x.replace( "/", "\\" )
+#else
+#define PROPERSEPS( x ) x
+#endif
+
 class EditingWindow : public QMainWindow
 {
   Q_OBJECT

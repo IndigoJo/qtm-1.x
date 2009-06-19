@@ -181,6 +181,7 @@ set(QTM_SRCS
     AccountsDialog.cc
     Application.cc
     EditingWindow.cc
+    EditingWindow_ResponseHandlers.cc
     locationlineedit.cc
     main.cc
     PrefsDialog.cc

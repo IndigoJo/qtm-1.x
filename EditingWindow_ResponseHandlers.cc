@@ -342,6 +342,8 @@ void EditingWindow::wp_newCategory( QByteArray response )
 
   // Parse the XML
 
+  addToConsole( QString( response ) );
+
   QApplication::restoreOverrideCursor();
 }
 

@@ -450,6 +450,7 @@
   <tabstop>chPostDateTime</tabstop>
   <tabstop>chAllowComments</tabstop>
   <tabstop>chAllowTB</tabstop>
+  <tabstop>chUseWordpressAPI</tabstop>
   <tabstop>pbWhatsThis</tabstop>
   <tabstop>pbReset</tabstop>
   <tabstop>pbCancel</tabstop>

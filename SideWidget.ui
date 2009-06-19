@@ -294,6 +294,9 @@
           </item>
           <item row="3" column="0" colspan="2">
            <widget class="QListWidget" name="lwOtherCats">
+            <property name="contextMenuPolicy">
+             <enum>Qt::ActionsContextMenu</enum>
+            </property>
             <property name="whatsThis">
              <string>Secondary categories, if your blog system supports them.  To select more than one category, hold down Ctrl and click the main mouse button.</string>
             </property>

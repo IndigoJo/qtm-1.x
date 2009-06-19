@@ -341,8 +341,19 @@ void EditingWindow::wp_newCategory( QByteArray response )
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
 
   // Parse the XML
+  QString responseString( response );
+  QRegExp rx( "<methodResponse>\\s*<params>\\s*<param>\\s*<value>\\s*<int>([0-9]*)</int>\\s*</value>\\s*"
+              "</param>\\s*</params>\\s*</methodResponse>" );
+  if( rx.indexIn( response ) != -1 ) {
+    cw.cbMainCat->clear();
+    cw.lwOtherCats->clear();
+    connect( this, SIGNAL( httpBusinessFinished() ),
+             this, SLOT( refreshCategories() ) );
+  }
+  else
+    statusBar()->showMessage( tr( "The request caused a fault; see console." ), 2000 );
 
-  addToConsole( QString( response ) );
+  addToConsole( responseString );
 
   QApplication::restoreOverrideCursor();
 }

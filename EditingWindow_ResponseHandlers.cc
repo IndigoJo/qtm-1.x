@@ -336,3 +336,12 @@ void EditingWindow::mt_getCategoryList( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
+void EditingWindow::wp_newCategory( QByteArray response )
+{
+  disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
+
+  // Parse the XML
+
+  QApplication::restoreOverrideCursor();
+}
+

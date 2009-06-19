@@ -128,12 +128,6 @@
 
 #define EDITOR ed
 
-#ifdef Q_WS_WIN
-#define PROPERSEPS( x ) x.replace( "/", "\\" )
-#else
-#define PROPERSEPS( x ) x
-#endif
-
 EditingWindow::EditingWindow( QString newPost, QWidget *parent )
 : QMainWindow( parent )
 {
@@ -2155,15 +2149,6 @@ void EditingWindow::mt_setPostCategories( QByteArray response )
   QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::wp_newCategory( QByteArray response )
-{
-  disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
-
-  // Parse the XML
-
-  QApplication::restoreOverrideCursor();
-}
-
 void EditingWindow::handleConsole( bool isChecked )
 {
   if( !isChecked ) {
@@ -3970,6 +3955,9 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
 void EditingWindow::newCategory()
 {
   QDomElement catsElement;
+  QDomDocument doc;
+  QDomElement methodCall, params, param, member, value,
+              string, rpcstruct, actualValue;
   QDomNodeList catNodeList;
   int b, j;
 
@@ -3991,10 +3979,76 @@ void EditingWindow::newCategory()
       }
 
       if( newCategoryDialog.exec() ) {
+        if( !ncui.leName->text().isEmpty() ) {
+          if( currentHttpBusiness == None ) {
+            QString blogid = cw.cbBlogSelector->itemData( cw.cbBlogSelector->currentIndex() ).toString();
+            QRegExp blogidRegExp( "^[0-9]+$" );
+            bool blogidIsInt = blogidRegExp.exactMatch( blogid );
 
+            methodCall = doc.createElement( "methodCall" );
+            methodCall.appendChild( XmlMethodName( doc, "wp.newCategory" ) );
+
+            params = doc.createElement( "params" );
+            params.appendChild( XmlValue( doc, blogidIsInt? "int" : "string", blogid ) );
+            params.appendChild( XmlValue( doc, "string", login ) );
+            params.appendChild( XmlValue( doc, "string", password ) );
+
+            param = doc.createElement( "param" );
+            value = doc.createElement( "value" );
+            rpcstruct = doc.createElement( "struct" );
+
+            rpcstruct.appendChild( XmlMember( doc, "name", "string",
+                                              ncui.leName->text() ) );
+            rpcstruct.appendChild( XmlMember( doc, "slug", "string", "" ) );
+            rpcstruct.appendChild( XmlMember( doc, "parent_id", "int",
+                                              ncui.cbParent->itemData( ncui.cbParent->currentIndex() ).toString() ) );
+            rpcstruct.appendChild( XmlMember( doc, "description", "string",
+                                              ncui.teDescription->toPlainText().simplified() ) );
+
+            value.appendChild( rpcstruct );
+            param.appendChild( value );
+            params.appendChild( param );
+
+            methodCall.appendChild( params );
+            doc.appendChild( methodCall );
+            doc.insertBefore( doc.createProcessingInstruction( "xml",
+                                                               "version=\"1.0\" encoding=\"UTF-8\"" ),
+                              doc.firstChild() );
+
+            QByteArray requestArray( doc.toByteArray() );
+            responseData = "";
+            QHttpRequestHeader header( "POST", location );
+            header.setValue( "Host", server );
+            header.setValue( "User-Agent", userAgentString );
+            http->setHost( server );
+            http->request( header, requestArray );
+
+            addToConsole( header.toString() );
+            addToConsole( doc.toString() );
+
+            if( QApplication::overrideCursor() == 0 )
+              QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
+            currentHttpBusiness = _wp_newCategory;
+            disconnect( this, SIGNAL( httpBusinessFinished() ) );
+
+            connect( http, SIGNAL( done( bool ) ),
+                     this, SLOT( handleDone( bool ) ) );
+            connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
+                     this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
+            connect( http, SIGNAL( hostLookupFailed() ),
+                     this, SLOT( handleHostLookupFailed() ) );
+#endif
+          }
+          else {
+            statusBar()->showMessage( tr( "All HTTP requests are blocked." ), 2000 );
+          }
+        }
+        else {
+          statusBar()->showMessage( tr( "Your category must have a name." ), 2000 );
+        }
       }
     }
-
   }
 }
 

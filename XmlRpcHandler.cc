@@ -31,7 +31,16 @@
 
 #include "XmlRpcHandler.h"
 
-XmlRpcHandler::XmlRpcHandler( int x )
+#define _BLOGGER_GETUSERSBLOGS          EditingWindow::_blogger_getUsersBlogs
+#define _MT_GETCATEGORYLIST             EditingWindow::_mt_getCategoryList
+#define _METAWEBLOG_NEWMEDIAOBJECT      EditingWindow::_metaWeblog_newMediaObject
+//#define _BLOGGER_GETUSERSBLOGS            _blogger_getUsersBlogs
+//#define _MT_GETCATEGORYLIST               _mt_getCategoryList
+//#define _METAWEBLOG_NEWMEDIAOBJECT        _metaWeblog_newMediaObject
+
+#include "EditingWindow.h"
+
+XmlRpcHandler::XmlRpcHandler( EditingWindow::HttpBusinessType x )
 {
   reqType = x;
   _fault = false;
@@ -40,9 +49,9 @@ XmlRpcHandler::XmlRpcHandler( int x )
   insideStruct = false;
   receivingFaultString = false;
 
-  if( reqType == 5 )
+  if( reqType == _BLOGGER_GETUSERSBLOGS )
     returnElement = doc.createElement( "blogs" );
-  if( reqType == 13 )
+  if( reqType == _MT_GETCATEGORYLIST )
     returnElement = doc.createElement( "categories" );
 }
 
@@ -54,7 +63,7 @@ XmlRpcHandler::XmlRpcHandler()
   receivingFaultString = false;
 }
 
-void XmlRpcHandler::setProtocol( int x )
+void XmlRpcHandler::setProtocol( EditingWindow::HttpBusinessType x )
 {
   reqType = x;
 }
@@ -73,10 +82,10 @@ bool XmlRpcHandler::startElement( const QString &, const QString &,
   if( (qName == "struct") ) {
     insideStruct = true;
 
-    if( ((reqType == 5) || (reqType == 13)) ) {
+    if( ((reqType == _BLOGGER_GETUSERSBLOGS) || (reqType == _MT_GETCATEGORYLIST)) ) {
       switch( reqType ) {
-      case 5: superElementName = QString( "blog" ); break;
-      case 13: superElementName = QString( "category" ); break;
+      case _BLOGGER_GETUSERSBLOGS: superElementName = QString( "blog" ); break;
+      case _MT_GETCATEGORYLIST:    superElementName = QString( "category" ); break;
       }
       // qDebug() << "Creating super element: " << superElementName.toAscii().data();
       currentSuperElement = doc.createElement( superElementName );
@@ -107,21 +116,21 @@ bool XmlRpcHandler::characters( const QString &str )
 {
   QString stringToAdd;
 
-  if( str.startsWith( "http://", Qt::CaseInsensitive ) && reqType != 11 )
+  if( str.startsWith( "http://", Qt::CaseInsensitive ) && reqType != _METAWEBLOG_NEWMEDIAOBJECT )
     currentString += str.section( "//", 1 );
   else
     currentString += str;
 
   if( receivingArgumentName ) {
     currentRpcArgumentName = str;
-    if( (reqType == 5) || (reqType == 13) ) {
+    if( (reqType == _BLOGGER_GETUSERSBLOGS) || (reqType == _MT_GETCATEGORYLIST) ) {
       // qDebug() << "Naming current element: " << str.toAscii().data();
       currentElement.setTagName( currentRpcArgumentName );
     }
   }
   else {
     if( receivingData ) {
-      if( str.startsWith( "http://", Qt::CaseInsensitive ) && reqType != 11 )
+      if( str.startsWith( "http://", Qt::CaseInsensitive ) && reqType != _METAWEBLOG_NEWMEDIAOBJECT )
 	stringToAdd = str.section( "//", 1 );
       // returnDataList[currentRpcArgumentName].append( str.section( "//", 1 ) );
       else
@@ -129,7 +138,7 @@ bool XmlRpcHandler::characters( const QString &str )
       returnDataList[currentRpcArgumentName].append( stringToAdd );
       //returnDataList[currentRpcArgumentName].append( str );
       
-      if( (reqType == 5) || (reqType == 13) )
+      if( (reqType == _BLOGGER_GETUSERSBLOGS) || (reqType == _MT_GETCATEGORYLIST) )
 	if( !currentElement.isNull() ) {
 	  // qDebug() << "Appending text: " << str.toAscii().data();
 	  currentElement.appendChild( QDomText( doc.createTextNode( stringToAdd ) ) );

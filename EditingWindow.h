@@ -99,6 +99,14 @@ class EditingWindow : public QMainWindow
   bool handleArguments();
   QString postTitle();
 
+  typedef enum _hbiz {
+    None,
+    _blogger_getUsersBlogs,
+    _metaWeblog_newPost, _metaWeblog_editPost, _metaWeblog_newMediaObject,
+    _mt_publishPost, _mt_getCategoryList, _mt_setPostCategories,
+    _wp_newCategory
+  } HttpBusinessType;
+
  private:
   Ui::MainWindow ui;
   Ui::CategoryWidget cw;
@@ -348,7 +356,7 @@ class EditingWindow : public QMainWindow
   int previewWindowID;
   int consoleID, edID;
   int previousRaisedLSWidget;
-  int currentHttpBusiness;
+  HttpBusinessType currentHttpBusiness;
   // virtual void resizeEvent( QResizeEvent *e );
   virtual void closeEvent( QCloseEvent * );
   virtual void showEvent( QShowEvent * );

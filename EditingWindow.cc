@@ -273,7 +273,7 @@ void EditingWindow::doUiSetup()
   qtmaccounts_xml << "qtmaccounts2.xml" << "qtmaccounts.xml";
 
   ui.setupUi( this );
-  currentHttpBusiness = 0;
+  currentHttpBusiness = None;
   entryBlogged = false;
   http = new _HTTP;
 
@@ -1161,23 +1161,23 @@ void EditingWindow::writeSettings()
 
 void EditingWindow::callRefreshCategories()
 {
-  if( !currentHttpBusiness ) {
+  if( currentHttpBusiness == None ) {
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
     refreshCategories();
   }
   else {
 #ifdef QTM_DEBUG
-    if( currentHttpBusiness != 13 ) {
+    if( currentHttpBusiness != _mt_getCategoryList ) {
       statusBar()->showMessage( tr( "changeBlog: All HTTP requests are blocked" ),
                                 2000 );
       addToConsole( QString( "changeBlog %1 failed - HTTP job of type %2 ongoing" )
                     .arg( b )
-                    .arg( currentHttpBusiness ) );
+                    .arg( (int)currentHttpBusiness ) );
     }
 
 #else
-    if( currentHttpBusiness != 13 )
+    if( currentHttpBusiness != _mt_getCategoryList )
       statusBar()->showMessage( tr( "All HTTP requests are blocked." ), 2000 );
 #endif
   }
@@ -1191,7 +1191,7 @@ void EditingWindow::refreshCategories()
   QDomElement param, value, integer, string;
 
   disconnect( SIGNAL( httpBusinessFinished() ) );
-  if( !currentHttpBusiness ) {
+  if( currentHttpBusiness == None ) {
 
     QDomDocument doc;
     QDomElement methodCall = doc.createElement( "methodCall" );
@@ -1223,7 +1223,7 @@ void EditingWindow::refreshCategories()
     if( QApplication::overrideCursor() == 0 )
       QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
 
-    currentHttpBusiness = 13; // Processing mt.getCategoryList
+    currentHttpBusiness = _mt_getCategoryList;
     connect( http, SIGNAL( done( bool ) ),
              this, SLOT( handleDone( bool ) ) );
     connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
@@ -1912,7 +1912,8 @@ void EditingWindow::refreshBlogList() // slot
   if( QApplication::overrideCursor() == 0 )
     QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
 
-  currentHttpBusiness = 5; // Processing blogger.getUsersPosts request
+  currentHttpBusiness = _blogger_getUsersBlogs;
+
   connect( http, SIGNAL( done( bool ) ),
            this, SLOT( handleDone( bool ) ) );
   connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
@@ -1947,7 +1948,7 @@ void EditingWindow::stopThisJob()
   http->disconnect();
   http->abort();
 
-  currentHttpBusiness = 0;
+  currentHttpBusiness = None;
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
   if( QApplication::overrideCursor() != 0 )
     QApplication::restoreOverrideCursor();
@@ -1962,27 +1963,19 @@ void EditingWindow::handleDone( bool error ) // slot
                               .arg( responseData.size() ), 2000 );
 
   switch( currentHttpBusiness ) {
-    case 5: // if handling blogger.getusersBlogs
-      blogger_getUsersBlogs( responseData ); break;
-    case 7: // if handling metaWeblog.newPost
-      metaWeblog_newPost( responseData ); break;
-    case 8: // if handling metaWeblog.editPost
-      metaWeblog_editPost( responseData ); break;
-    case 11: // if handling metaWeblog.newMediaObject
-      metaWeblog_newMediaObject( responseData ); break;
-    case 12: // if handling mt.publishPost
-      mt_publishPost( responseData ); break;
-    case 13: // if handling mt.getCategoryList
-      mt_getCategoryList( responseData ); break;
-    case 15: // if handling mt.setPostCategories
-      mt_setPostCategories( responseData ); break;
-    case 121: // if handling wp.newCategory
-      wp_newCategory( responseData ); break;  
+    case _blogger_getUsersBlogs:      blogger_getUsersBlogs( responseData ); break;
+    case _metaWeblog_newPost:         metaWeblog_newPost( responseData ); break;
+    case _metaWeblog_editPost:        metaWeblog_editPost( responseData ); break;
+    case _metaWeblog_newMediaObject:  metaWeblog_newMediaObject( responseData ); break;
+    case _mt_publishPost:             mt_publishPost( responseData ); break;
+    case _mt_getCategoryList:         mt_getCategoryList( responseData ); break;
+    case _mt_setPostCategories:       mt_setPostCategories( responseData ); break;
+    case _wp_newCategory:             wp_newCategory( responseData ); break;  
   }
 
   http->disconnect();
   progressBar->setValue( progressBar->value() + 1 );
-  currentHttpBusiness = 0;
+  currentHttpBusiness = None;
   emit httpBusinessFinished();
 }
 
@@ -2881,7 +2874,7 @@ void EditingWindow::newMTPost()
   int count, tags;
   QList<QString> tblist;
 
-  if( !currentHttpBusiness && !entryBlogged ) {
+  if( (currentHttpBusiness == None) && !entryBlogged ) {
 
     if( EDITOR->toPlainText().contains( "<!--more-->" ) ) {
       description = QString( EDITOR->toPlainText() )
@@ -3008,7 +3001,7 @@ void EditingWindow::newMTPost()
       cleanSave = true;
       setDirtySignals( true );
     }
-    currentHttpBusiness = 7; // Processing metaWeblog.newPost request
+    currentHttpBusiness = _metaWeblog_newPost;
     disconnect( this, SIGNAL( httpBusinessFinished() ) );
     connect( http, SIGNAL( done( bool ) ),
              this, SLOT( handleDone( bool ) ) );
@@ -3029,7 +3022,7 @@ void EditingWindow::newMTPost()
 #endif
   }
   else {
-    if( currentHttpBusiness ) {
+    if( currentHttpBusiness != None ) {
 #ifdef QTM_DEBUG
       statusBar()->showMessage( tr( "refreshCategories: All HTTP requests are blocked" ),
                                 2000 );
@@ -3181,7 +3174,7 @@ void EditingWindow::submitMTEdit()
   progressBarAction->setVisible( true );
 #endif
 
-  currentHttpBusiness = 8; // Processing metaWeblog.editPost request
+  currentHttpBusiness = _metaWeblog_editPost;
   connect( http, SIGNAL( done( bool ) ),
            this, SLOT( handleDone( bool ) ) );
   connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
@@ -3211,7 +3204,7 @@ void EditingWindow::setPostCategories()
 //#endif
   if( categoriesEnabled ) {
     qDebug() << "categories enabled";
-    if( !currentHttpBusiness ) {
+    if( currentHttpBusiness == None ) {
       qDebug() << "no biz";
       QDomElement methodCall = doc.createElement( "methodCall" );
       methodCall.appendChild( XmlMethodName( doc, "mt.setPostCategories" ) );
@@ -3288,7 +3281,7 @@ void EditingWindow::setPostCategories()
 #ifndef NO_DEBUG_OUTPUT
       // qDebug() << "posted categories";
 #endif
-      currentHttpBusiness = 15; // Processing mt.setPostCategories request
+      currentHttpBusiness = _mt_setPostCategories;
       connect( http, SIGNAL( done( bool ) ),
                this, SLOT( handleDone( bool ) ) );
       connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
@@ -3321,7 +3314,7 @@ void EditingWindow::publishPost() // slot
 {
   QDomDocument doc;
 
-  if( !currentHttpBusiness ) {
+  if( currentHttpBusiness == None ) {
     QDomElement methodCall = doc.createElement( "methodCall" );
     methodCall.appendChild( XmlMethodName( doc, "mt.publishPost" ) );
     QDomElement params = doc.createElement( "params" );
@@ -3352,7 +3345,7 @@ void EditingWindow::publishPost() // slot
 
     if( QApplication::overrideCursor() == 0 )
       QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
-    currentHttpBusiness = 12; // Processing mt.publishPost request
+    currentHttpBusiness = _mt_publishPost;
     connect( http, SIGNAL( done( bool ) ),
              this, SLOT( handleDone( bool ) ) );
     connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
@@ -4118,7 +4111,7 @@ void EditingWindow::uploadFile()
   QFile inFile;
   QDomDocument doc;
 
-  if( !currentHttpBusiness ) {
+  if( currentHttpBusiness == None ) {
     QString uploadFilename = QFileDialog::getOpenFileName( this,
                                                            tr( "Select file to upload" ),
                                                            QDir::homePath() );
@@ -4162,7 +4155,7 @@ void EditingWindow::uploadFile()
                                                                  "version=\"1.0\" encoding=\"UTF-8\"" ),
                                 doc.firstChild() );
 
-              currentHttpBusiness = 11;
+              currentHttpBusiness = _metaWeblog_newMediaObject;
 
               QByteArray requestArray( doc.toByteArray() );
               responseData = "";
@@ -4936,7 +4929,7 @@ void EditingWindow::addToConsole( const QString &t )
 {
   QString text = t;
 #ifndef NO_DEBUG_OUTPUT
-  if( currentHttpBusiness == 11 )
+  if( currentHttpBusiness == _metaWeblog_newMediaObject )
     // qDebug() << "Adding image to console";
 #endif
     text.replace( QString( "<string>%1</string>" ).arg( password ),

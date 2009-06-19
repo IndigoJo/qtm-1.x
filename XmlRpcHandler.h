@@ -28,13 +28,15 @@
 #include <QtXml>
 #include <QtCore>
 
+#include "EditingWindow.h"
+
 class XmlRpcHandler : public QXmlDefaultHandler
 {
 public:
-  XmlRpcHandler( int x );
+  XmlRpcHandler( EditingWindow::HttpBusinessType x );
   XmlRpcHandler();
 
-  void setProtocol( int x );
+  void setProtocol( EditingWindow::HttpBusinessType x );
 
   bool startElement( const QString &namespaceURI,
 		     const QString &localName,
@@ -53,7 +55,7 @@ public:
   QDomDocumentFragment returnXml();
 
 private:
-  int reqType;
+  EditingWindow::HttpBusinessType reqType;
   QString currentString;
   QString currentRpcArgumentName;
   QString _faultString;

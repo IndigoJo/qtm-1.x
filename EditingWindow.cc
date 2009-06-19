@@ -4292,7 +4292,7 @@ void EditingWindow::newCategory()
   if( useWordpressAPI ) {
     QDialog newCategoryDialog( this );
     Ui::NewCategoryForm ncui;
-    ncui.setupUi( newCategoryDialog );
+    ncui.setupUi( &newCategoryDialog );
 
     catsElement = currentBlogElement.firstChildElement( "categories" );
     if( !catsElement.isNull() ) {
@@ -4308,6 +4308,7 @@ void EditingWindow::newCategory()
       if( newCategoryDialog.exec() ) {
 
       }
+    }
 
   }
 }

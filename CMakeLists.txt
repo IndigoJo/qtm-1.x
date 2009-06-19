@@ -213,6 +213,7 @@ set(QTM_UIS
     aboutbox.ui
     AccountsForm.ui
     EditingWindowBase.ui
+    NewCategoryForm.ui
     PrefsForm.ui
     PrefsForm41.ui
     ImageEntry.ui

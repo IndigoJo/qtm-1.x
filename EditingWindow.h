@@ -30,6 +30,7 @@
 #include "ui_ImageEntry.h"
 #include "ui_LinkEntry.h"
 #include "ui_password-form.h"
+#include "ui_NewCategoryForm.h"
 #include "AccountsDialog.h"
 #include "PrefsDialog.h"
 #include "QijSearchWidget.h"

@@ -284,7 +284,8 @@ class EditingWindow : public QMainWindow
   void doViewTechTags();
   void doViewTBPings();
   void handleSideWidgetPageSwitch( int );
-  void newCategory();
+  void newChildCategory();
+  void newCategory( int parentCategory = 0 );
   void addKeywordTag();
   void addKeywordTagFromLineEdit();
   void removeKeywordTag();
@@ -358,6 +359,7 @@ class EditingWindow : public QMainWindow
   QAction *progressBarAction;
   QMenu *recentFilesMenu;
   QAction *noRecentFilesAction;
+  QAction *childCategoryHereAction;
 
   int previewWindowID;
   int consoleID, edID;

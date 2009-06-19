@@ -520,6 +520,11 @@ void EditingWindow::doUiSetup()
   connect( cw.tbAddKeywordTag, SIGNAL( clicked( bool ) ),
            this, SLOT( addKeywordTagFromLineEdit() ) );
 
+  childCategoryHereAction = new QAction( tr( "Add child category" ), cw.lwOtherCats );
+  connect( childCategoryHereAction, SIGNAL( triggered( bool ) ),
+           this, SLOT( newChildCategory() ) );
+  cw.lwOtherCats->addAction( childCategoryHereAction );
+
 #ifdef Q_WS_MAC
   cw.lwOtherCats->setWhatsThis( tr( "Secondary categories, if your blog system supports "
                                     "them.  To highlight more than one category, press "
@@ -3952,7 +3957,12 @@ void EditingWindow::handleSideWidgetPageSwitch( int index )
   }
 }
 
-void EditingWindow::newCategory()
+void EditingWindow::newChildCategory()
+{
+  newCategory( cw.lwOtherCats->currentRow() + 1 );
+}
+
+void EditingWindow::newCategory( int parentCategory )
 {
   QDomElement catsElement;
   QDomDocument doc;
@@ -3973,9 +3983,11 @@ void EditingWindow::newCategory()
       b = catNodeList.count();
       if( b ) {
         ncui.cbParent->clear();
+        ncui.cbParent->addItem( "(Top level)", QVariant( "0" ) );
         for( j = 0; j < b; j++ )
           ncui.cbParent->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
                                  QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
+        ncui.cbParent->setCurrentIndex( parentCategory );
       }
 
       if( newCategoryDialog.exec() ) {

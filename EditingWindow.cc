@@ -2539,11 +2539,6 @@ void EditingWindow::showHighlightedURL( const QString &highlightedURL )
   statusBar()->showMessage( highlightedURL, 2000 );
 }
 
-/*void EditingWindow::blogThis()
-  {
-  newMTPost();
-  }*/
-
 void EditingWindow::newMTPost()
 {
   QDomDocument doc;
@@ -2882,7 +2877,7 @@ void EditingWindow::setPostCategories()
   QDomElement cat;
 
 //#ifndef NO_DEBUG_OUTPUT
-  qDebug() << "starting to post categories";
+//  qDebug() << "starting to post categories";
 //#endif
   if( categoriesEnabled ) {
     qDebug() << "categories enabled";

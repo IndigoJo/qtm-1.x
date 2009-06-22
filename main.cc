@@ -1,7 +1,7 @@
 /*******************************************************************************
  
     QTM - Qt-based blog manager
-    Copyright (C) 2006, 2007, 2008 Matthew J Smith
+    Copyright (C) 2006-2009 Matthew J Smith
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License (version 2), as 

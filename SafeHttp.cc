@@ -1,7 +1,7 @@
 /***************************************************************************
  * SafeHttp.cc - Safe wrapper for QHttp which checks validity of given URIs
  *
- * Copyright (C) 2006, 2008 Matthew J Smith
+ * Copyright (C) 2006-2009 Matthew J Smith
  *
  * This file is part of QTM.
  * QTM is free software; you can redistribute it and/or modify

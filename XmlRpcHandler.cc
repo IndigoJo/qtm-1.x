@@ -1,7 +1,7 @@
 /*******************************************************************************
  
     XmlRpcHandler.cc - SAX parser for XML-RPC returns in QTM
-    Copyright (C) 2006 Matthew J Smith
+    Copyright (C) 2006-2009 Matthew J Smith
 
     This file is part of QTM.
 

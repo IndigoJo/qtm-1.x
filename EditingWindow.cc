@@ -1,7 +1,7 @@
 /*******************************************************************************
 
   QTM - Qt-based blog manager
-  Copyright (C) 2006 Matthew J Smith
+  Copyright (C) 2006-2009 Matthew J Smith
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License (version 2), as
@@ -4287,7 +4287,8 @@ void EditingWindow::setDirtySignals( bool d )
     connect( cw.chAllowComments, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.chAllowTB, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.cbMainCat, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
-    connect( cw.lwOtherCats, SIGNAL( activated( const QModelIndex & ) ), this, SLOT( dirtifyIfText() ) );
+    connect( cw.lwOtherCats, SIGNAL( activated( const QModelIndex & ) ),
+             this, SLOT( dirtifyIfText() ) );
     connect( cw.teExcerpt, SIGNAL( textChanged() ), this, SLOT( dirtify() ) );
   }
   else {

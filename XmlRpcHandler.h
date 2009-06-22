@@ -1,7 +1,7 @@
 /*******************************************************************************
  
     XmlRpcHandler.h - Header for QTM's SAX parser for XML-RPC returns
-    Copyright (C) 2006 Matthew J Smith
+    Copyright (C) 2006-2009 Matthew J Smith
 
     This file is part of QTM.
 

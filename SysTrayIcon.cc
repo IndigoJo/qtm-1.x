@@ -1,7 +1,7 @@
 /*********************************************************************************
 
   SysTrayIcon.cc - System tray icon for QTM
-  Copyright (C) 2006, 2007, 2008 Matthew J Smih
+  Copyright (C) 2006-2009 Matthew J Smih
 
   This file is part of QTM.
 

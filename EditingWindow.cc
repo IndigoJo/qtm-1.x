@@ -1160,7 +1160,7 @@ void EditingWindow::writeSettings()
 
 void EditingWindow::callRefreshCategories()
 {
-  if( currentHttpBusiness == None ) {
+  if( !currentHttpBusiness ) {
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
     refreshCategories();
@@ -1190,7 +1190,7 @@ void EditingWindow::refreshCategories()
   QDomElement param, value, integer, string;
 
   disconnect( SIGNAL( httpBusinessFinished() ) );
-  if( currentHttpBusiness == None ) {
+  if( !currentHttpBusiness ) {
 
     QDomDocument doc;
     QDomElement methodCall = doc.createElement( "methodCall" );
@@ -2556,7 +2556,7 @@ void EditingWindow::newMTPost()
   int count, tags;
   QList<QString> tblist;
 
-  if( (currentHttpBusiness == None) && !entryBlogged ) {
+  if( (!currentHttpBusiness) && !entryBlogged ) {
 
     if( EDITOR->toPlainText().contains( "<!--more-->" ) ) {
       description = QString( EDITOR->toPlainText() )
@@ -2886,7 +2886,7 @@ void EditingWindow::setPostCategories()
 //#endif
   if( categoriesEnabled ) {
     qDebug() << "categories enabled";
-    if( currentHttpBusiness == None ) {
+    if( !currentHttpBusiness ) {
       qDebug() << "no biz";
       QDomElement methodCall = doc.createElement( "methodCall" );
       methodCall.appendChild( XmlMethodName( doc, "mt.setPostCategories" ) );
@@ -2996,7 +2996,7 @@ void EditingWindow::publishPost() // slot
 {
   QDomDocument doc;
 
-  if( currentHttpBusiness == None ) {
+  if( !currentHttpBusiness ) {
     QDomElement methodCall = doc.createElement( "methodCall" );
     methodCall.appendChild( XmlMethodName( doc, "mt.publishPost" ) );
     QDomElement params = doc.createElement( "params" );
@@ -3793,7 +3793,7 @@ void EditingWindow::uploadFile()
   QFile inFile;
   QDomDocument doc;
 
-  if( currentHttpBusiness == None ) {
+  if( !currentHttpBusiness ) {
     QString uploadFilename = QFileDialog::getOpenFileName( this,
                                                            tr( "Select file to upload" ),
                                                            QDir::homePath() );
@@ -3992,7 +3992,7 @@ void EditingWindow::newCategory( int parentCategory )
 
       if( newCategoryDialog.exec() ) {
         if( !ncui.leName->text().isEmpty() ) {
-          if( currentHttpBusiness == None ) {
+          if( !currentHttpBusiness ) {
             QString blogid = cw.cbBlogSelector->itemData( cw.cbBlogSelector->currentIndex() ).toString();
             QRegExp blogidRegExp( "^[0-9]+$" );
             bool blogidIsInt = blogidRegExp.exactMatch( blogid );

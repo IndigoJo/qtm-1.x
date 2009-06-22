@@ -36,6 +36,7 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
   QDomNodeList blogNodeList;
   QDomDocumentFragment importedBlogList;
 
+  // qDebug() << "Http business:" << (int)currentHttpBusiness;
   console->insertPlainText( QString( response ) );
   cw.cbBlogSelector->disconnect( this, SLOT( changeBlog( int ) ) );
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );

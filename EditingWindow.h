@@ -128,8 +128,6 @@ class EditingWindow : public QMainWindow
   void writeSettings();
   void callRefreshCategories();
   QString processWithMarkdown( const QString & );
-  //void blogger_newPost( QByteArray );
-  //void blogger_editPost( QByteArray );
   void blogger_getUsersBlogs( QByteArray );
   void metaWeblog_newPost( QByteArray );
   void metaWeblog_editPost( QByteArray );
@@ -138,7 +136,6 @@ class EditingWindow : public QMainWindow
   void mt_getCategoryList( QByteArray );
   void mt_setPostCategories( QByteArray );
   void wp_newCategory( QByteArray );
-  //void submitBloggerEdit();
   void submitMTEdit();
   bool saveCheck();
   bool saveCheck( bool );
@@ -148,7 +145,6 @@ class EditingWindow : public QMainWindow
   QDomElement XmlMethodName( QDomDocument &, QString );
   QDomElement XmlRpcArray( QDomDocument &, QString, QList<QString> );
   void setNetworkActionsEnabled( bool );
-  //void newBloggerPost();
   QString & getHTMLList( QString, QString & );
   void saveAutoLinkDictionary();
   void loadAutoLinkDictionary();
@@ -185,7 +181,6 @@ class EditingWindow : public QMainWindow
   QStringList usersBlogURIs, usersBlogNames, usersBlogIDs;
   QStringList categoryNames, categoryIDs;
   QStringList qtmaccounts_xml;
-  // QHash<QString, QString> catList;
   QHash<QString, QString> autoLinkDictionary;
   QHash<QString, QString> autoLinkTitleDictionary;
   QHash<QString, int> autoLinkTargetDictionary;
@@ -211,10 +206,6 @@ class EditingWindow : public QMainWindow
   QString currentAccountId, currentBlogid;
   QString userAgentString;
   Application *qtm;
-  /*  typedef struct _RF {
-    QString filename;
-    QString title;
-    } recentFile; */
   QAction *recentFileActions[10];
   QAction *removeWPTag_forList;
   QAction *addWPTag_forList;
@@ -235,7 +226,6 @@ class EditingWindow : public QMainWindow
   void stopThisJob();
   void handleDone( bool );
   void handleResponseHeader( const QHttpResponseHeader & );
-  // void changeCurrentAccount( int );
   void changeCurrentBlog( int );
   void changeAccount( int );
   void extractAccountDetails();
@@ -268,7 +258,6 @@ class EditingWindow : public QMainWindow
   void makeOrderedList();
   void doPreview( bool, bool markdownFailed = false );
   void showHighlightedURL( const QString & );
-  //void blogThis();
   void newMTPost(); // formerly blogThis()
   void updatePostCategories();
   void saveBlogs();
@@ -321,9 +310,6 @@ class EditingWindow : public QMainWindow
   void getPreferences();
   void refreshBlogList();
   void changeCaptionAfterTitleChanged();
-  //bool load( const QString &, QList<QString>, QList<QString> );
-  /*bool load( const QString &, QStringList, QStringList, QStringList,
-    QStringList, QStringList ); */
   void save();
   bool load( const QString &, QDomDocument & );
   bool load( const QString &, bool fromSTI = false );
@@ -373,7 +359,6 @@ signals:
   void httpBusinessFinished();
   void categoryRefreshFinished();
   void blogRefreshFinished();
-  //void loadingDone( QWidget *, bool );
 };
 
 #endif

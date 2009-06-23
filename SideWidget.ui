@@ -93,7 +93,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="basicsPage">
       <layout class="QVBoxLayout">
@@ -613,13 +613,18 @@
   <tabstop>cbDoTB</tabstop>
   <tabstop>cbMainCat</tabstop>
   <tabstop>lwOtherCats</tabstop>
+  <tabstop>chNoCats</tabstop>
   <tabstop>pbRefresh</tabstop>
+  <tabstop>pbAddCategory</tabstop>
   <tabstop>teExcerpt</tabstop>
+  <tabstop>lwKeywordTags</tabstop>
+  <tabstop>leAddKeywordTag</tabstop>
+  <tabstop>tbAddKeywordTag</tabstop>
+  <tabstop>rbStartOfMainEntry</tabstop>
+  <tabstop>rbEndOfMainEntry</tabstop>
   <tabstop>lwTags</tabstop>
   <tabstop>leAddTag</tabstop>
   <tabstop>tbAddTag</tabstop>
-  <tabstop>rbStartOfMainEntry</tabstop>
-  <tabstop>rbEndOfMainEntry</tabstop>
   <tabstop>lwTBPings</tabstop>
   <tabstop>leTBPingURL</tabstop>
   <tabstop>tbTBAdd</tabstop>

@@ -529,8 +529,10 @@ void SysTrayIcon::quickpost( QClipboard::Mode mode )
                      this, SLOT( handleDone( bool ) ) );
             connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
                      this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
             connect( http, SIGNAL( hostLookupFailed() ),
                      this, SLOT( handleHostLookupFailed() ) );
+#endif
           }
         }
       }
@@ -594,8 +596,10 @@ void SysTrayIcon::quickpostFromTemplate( int id, QString templateString, QString
                this, SLOT( handleDone( bool ) ) );
       connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
                this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+#ifdef USE_SAFEHTTP
       connect( http, SIGNAL( hostLookupFailed() ),
                this, SLOT( handleHostLookupFailed() ) );
+#endif
     }
   }
 }

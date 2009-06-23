@@ -155,6 +155,7 @@ class EditingWindow : public QMainWindow
   void updateRecentFileMenu();
   void saveAccountsDom();
   void extractAccountAttributes();
+  QString decodeXmlEntities( QString );
 
   int currentAccount, currentBlog, loadedEntryBlog;
   QString loadedAccountId;
@@ -214,6 +215,7 @@ class EditingWindow : public QMainWindow
 #ifdef USE_SYSTRAYICON
   SysTrayIcon *sti;
 #endif
+  QHash <QString, QChar> xmlEntities;
 
  private slots:
   void about();

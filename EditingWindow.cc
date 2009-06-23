@@ -137,6 +137,12 @@ EditingWindow::EditingWindow( QString newPost, QWidget *parent )
   setAttribute( Qt::WA_DeleteOnClose );
   doUiSetup();
 
+  xmlEntities["quot"] = '"';
+  xmlEntities["amp"]  = '&';
+  xmlEntities["gt"]   = '>';
+  xmlEntities["lt"]   = '<';
+  xmlEntities["apos"] = '\'';
+
   readSettings();
   setEditorColors();
   setTextFonts();
@@ -1832,6 +1838,7 @@ void EditingWindow::populateBlogList() // slot
   // qDebug() << "Blogs: " << a;
 #endif
   int b, i, j;
+  QString catName;
 
   if( a ) {
     cw.cbBlogSelector->clear();
@@ -1855,9 +1862,9 @@ void EditingWindow::populateBlogList() // slot
         cw.cbMainCat->clear();
         cw.lwOtherCats->clear();
         for( j = 0; j < b; j++ ) {
-          cw.cbMainCat->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
-                                 QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
-          cw.lwOtherCats->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text() );
+          catName = decodeXmlEntities( catNodeList.at( j ).firstChildElement( "categoryName" ).text() );
+          cw.cbMainCat->addItem( catName, QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
+          cw.lwOtherCats->addItem( catName );
         }
       }
       else {
@@ -2103,7 +2110,7 @@ void EditingWindow::changeBlog( int b, bool fromChangeAccount ) // slot
         cw.cbMainCat->clear();
         cw.lwOtherCats->clear();
         for( int i = 0; i < c; i++ ) {
-          currentCategoryText = catsList.at( i ).firstChildElement( "categoryName" ).text();
+          currentCategoryText = decodeXmlEntities( catsList.at( i ).firstChildElement( "categoryName" ).text() );
           cw.cbMainCat->addItem( currentCategoryText,
                                  QVariant( catsList.at( i ).firstChildElement( "categoryId" ).text() ) );
           cw.lwOtherCats->addItem( currentCategoryText );
@@ -3268,6 +3275,7 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
   addToConsole( "Starting load" );
   QMap<QString, QString> emap;
   QString currentLine, key, value, fetchedText, tags, keywords;
+  QString catName;
   QStringList otherCatStringList;
   QDomNodeList accts;
   bool getDetailsAgain = false;
@@ -3543,9 +3551,9 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
             cw.cbMainCat->clear();
             cw.lwOtherCats->clear();
             for( int j = 0; j < b; j++ ) {
-              cw.cbMainCat->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
-                                     QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
-              cw.lwOtherCats->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text() );
+              catName = decodeXmlEntities( catNodeList.at( j ).firstChildElement( "categoryName" ).text() );
+              cw.cbMainCat->addItem( catName, QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
+              cw.lwOtherCats->addItem( catName );
             }
             // qDebug() << "primaryCat is" << QString::number( primaryCat );
             for( int i = 0; i < catNodeList.size(); i++ ) {
@@ -4722,3 +4730,52 @@ QString EditingWindow::checkBoxName( QString source )
     .arg( source.section( 1, -1 ) );
 }
 
+QString EditingWindow::decodeXmlEntities( QString source )
+{
+  QString rv;
+  int i, tc;
+  int pos = 0;
+  QChar thisChar;
+  QString key;
+  bool ok;
+  QStringList lst, caps;
+ 
+  QRegExp rx1( "&(\\S+);" );       // Detects named entities
+  QRegExp rx2( "&#(\\d{1-3});" );  // Detects only numerically-defined characters
+  int index = rx1.indexIn( source );
+ 
+  if( index == -1 )
+    return source;
+  else {
+    lst = source.split( rx1 );
+
+    while(( pos = rx1.indexIn( source, pos )) != -1 ) {
+      caps += rx1.cap( 0 );
+      pos += rx1.matchedLength();
+    }
+
+    for( i = 0; i < lst.count(); i++ ) {
+      rv += lst.value( i );
+
+      if( i != caps.count()-1 ) {
+        if( rx2.exactMatch( caps.value( i ) ) ) {
+          tc = rx2.cap( 0 ).toInt( &ok );
+          if( ok && tc < 256 )
+            rv += QChar( tc );
+          else
+            rv += caps.value( i );
+        }
+        else {
+          rx1.indexIn( caps.value( i ) );
+          key = rx1.cap( 1 );
+          if( xmlEntities.contains( key ) )
+            rv += xmlEntities.value( key );
+          else
+            rv += rx1.cap( 0 );
+        }
+        pos += rx1.matchedLength();
+      }
+    }
+    return rv;
+  }
+}

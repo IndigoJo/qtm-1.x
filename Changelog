@@ -3,6 +3,8 @@ Changelog:
 1.1
 
 New feature: Ability to create categories in Wordpress blogs only
+New feature: Decodes XML entities such as &amp; in category, blog and
+account names
 
 1.0 (14th June 2009):
 

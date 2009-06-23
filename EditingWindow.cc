@@ -935,7 +935,7 @@ void EditingWindow::setInitialAccount()
     thisTitleElem = accountsList.at( i ).toElement().firstChildElement( "details" )
       .firstChildElement( "title" );
     if( !thisTitleElem.isNull() )
-      cw.cbAccountSelector->addItem( thisTitleElem.text(),
+      cw.cbAccountSelector->addItem( decodeXmlEntities( thisTitleElem.text() ),
                                      accountsList.at( i ).toElement().attribute( "id" ) );
     else
       cw.cbAccountSelector->addItem( tr( "Unnamed account" ),
@@ -1464,8 +1464,8 @@ void EditingWindow::getAccounts( const QString &title )
     cw.cbAccountSelector->clear();
     accountsList = accountsDom.documentElement().elementsByTagName( "account" );
     for( i = 0; i < accountsList.count(); ++i ) {
-      currentTitle = accountsList.at( i ).firstChildElement( "details" )
-        .firstChildElement( "title" ).text();
+      currentTitle = decodeXmlEntities( accountsList.at( i ).firstChildElement( "details" )
+                                        .firstChildElement( "title" ).text() );
       if( currentTitle.isEmpty() )
         currentTitle = tr( "(Unnamed account)" );
       cw.cbAccountSelector->addItem( currentTitle, accountsList.at( i ).toElement().
@@ -1817,7 +1817,7 @@ void EditingWindow::populateAccountList() // slot
         cname = detail.firstChildElement( "title" ).text();
         if( cname.isEmpty() )
           cname = tr( "Unnamed account %1" ).arg( i + 1 );
-        cw.cbAccountSelector->addItem( cname, cid );
+        cw.cbAccountSelector->addItem( decodeXmlEntities( cname ), cid );
       }
     }
 
@@ -1844,7 +1844,7 @@ void EditingWindow::populateBlogList() // slot
     cw.cbBlogSelector->clear();
     for( i = 0; i < a; i++ ) {
       ct = blogNodeList.at( i ).firstChildElement( "blogName" );
-      cw.cbBlogSelector->addItem( blogNodeList.at( i ).firstChildElement( "blogName" ).text(),
+      cw.cbBlogSelector->addItem( decodeXmlEntities( blogNodeList.at( i ).firstChildElement( "blogName" ).text() ),
                                   QVariant( blogNodeList.at( i ).firstChildElement( "blogid" ).text() ));
       currentBlog = i;
       currentBlogElement = currentAccountElement.firstChildElement( "blogs" )
@@ -2022,7 +2022,7 @@ void EditingWindow::changeAccount( int a ) // slot
         // qDebug() << "Blogs: " << b;
         cw.cbBlogSelector->clear();
         for( int i = 0; i < b; i++ )
-          cw.cbBlogSelector->addItem( blogsList.at( i ).firstChildElement( "blogName" ).text(),
+          cw.cbBlogSelector->addItem( decodeXmlEntities( blogsList.at( i ).firstChildElement( "blogName" ).text() ),
                                       blogsList.at( i ).firstChildElement( "blogid" ).text() );
         cw.cbBlogSelector->setEnabled( true );
         changeBlog( 0, true );
@@ -3512,8 +3512,8 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
         QDomNodeList blogNodeList = currentAccountElement.elementsByTagName( "blog" );
         cw.cbBlogSelector->clear();
         for( hh = 0; hh < blogNodeList.count(); hh++ ) {
-          cw.cbBlogSelector->addItem( blogNodeList.at( hh ).toElement()
-                                      .firstChildElement( "blogName" ).text(),
+          cw.cbBlogSelector->addItem( decodeXmlEntities( blogNodeList.at( hh ).toElement()
+                                                         .firstChildElement( "blogName" ).text() ),
                                       blogNodeList.at( hh ).toElement()
                                       .firstChildElement( "blogid" ).text() );
 
@@ -3621,7 +3621,7 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
         if( blogs.at( currentBlog ).toElement().elementsByTagName( "category" ).count() ) {
           cw.cbBlogSelector->clear();
           for( hh = 0; hh < blogs.count(); hh++ ) {
-            cw.cbBlogSelector->addItem( blogs.at( hh ).firstChildElement( "blogName" ).text(),
+            cw.cbBlogSelector->addItem( decodeXmlEntities( blogs.at( hh ).firstChildElement( "blogName" ).text() ),
                                         QVariant( blogs.at( hh ).firstChildElement( "blogid" ).text() ));
           }
           setLoadedPostCategories();
@@ -3711,7 +3711,7 @@ void EditingWindow::setLoadedPostCategories() // slot
   if( !cw.cbBlogSelector->count() ) {
     j = blogNodes.size();
     for( z = 0; z < j; z++ )
-      cw.cbBlogSelector->addItem( blogNodes.at( z ).firstChildElement( "blogName" ).text(),
+      cw.cbBlogSelector->addItem( decodeXmlEntities( blogNodes.at( z ).firstChildElement( "blogName" ).text() ),
                                   QVariant( blogNodes.at( z ).firstChildElement( "blogName" ).text() ) );
     cw.cbBlogSelector->setCurrentIndex( currentBlog );
   }

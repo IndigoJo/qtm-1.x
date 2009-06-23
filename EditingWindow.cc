@@ -4736,7 +4736,7 @@ QString EditingWindow::decodeXmlEntities( QString source )
   int i, tc;
   int pos = 0;
   QChar thisChar;
-  QString key;
+  QString key, thisCap;
   bool ok;
   QStringList lst, caps;
  
@@ -4751,13 +4751,17 @@ QString EditingWindow::decodeXmlEntities( QString source )
 
     while(( pos = rx1.indexIn( source, pos )) != -1 ) {
       caps += rx1.cap( 0 );
+      //qDebug() << "Matched" << rx1.cap( 0 );
       pos += rx1.matchedLength();
     }
+    //qDebug() << "Occurrences:" << caps.length();
 
-    for( i = 0; i < lst.count(); i++ ) {
+    for( i = 0; i < lst.count(); ++i ) {
       rv += lst.value( i );
+      thisCap = caps.value( i );
+      //qDebug() << "i =" << i;
 
-      if( i != caps.count()-1 ) {
+      if( !thisCap.isNull() ) {
         if( rx2.exactMatch( caps.value( i ) ) ) {
           tc = rx2.cap( 0 ).toInt( &ok );
           if( ok && tc < 256 )
@@ -4766,14 +4770,16 @@ QString EditingWindow::decodeXmlEntities( QString source )
             rv += caps.value( i );
         }
         else {
-          rx1.indexIn( caps.value( i ) );
+          rx1 = QRegExp( rx1 );
+          rx1.indexIn( thisCap );
           key = rx1.cap( 1 );
+          //qDebug() << "Using caps value" << i;
+          //qDebug() << thisCap << "is not a numerical: caps:" << rx1.numCaptures();
           if( xmlEntities.contains( key ) )
             rv += xmlEntities.value( key );
           else
-            rv += rx1.cap( 0 );
+           rv += rx1.cap( 0 );
         }
-        pos += rx1.matchedLength();
       }
     }
     return rv;

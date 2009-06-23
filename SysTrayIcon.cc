@@ -92,6 +92,9 @@
   QCoreApplication::setOrganizationName( "Catkin Project" );
   QCoreApplication::setOrganizationDomain( "catkin.blogistan.co.uk" );
   QCoreApplication::setApplicationName( "QTM" );
+#if QT_VERSION >= 0x040400
+  QCoreApplication::setApplicationVersion( QTM_VERSION );
+#endif
   userAgentString = QString( "QTM/%1" ).arg( QTM_VERSION );
 
   QSettings settings;

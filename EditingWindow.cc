@@ -269,6 +269,9 @@ void EditingWindow::doUiSetup()
   QCoreApplication::setOrganizationName( "Catkin Project" );
   QCoreApplication::setOrganizationDomain( "catkin.blogistan.co.uk" );
   QCoreApplication::setApplicationName( "QTM" );
+#if QT_VERSION >= 0x040400
+  QCoreApplication::setApplicationVersion ( QTM_VERSION );
+#endif
 
   qtmaccounts_xml << "qtmaccounts2.xml" << "qtmaccounts.xml";
 

@@ -41,7 +41,11 @@ DBusAdaptor::DBusAdaptor( SysTrayIcon *sti )
  */
 QString DBusAdaptor::applicationVersion()
 {
-    return QString( QTM_VERSION );
+#if QT_VERSION >= 0x040400
+  return QCoreApplication::applicationVersion();
+#else
+  return QString( QTM_VERSION );
+#endif
 }
 
 /** getQuickpostTemplateTitles: Returns a string list of the titles of available quickpost templates

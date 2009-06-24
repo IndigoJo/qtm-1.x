@@ -1282,16 +1282,6 @@ QString EditingWindow::processWithMarkdown( const QString &text )
       }
   }
 
-/*
-  if( QFile::exists( markdownPath ) )
-    mdPath = markdownPath;
-  else {
-    // Now try running it from the source bundle
-    mdPath = QString( "%1/Markdown/Markdown.pl" ).arg( QCoreApplication::applicationDirPath() );
-    if( !QFile::exists( mdPath ) )
-      return QString();
-  } */
-
   QProcess proc;
   proc.start( perlPath, QStringList() << mdPath << tempFileName );
   if( !proc.waitForStarted() ) {

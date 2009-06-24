@@ -2890,9 +2890,9 @@ void EditingWindow::setPostCategories()
 //  qDebug() << "starting to post categories";
 //#endif
   if( categoriesEnabled ) {
-    qDebug() << "categories enabled";
+    //qDebug() << "categories enabled";
     if( !currentHttpBusiness ) {
-      qDebug() << "no biz";
+      //qDebug() << "no biz";
       QDomElement methodCall = doc.createElement( "methodCall" );
       methodCall.appendChild( XmlMethodName( doc, "mt.setPostCategories" ) );
       QDomElement params = doc.createElement( "params" );

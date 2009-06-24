@@ -819,7 +819,7 @@ void SysTrayIcon::doQP( QString receivedText )
     // Copy the title, if a quickpost
     if( copyTitleStatusList[activeTemplate] ) {
       if( !newTitle.isEmpty() )
-        c->setWindowTitle( QString( "%1 - QTM" ).arg( newTitle ) );
+        c->setWindowTitle( QString( "%1 - QTM [*]" ).arg( newTitle ) );
       c->setPostTitle( newTitle );
     }
   }
@@ -828,7 +828,7 @@ void SysTrayIcon::doQP( QString receivedText )
       // Copy the title, if not a quickpost
       c->setPostTitle( newTitle );
       if( !newTitle.isEmpty() )
-        c->setWindowTitle( QString( "%1 - QTM" ).arg( newTitle ) );
+        c->setWindowTitle( QString( "%1 - QTM [*]" ).arg( newTitle ) );
     }
   }
 

@@ -2561,164 +2561,164 @@ void EditingWindow::newMTPost()
   int count, tags;
   QList<QString> tblist;
 
-  if( (!currentHttpBusiness) && !entryBlogged ) {
+  if( !currentHttpBusiness ) {
+    if( !entryBlogged ) {
 
-    if( EDITOR->toPlainText().contains( "<!--more-->" ) ) {
-      description = QString( EDITOR->toPlainText() )
-        .section( "<!--more-->", 0, 0 );
-      extEntry = QString( EDITOR->toPlainText() )
-        .section( "<!--more-->", -1, -1 );
-    } else {
-      description = QString( EDITOR->toPlainText() );
-      extEntry = "";
-    }
+      if( EDITOR->toPlainText().contains( "<!--more-->" ) ) {
+        description = QString( EDITOR->toPlainText() )
+          .section( "<!--more-->", 0, 0 );
+        extEntry = QString( EDITOR->toPlainText() )
+          .section( "<!--more-->", -1, -1 );
+      } else {
+        description = QString( EDITOR->toPlainText() );
+        extEntry = "";
+      }
 
-    if( doMarkdownWhenPosting ) {
-      convertedString = processWithMarkdown( description );
-      if( !convertedString.isNull() )
-        /* description = stripParaTags ?
-          convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
-        description = convertedString;
-      else
-        statusBar()->showMessage( tr( "Markdown conversion failed; posting main entry as is." ), 2000 );
-      if( !extEntry.isEmpty() ) {
-        convertedString = processWithMarkdown( extEntry );
+      if( doMarkdownWhenPosting ) {
+        convertedString = processWithMarkdown( description );
         if( !convertedString.isNull() )
-          /*extEntry = stripParaTags ?
-            convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
-          extEntry = convertedString;
+          /* description = stripParaTags ?
+             convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
+          description = convertedString;
         else
-          statusBar()->showMessage( tr( "Markdown conversion failed; posting extension as is." ), 2000 );
-      }
-    }
-
-    dateTime = QDateTime::currentDateTime().toString( Qt::ISODate );
-    dateTime.remove( QChar( '-' ) );
-
-    if( cw.lwTags->count() ) {
-      tags = cw.lwTags->count();
-      techTagString = "<p style=\"text-align:right;font-size:10px;\">Technorati Tags: ";
-      for( count = 0; count < tags; count++ ) {
-        techTagString.append( QString( "<a href=\"http://technorati.com/tag/%1\""
-                                       " rel=\"tag\">%2</a>%3" )
-                              .arg( cw.lwTags->item( count )->text().replace( ' ', '+' ) )
-                              .arg( cw.lwTags->item( count )->text()
-                                    .replace( "+", " " ) )
-                              .arg( (count == tags-1) ? "</p>\n\n" : ", " ) );
+          statusBar()->showMessage( tr( "Markdown conversion failed; posting main entry as is." ), 2000 );
+        if( !extEntry.isEmpty() ) {
+          convertedString = processWithMarkdown( extEntry );
+          if( !convertedString.isNull() )
+            /*extEntry = stripParaTags ?
+              convertedString.remove( "<p>" ).remove( "</p>" ) : convertedString; */
+            extEntry = convertedString;
+          else
+            statusBar()->showMessage( tr( "Markdown conversion failed; posting extension as is." ), 2000 );
+        }
       }
 
-      if( cw.rbStartOfMainEntry->isChecked() )
-        description.insert( 0, techTagString );
+      dateTime = QDateTime::currentDateTime().toString( Qt::ISODate );
+      dateTime.remove( QChar( '-' ) );
+
+      if( cw.lwTags->count() ) {
+        tags = cw.lwTags->count();
+        techTagString = "<p style=\"text-align:right;font-size:10px;\">Technorati Tags: ";
+        for( count = 0; count < tags; count++ ) {
+          techTagString.append( QString( "<a href=\"http://technorati.com/tag/%1\""
+                                         " rel=\"tag\">%2</a>%3" )
+                                .arg( cw.lwTags->item( count )->text().replace( ' ', '+' ) )
+                                .arg( cw.lwTags->item( count )->text()
+                                      .replace( "+", " " ) )
+                                .arg( (count == tags-1) ? "</p>\n\n" : ", " ) );
+        }
+
+        if( cw.rbStartOfMainEntry->isChecked() )
+          description.insert( 0, techTagString );
+        else
+          description.append( techTagString );
+      }
+
+      QString blogid = cw.cbBlogSelector->itemData( cw.cbBlogSelector->currentIndex() ).toString();
+      QRegExp blogidRegExp( "^[0-9]+$" );
+      blogidIsInt = blogidRegExp.exactMatch( blogid );
+
+      methodCall = doc.createElement( "methodCall" );
+      methodCall.appendChild( XmlMethodName( doc, "metaWeblog.newPost" ) );
+
+      params = doc.createElement( "params" );
+      params.appendChild( XmlValue( doc, blogidIsInt ? "int" : "string", blogid ) );
+      params.appendChild( XmlValue( doc, "string", login ) );
+      params.appendChild( XmlValue( doc, "string", password ) );
+
+      param = doc.createElement( "param" );
+      value = doc.createElement( "value" );
+      rpcstruct = doc.createElement( "struct" );
+      rpcstruct.appendChild( XmlMember( doc, "title", "string",
+                                        cw.leTitle->text() ) );
+      rpcstruct.appendChild( XmlMember( doc, "description", "string", description ) );
+      if( postDateTime )
+        rpcstruct.appendChild( XmlMember( doc, "dateCreated", "dateTime.iso8601", dateTime ) );
+      rpcstruct.appendChild( XmlMember( doc, "mt_allow_comments", "boolean",
+                                        takeComms ? "1" : "0" ) );
+      rpcstruct.appendChild( XmlMember( doc, "mt_allow_pings", "boolean",
+                                        takeTB ? "1" : "0" ) );
+      rpcstruct.appendChild( XmlMember( doc, "mt_text_more", "string", extEntry ) );
+      if( cw.teExcerpt->toPlainText().length() )
+        rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string",
+                                          cw.teExcerpt->toPlainText().replace( QChar( '&' ), "&amp;" ) ) );
       else
-        description.append( techTagString );
-    }
-
-    QString blogid = cw.cbBlogSelector->itemData( cw.cbBlogSelector->currentIndex() ).toString();
-    QRegExp blogidRegExp( "^[0-9]+$" );
-    blogidIsInt = blogidRegExp.exactMatch( blogid );
-
-    methodCall = doc.createElement( "methodCall" );
-    methodCall.appendChild( XmlMethodName( doc, "metaWeblog.newPost" ) );
-
-    params = doc.createElement( "params" );
-    params.appendChild( XmlValue( doc, blogidIsInt ? "int" : "string", blogid ) );
-    params.appendChild( XmlValue( doc, "string", login ) );
-    params.appendChild( XmlValue( doc, "string", password ) );
-
-    param = doc.createElement( "param" );
-    value = doc.createElement( "value" );
-    rpcstruct = doc.createElement( "struct" );
-    rpcstruct.appendChild( XmlMember( doc, "title", "string",
-                                      cw.leTitle->text() ) );
-    rpcstruct.appendChild( XmlMember( doc, "description", "string", description ) );
-    if( postDateTime )
-      rpcstruct.appendChild( XmlMember( doc, "dateCreated", "dateTime.iso8601", dateTime ) );
-    rpcstruct.appendChild( XmlMember( doc, "mt_allow_comments", "boolean",
-                                      takeComms ? "1" : "0" ) );
-    rpcstruct.appendChild( XmlMember( doc, "mt_allow_pings", "boolean",
-                                      takeTB ? "1" : "0" ) );
-    rpcstruct.appendChild( XmlMember( doc, "mt_text_more", "string", extEntry ) );
-    if( cw.teExcerpt->toPlainText().length() )
-      rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string",
-                                        cw.teExcerpt->toPlainText().replace( QChar( '&' ), "&amp;" ) ) );
-    else
-      rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string", "" ) );
-    if( !cw.lwKeywordTags->count() )
-      rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", "" ) );
-    else {
-      for( count = 0; count < cw.lwKeywordTags->count(); count++ ) {
-        keywordTagList.append( cw.lwKeywordTags->item( count )->text() );
-        if( count != cw.lwKeywordTags->count() - 1 )
-          keywordTagList.append( ", " );
+        rpcstruct.appendChild( XmlMember( doc, "mt_excerpt", "string", "" ) );
+      if( !cw.lwKeywordTags->count() )
+        rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", "" ) );
+      else {
+        for( count = 0; count < cw.lwKeywordTags->count(); count++ ) {
+          keywordTagList.append( cw.lwKeywordTags->item( count )->text() );
+          if( count != cw.lwKeywordTags->count() - 1 )
+            keywordTagList.append( ", " );
+        }
+        rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", keywordTagList ) );
       }
-      rpcstruct.appendChild( XmlMember( doc, "mt_keywords", "string", keywordTagList ) );
-    }
 
-    if( cw.lwTBPings->count() ) {
-      for( count = 0; count < cw.lwTBPings->count(); count++ )
-        tblist.append( cw.lwTBPings->item( count )->text() );
-      rpcstruct.appendChild( XmlRpcArray( doc, "mt_tb_ping_urls", tblist ) );
-    }
+      if( cw.lwTBPings->count() ) {
+        for( count = 0; count < cw.lwTBPings->count(); count++ )
+          tblist.append( cw.lwTBPings->item( count )->text() );
+        rpcstruct.appendChild( XmlRpcArray( doc, "mt_tb_ping_urls", tblist ) );
+      }
 
-    value.appendChild( rpcstruct );
-    param.appendChild( value );
-    params.appendChild( param );
-    params.appendChild( XmlValue( doc, "boolean",
-                                  cw.cbStatus->currentIndex() ? "1" : "0" ) );
-    methodCall.appendChild( params );
-    doc.appendChild( methodCall );
-    doc.insertBefore( doc.createProcessingInstruction( "xml",
-                                                       "version=\"1.0\" encoding=\"UTF-8\"" ),
-                      doc.firstChild() );
+      value.appendChild( rpcstruct );
+      param.appendChild( value );
+      params.appendChild( param );
+      params.appendChild( XmlValue( doc, "boolean",
+                                    cw.cbStatus->currentIndex() ? "1" : "0" ) );
+      methodCall.appendChild( params );
+      doc.appendChild( methodCall );
+      doc.insertBefore( doc.createProcessingInstruction( "xml",
+                                                         "version=\"1.0\" encoding=\"UTF-8\"" ),
+                        doc.firstChild() );
 
-    QByteArray requestArray( doc.toByteArray() );
-    responseData = "";
-    QHttpRequestHeader header( "POST", location );
-    header.setValue( "Host", server );
-    header.setValue( "User-Agent", userAgentString );
-    http->setHost( server );
-    http->request( header, requestArray );
+      QByteArray requestArray( doc.toByteArray() );
+      responseData = "";
+      QHttpRequestHeader header( "POST", location );
+      header.setValue( "Host", server );
+      header.setValue( "User-Agent", userAgentString );
+      http->setHost( server );
+      http->request( header, requestArray );
 
-    addToConsole( header.toString() );
-    addToConsole( doc.toString() );
+      addToConsole( header.toString() );
+      addToConsole( doc.toString() );
 
-    if( QApplication::overrideCursor() == 0 )
-      QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
-    if( postAsSave && !entryEverSaved ) {
-      cleanSave = true;
-      setDirtySignals( true );
-    }
-    currentHttpBusiness = _metaWeblog_newPost;
-    disconnect( this, SIGNAL( httpBusinessFinished() ) );
-    connect( http, SIGNAL( done( bool ) ),
-             this, SLOT( handleDone( bool ) ) );
-    connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
-             this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
+      if( QApplication::overrideCursor() == 0 )
+        QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
+      if( postAsSave && !entryEverSaved ) {
+        cleanSave = true;
+        setDirtySignals( true );
+      }
+      currentHttpBusiness = _metaWeblog_newPost;
+      disconnect( this, SIGNAL( httpBusinessFinished() ) );
+      connect( http, SIGNAL( done( bool ) ),
+               this, SLOT( handleDone( bool ) ) );
+      connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
+               this, SLOT( handleResponseHeader( const QHttpResponseHeader & ) ) );
 #ifdef USE_SAFEHTTP
-    connect( http, SIGNAL( hostLookupFailed() ),
-             this, SLOT( handleHostLookupFailed() ) );
+      connect( http, SIGNAL( hostLookupFailed() ),
+               this, SLOT( handleHostLookupFailed() ) );
 #endif
 
-    if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
-      progressBar->setMaximum( 6 );
-    else
-      progressBar->setMaximum( 4 );
-    progressBar->setValue( 1 );
+      if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
+        progressBar->setMaximum( 6 );
+      else
+        progressBar->setMaximum( 4 );
+      progressBar->setValue( 1 );
 #ifndef Q_WS_MAC
-    progressBarAction->setVisible( true );
+      progressBarAction->setVisible( true );
 #endif
+    }
+    else
+      submitMTEdit();
   }
   else {
-    if( currentHttpBusiness != None ) {
 #ifdef QTM_DEBUG
       statusBar()->showMessage( tr( "refreshCategories: All HTTP requests are blocked" ),
                                 2000 );
 #else
       statusBar()->showMessage( tr( "All HTTP requests are blocked." ), 2000 );
 #endif
-    }
-    else
-      submitMTEdit();
   }
 }
 

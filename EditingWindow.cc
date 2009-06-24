@@ -1267,6 +1267,22 @@ QString EditingWindow::processWithMarkdown( const QString &text )
   else
     return QString();
 
+  QStringList markdownPaths;
+  markdownPaths << markdownPath
+    << QString( "%1/Markdown/Markdown.pl" ).arg( QCoreApplication::applicationDirPath() )
+    << QString( "%1/../Markdown/Markdown.pl" ).arg( QCoreApplication::applicationDirPath() )
+    << "nofile";
+  Q_FOREACH( QString mdp, markdownPaths ) {
+    if( mdp == "nofile" )
+      return QString();
+    else
+      if( QFile::exists( mdp ) ) {
+        mdPath = mdp;
+        break;
+      }
+  }
+
+/*
   if( QFile::exists( markdownPath ) )
     mdPath = markdownPath;
   else {
@@ -1274,7 +1290,7 @@ QString EditingWindow::processWithMarkdown( const QString &text )
     mdPath = QString( "%1/Markdown/Markdown.pl" ).arg( QCoreApplication::applicationDirPath() );
     if( !QFile::exists( mdPath ) )
       return QString();
-  }
+  } */
 
   QProcess proc;
   proc.start( perlPath, QStringList() << mdPath << tempFileName );

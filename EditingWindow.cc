@@ -1254,7 +1254,7 @@ void EditingWindow::refreshCategories()
 QString EditingWindow::processWithMarkdown( const QString &text )
 {
   QString conversionString = text;
-  QString nullString, conversionStringB, tempFileName;
+  QString nullString, conversionStringB, tempFileName, mdPath;
   QTemporaryFile tf;
 
   if( tf.open() ) {
@@ -1267,8 +1267,17 @@ QString EditingWindow::processWithMarkdown( const QString &text )
   else
     return QString();
 
+  if( QFile::exists( markdownPath ) )
+    mdPath = markdownPath;
+  else {
+    // Now try running it from the source bundle
+    mdPath = QString( "%1/Markdown/Markdown.pl" ).arg( QCoreApplication::applicationDirPath() );
+    if( !QFile::exists( mdPath ) )
+      return QString();
+  }
+
   QProcess proc;
-  proc.start( perlPath, QStringList() << markdownPath << tempFileName );
+  proc.start( perlPath, QStringList() << mdPath << tempFileName );
   if( !proc.waitForStarted() ) {
     statusBar()->showMessage( tr( "Failed to start conversion" ), 2000 );
     return QString();

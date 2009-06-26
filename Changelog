@@ -9,6 +9,8 @@ Improvement: Will now run Markdown from the Markdown subdirectory of the
 source bundle, whether QTM is built in-source or in a 'build' directory
 Bug fix: Now includes [*] placeholder whenever setting the main window title
 (to stop console warnings when "setWindowModified" is called)
+Bug fix: "Allow trackbacks" setting in accounts form wouldn't keep on second
+account down.
 
 1.0 (14th June 2009):
 

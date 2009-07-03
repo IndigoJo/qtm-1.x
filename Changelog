@@ -1,5 +1,9 @@
 Changelog:
 
+1.1.1 (3rd July 2009):
+
+Licensing: Added appropriate GPL header to search widget source files
+
 1.1 (26th June 2009):
 
 New feature: Ability to create categories (in Wordpress blogs only)

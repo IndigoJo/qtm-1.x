@@ -1,0 +1,28 @@
+[Details]
+Name=QTM Portable
+AppID=QTMPortable
+Publisher=Matthew J Smith
+Homepage=qtm.blogistan.co.uk
+Description=QTM is for writing blog entries
+Language=en
+Trademarks=
+InstallType=
+
+[License]
+Shareable=true
+OpenSource=true
+Freeware=true
+CommercialUse=true
+
+[Version]
+PackageVersion=@QTM_VERSION@
+Displayversion=@QTM_VERSION@
+
+[SpecialPaths]
+Plugins=NONE
+
+[Control]
+Icons=1
+Start=QTM.exe
+ExtractIcon=App\QTM\QTM.exe
+

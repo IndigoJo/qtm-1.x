@@ -1,12 +1,24 @@
 /*******************************************************************************
  *
  * Foxhound Search Widget - A Qt document search widget based on the
- * Firefox search widget
+ * Qt Designer search widget
  *
- * Written by Matthew J Smith (Yusuf), 12th Feb 2008
- * Parts adapted from Qt Assistant, by Qt Software (a Nokia division)
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License (version 2), as
+ * published by the Free Software Foundation.
  *
- *******************************************************************************/
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Written by Matthew J Smith , 12th Feb 2008
+ *
+ ********************************************************************************/
 
 #include <QIcon>
 #include <QKeySequence>

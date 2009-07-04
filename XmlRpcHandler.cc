@@ -84,7 +84,7 @@ bool XmlRpcHandler::startElement( const QString &, const QString &,
 
     if( ((reqType == _BLOGGER_GETUSERSBLOGS) || (reqType == _MT_GETCATEGORYLIST)) ) {
       switch( reqType ) {
-      case _BLOGGER_GETUSERSBLOGS: superElementName = QString( "blog" ); break;
+      case _BLOGGER_GETUSERSBLOGS: superElementName = QString( "blog" );     break;
       case _MT_GETCATEGORYLIST:    superElementName = QString( "category" ); break;
       }
       // qDebug() << "Creating super element: " << superElementName.toAscii().data();

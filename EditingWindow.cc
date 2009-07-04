@@ -529,10 +529,21 @@ void EditingWindow::doUiSetup()
   connect( cw.tbAddKeywordTag, SIGNAL( clicked( bool ) ),
            this, SLOT( addKeywordTagFromLineEdit() ) );
 
-  childCategoryHereAction = new QAction( tr( "Add child category" ), cw.lwOtherCats );
+  childCategoryHereAction = new QAction( tr( "Add child category" ), this );
   connect( childCategoryHereAction, SIGNAL( triggered( bool ) ),
            this, SLOT( newChildCategory() ) );
   cw.lwOtherCats->addAction( childCategoryHereAction );
+  cw.twHierCats->addAction( childCategoryHereAction );
+
+  makePrimaryAction = new Action( tr( "Primary category" ), this );
+  connect( makePrimaryAction, SIGNAL( triggered( bool ) ),
+           this, SLOT( makePrimary() ) );
+  cw.twHierCats->addAction( makePrimaryAction );
+
+  catPropertiesAction = new QAction( tr( "Properties ..." ), this );
+  connect( catPropertiesAction, SIGNAL( triggered( bool ) ),
+           this, SLOT( showCatProperties() ) );
+  cw.twHierCats->addAction( catPropertiesAction );
 
 #ifdef Q_WS_MAC
   cw.lwOtherCats->setWhatsThis( tr( "Secondary categories, if your blog system supports "
@@ -1196,17 +1207,19 @@ void EditingWindow::callRefreshCategories()
 
 void EditingWindow::refreshCategories()
 {
-  QDomElement param, value, integer, string;
+  QDomDocument doc;
+  QDomElement methodCall, params, param, value, integer, string;
 
   disconnect( SIGNAL( httpBusinessFinished() ) );
   if( !currentHttpBusiness ) {
 
     QDomDocument doc;
     QDomElement methodCall = doc.createElement( "methodCall" );
-    methodCall.appendChild( XmlMethodName( doc, "mt.getCategoryList" ) );
+    methodCall.appendChild( XmlMethodName( doc, useWordpressAPI ? "wp.getCategories" :
+                                           "mt.getCategoryList" ) );
 
     QDomElement params = doc.createElement( "params" );
-    params.appendChild( XmlValue( doc, "string", currentBlogid ) );
+    params.appendChild( XmlValue( doc, useWordpressAPI ? "int" : "string", currentBlogid ) );
     params.appendChild( XmlValue( doc, "string", currentAccountElement.firstChildElement( "details" )
                                   .firstChildElement( "login" ).text() ) );
     params.appendChild( XmlValue( doc, "string", currentAccountElement.firstChildElement( "details" )
@@ -1231,7 +1244,8 @@ void EditingWindow::refreshCategories()
     if( QApplication::overrideCursor() == 0 )
       QApplication::setOverrideCursor( QCursor( Qt::BusyCursor ) );
 
-    currentHttpBusiness = _mt_getCategoryList;
+    currentHttpBusiness = useWordpressAPI ? _wp_getCategories :
+                          _mt_getCategoryList;
     connect( http, SIGNAL( done( bool ) ),
              this, SLOT( handleDone( bool ) ) );
     connect( http, SIGNAL( readyRead( const QHttpResponseHeader & ) ),
@@ -1995,6 +2009,7 @@ void EditingWindow::handleDone( bool error ) // slot
     case _mt_getCategoryList:         mt_getCategoryList( responseData ); break;
     case _mt_setPostCategories:       mt_setPostCategories( responseData ); break;
     case _wp_newCategory:             wp_newCategory( responseData ); break;  
+    case _wp_getCategories:           wp_getCategories( responseData ); break;
   }
 
   http->disconnect();
@@ -4083,6 +4098,11 @@ void EditingWindow::newCategory( int parentCategory )
       }
     }
   }
+}
+
+void EditingWindow::makePrimary()
+{
+
 }
 
 void EditingWindow::addKeywordTag()

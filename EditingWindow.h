@@ -110,7 +110,7 @@ class EditingWindow : public QMainWindow
     _blogger_getUsersBlogs,
     _metaWeblog_newPost, _metaWeblog_editPost, _metaWeblog_newMediaObject,
     _mt_publishPost, _mt_getCategoryList, _mt_setPostCategories,
-    _wp_newCategory
+    _wp_newCategory, _wp_getCategories
   } HttpBusinessType;
 
  private:
@@ -136,6 +136,7 @@ class EditingWindow : public QMainWindow
   void mt_getCategoryList( QByteArray );
   void mt_setPostCategories( QByteArray );
   void wp_newCategory( QByteArray );
+  void wp_getCategories( QByteArray );
   void submitMTEdit();
   bool saveCheck();
   bool saveCheck( bool );
@@ -190,6 +191,7 @@ class EditingWindow : public QMainWindow
   QString filename;
   int primaryCat;
   QString otherCatsList;
+  QString currentPrimaryCat;
   QRegExpValidator *tagValidator;
   QString editorFontString, previewFontString, consoleFontString;
   QString perlPath, markdownPath;
@@ -276,6 +278,7 @@ class EditingWindow : public QMainWindow
   void doViewTBPings();
   void handleSideWidgetPageSwitch( int );
   void newChildCategory();
+  void makePrimary();
   void newCategory( int parentCategory = 0 );
   void addKeywordTag();
   void addKeywordTagFromLineEdit();
@@ -348,6 +351,8 @@ class EditingWindow : public QMainWindow
   QMenu *recentFilesMenu;
   QAction *noRecentFilesAction;
   QAction *childCategoryHereAction;
+  QAction *makePrimaryAction;
+  QAction *catPropertiesAction;
 
   int previewWindowID;
   int consoleID, edID;

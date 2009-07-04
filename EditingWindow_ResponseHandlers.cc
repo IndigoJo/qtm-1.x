@@ -359,3 +359,8 @@ void EditingWindow::wp_newCategory( QByteArray response )
   QApplication::restoreOverrideCursor();
 }
 
+void EditingWindow::wp_getCategories( QByteArray response );
+{
+
+}
+

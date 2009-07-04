@@ -337,6 +337,31 @@ void EditingWindow::mt_getCategoryList( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
+void EditingWindow::mt_setPostCategories( QByteArray response )
+{
+  disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
+
+  QXmlInputSource xis;
+  QXmlSimpleReader reader;
+  XmlRpcHandler handler( currentHttpBusiness );
+  QList<QString> parsedData;
+  QString rdata( response );
+
+  if( rdata.contains( "<fault>" ) ) {
+    statusBar()->showMessage( tr( "Categories not set successfully; see console." ), 2000 );
+    QTimer::singleShot( 1000, this, SLOT( hideProgressBar() ) );
+  }
+  else {
+    statusBar()->showMessage( tr( "Categories set successfully." ), 2000 );
+
+    if( location.contains( "mt-xmlrpc.cgi" ) && cw.cbStatus->currentIndex() == 1 )
+      connect( this, SIGNAL( httpBusinessFinished() ),
+               this, SLOT( publishPost() ) );
+  }
+  addToConsole( rdata );
+  QApplication::restoreOverrideCursor();
+}
+
 void EditingWindow::wp_newCategory( QByteArray response )
 {
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );

@@ -93,7 +93,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="basicsPage">
       <layout class="QVBoxLayout">
@@ -265,47 +265,7 @@
           <string>Categories</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="lMainCat">
-            <property name="text">
-             <string>Primary</string>
-            </property>
-            <property name="buddy">
-             <cstring>cbMainCat</cstring>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0" colspan="2">
-           <widget class="QComboBox" name="cbMainCat">
-            <property name="whatsThis">
-             <string>The main category under which your entry is to be published.  If you are choosing only one category, choose it here.</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="lOtherCats">
-            <property name="text">
-             <string>Others</string>
-            </property>
-            <property name="buddy">
-             <cstring>lwOtherCats</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0" colspan="2">
-           <widget class="QListWidget" name="lwOtherCats">
-            <property name="contextMenuPolicy">
-             <enum>Qt::ActionsContextMenu</enum>
-            </property>
-            <property name="whatsThis">
-             <string>Secondary categories, if your blog system supports them.  To select more than one category, hold down Ctrl and click the main mouse button.</string>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::MultiSelection</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0" colspan="2">
            <widget class="QCheckBox" name="chNoCats">
             <property name="toolTip">
              <string>Don't use any categories</string>
@@ -315,7 +275,7 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="2" column="0">
            <widget class="QPushButton" name="pbRefresh">
             <property name="whatsThis">
              <string>Fetches an updated category list from the blog server</string>
@@ -325,7 +285,7 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="2" column="1">
            <widget class="QPushButton" name="pbAddCategory">
             <property name="toolTip">
              <string>Add a category</string>
@@ -336,6 +296,79 @@
             <property name="text">
              <string>Add category</string>
             </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QStackedWidget" name="stackedWidget_2">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <widget class="QWidget" name="nonTreePage">
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="margin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="lMainCat">
+                <property name="text">
+                 <string>Primary</string>
+                </property>
+                <property name="buddy">
+                 <cstring>cbMainCat</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbMainCat">
+                <property name="whatsThis">
+                 <string>The main category under which your entry is to be published.  If you are choosing only one category, choose it here.</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="lOtherCats">
+                <property name="text">
+                 <string>Others</string>
+                </property>
+                <property name="buddy">
+                 <cstring>lwOtherCats</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="lwOtherCats">
+                <property name="contextMenuPolicy">
+                 <enum>Qt::ActionsContextMenu</enum>
+                </property>
+                <property name="whatsThis">
+                 <string>Secondary categories, if your blog system supports them.  To select more than one category, hold down Ctrl and click the main mouse button.</string>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::MultiSelection</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="treePage">
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QTreeWidget" name="twHierCats">
+                <property name="contextMenuPolicy">
+                 <enum>Qt::ActionsContextMenu</enum>
+                </property>
+                <property name="headerHidden">
+                 <bool>true</bool>
+                </property>
+                <column>
+                 <property name="text">
+                  <string notr="true">1</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -611,8 +644,6 @@
   <tabstop>chAllowComments</tabstop>
   <tabstop>chAllowTB</tabstop>
   <tabstop>cbDoTB</tabstop>
-  <tabstop>cbMainCat</tabstop>
-  <tabstop>lwOtherCats</tabstop>
   <tabstop>chNoCats</tabstop>
   <tabstop>pbRefresh</tabstop>
   <tabstop>pbAddCategory</tabstop>
@@ -644,38 +675,6 @@
     <hint type="destinationlabel">
      <x>252</x>
      <y>90</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>chNoCats</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>cbMainCat</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>38</x>
-     <y>91</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>110</x>
-     <y>138</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>chNoCats</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lwOtherCats</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>58</x>
-     <y>88</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>71</x>
-     <y>217</y>
     </hint>
    </hints>
   </connection>

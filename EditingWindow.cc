@@ -535,7 +535,7 @@ void EditingWindow::doUiSetup()
   cw.lwOtherCats->addAction( childCategoryHereAction );
   cw.twHierCats->addAction( childCategoryHereAction );
 
-  makePrimaryAction = new Action( tr( "Primary category" ), this );
+  makePrimaryAction = new QAction( tr( "Primary category" ), this );
   connect( makePrimaryAction, SIGNAL( triggered( bool ) ),
            this, SLOT( makePrimary() ) );
   cw.twHierCats->addAction( makePrimaryAction );
@@ -644,6 +644,7 @@ void EditingWindow::doUiSetup()
 
   cw.cbPageSelector->setCurrentIndex( 0 );
   cw.stackedWidget->setCurrentIndex( 0 );
+  cw.twHierCats->sortByColumn( 0, Qt::AscendingOrder );
 
   pbCopyURL = new QPushButton( this );
   pbCopyURL->setText( tr( "Copy URL" ) );
@@ -1183,6 +1184,7 @@ void EditingWindow::callRefreshCategories()
   if( !currentHttpBusiness ) {
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
+    cw.twHierCats->clear();
     refreshCategories();
   }
   else {
@@ -1893,6 +1895,7 @@ void EditingWindow::populateBlogList() // slot
       if( b ) {
         cw.cbMainCat->clear();
         cw.lwOtherCats->clear();
+        cw.twHierCats->clear();
         for( j = 0; j < b; j++ ) {
           catName = decodeXmlEntities( catNodeList.at( j ).firstChildElement( "categoryName" ).text() );
           cw.cbMainCat->addItem( catName, QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
@@ -2032,6 +2035,7 @@ void EditingWindow::changeAccount( int a ) // slot
     cw.cbBlogSelector->clear();
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
+    cw.twHierCats->clear();
 
     currentAccountElement = accountsDom.documentElement()
       .elementsByTagName( "account" ).at( a ).toElement();
@@ -2127,6 +2131,7 @@ void EditingWindow::changeBlog( int b, bool fromChangeAccount ) // slot
     currentBlog = b;
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
+    cw.twHierCats->clear();
 
     currentBlogElement = currentAccountElement.elementsByTagName( "blog" ).at( currentBlog ).toElement();
     currentBlogid = currentBlogElement.firstChildElement( "blogid" ).text();
@@ -2142,6 +2147,7 @@ void EditingWindow::changeBlog( int b, bool fromChangeAccount ) // slot
 //#endif
         cw.cbMainCat->clear();
         cw.lwOtherCats->clear();
+        cw.twHierCats->clear();
         for( int i = 0; i < c; i++ ) {
           currentCategoryText = decodeXmlEntities( catsList.at( i ).firstChildElement( "categoryName" ).text() );
           cw.cbMainCat->addItem( currentCategoryText,
@@ -3498,6 +3504,7 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
         cw.cbMainCat->clear();
         cw.cbMainCat->setEnabled( false );
         cw.lwOtherCats->clear();
+        cw.twHierCats->clear();
         cw.lwOtherCats->setEnabled( false );
         setPostClean();
         return true;
@@ -3551,6 +3558,7 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
         if( !catsElement.isNull() ) {
           cw.cbMainCat->clear();
           cw.lwOtherCats->clear();
+          cw.twHierCats->clear();
 
           QDomNodeList catNodeList = catsElement.elementsByTagName( "category" );
           int b = catNodeList.count();
@@ -3558,6 +3566,7 @@ bool EditingWindow::load( const QString &fname, bool fromSTI )
             // qDebug() << "categories:" << b;
             cw.cbMainCat->clear();
             cw.lwOtherCats->clear();
+            cw.twHierCats->clear();
             for( int j = 0; j < b; j++ ) {
               catName = decodeXmlEntities( catNodeList.at( j ).firstChildElement( "categoryName" ).text() );
               cw.cbMainCat->addItem( catName, QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
@@ -3728,12 +3737,14 @@ void EditingWindow::setLoadedPostCategories() // slot
   cw.cbBlogSelector->setCurrentIndex( currentBlog );
   cw.cbMainCat->clear();
   cw.lwOtherCats->clear();
+  cw.twHierCats->clear();
   QDomNodeList catNodeList = currentBlogElement.elementsByTagName( "category" );
   b = catNodeList.count();
   if( b ) {
     // qDebug() << "populating cat list";
     cw.cbMainCat->clear();
     cw.lwOtherCats->clear();
+    cw.twHierCats->clear();
     for( j = 0; j < b; j++ ) {
       cw.cbMainCat->addItem( catNodeList.at( j ).firstChildElement( "categoryName" ).text(),
                              QVariant( catNodeList.at( j ).firstChildElement( "categoryId" ).text() ) );
@@ -4309,6 +4320,8 @@ void EditingWindow::setDirtySignals( bool d )
     connect( cw.chAllowTB, SIGNAL( clicked( bool ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.cbMainCat, SIGNAL( activated( int ) ), this, SLOT( dirtifyIfText() ) );
     connect( cw.lwOtherCats, SIGNAL( activated( const QModelIndex & ) ),
+             this, SLOT( dirtifyIfText() ) );
+    connect( cw.twHierCats, SIGNAL( activated( const QModelIndex & ) ),
              this, SLOT( dirtifyIfText() ) );
     connect( cw.teExcerpt, SIGNAL( textChanged() ), this, SLOT( dirtify() ) );
   }

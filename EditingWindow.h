@@ -113,6 +113,13 @@ class EditingWindow : public QMainWindow
     _wp_newCategory, _wp_getCategories
   } HttpBusinessType;
 
+  typedef struct _wpcat {
+    QString catID;
+    QString parentID;
+    QString name;
+    QString description;
+  } WPCategory;
+
  private:
   Ui::MainWindow ui;
   Ui::CategoryWidget cw;
@@ -128,15 +135,15 @@ class EditingWindow : public QMainWindow
   void writeSettings();
   void callRefreshCategories();
   QString processWithMarkdown( const QString & );
-  void blogger_getUsersBlogs( QByteArray );
-  void metaWeblog_newPost( QByteArray );
-  void metaWeblog_editPost( QByteArray );
-  void metaWeblog_newMediaObject( QByteArray );
-  void mt_publishPost( QByteArray );
-  void mt_getCategoryList( QByteArray );
-  void mt_setPostCategories( QByteArray );
-  void wp_newCategory( QByteArray );
-  void wp_getCategories( QByteArray );
+  void blogger_getUsersBlogs( QByteArray & );
+  void metaWeblog_newPost( QByteArray & );
+  void metaWeblog_editPost( QByteArray & );
+  void metaWeblog_newMediaObject( QByteArray & );
+  void mt_publishPost( QByteArray & );
+  void mt_getCategoryList( QByteArray & );
+  void mt_setPostCategories( QByteArray & );
+  void wp_newCategory( QByteArray & );
+  void wp_getCategories( QByteArray & );
   void submitMTEdit();
   bool saveCheck();
   bool saveCheck( bool );

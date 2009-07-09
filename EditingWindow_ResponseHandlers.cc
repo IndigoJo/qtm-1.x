@@ -27,7 +27,7 @@
 #include "EditingWindow.h"
 #include "XmlRpcHandler.h"
 
-void EditingWindow::blogger_getUsersBlogs( QByteArray response )
+void EditingWindow::blogger_getUsersBlogs( QByteArray & response )
 {
   QXmlInputSource xis;
   QXmlSimpleReader reader;
@@ -124,7 +124,7 @@ void EditingWindow::blogger_getUsersBlogs( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::metaWeblog_newPost( QByteArray response )
+void EditingWindow::metaWeblog_newPost( QByteArray & response )
 {
   // Returned data should only contain a single string, and no structs. Hence
   // the XmlRpcHandler is not suitable.
@@ -161,7 +161,7 @@ void EditingWindow::metaWeblog_newPost( QByteArray response )
 }
 
 
-void EditingWindow::metaWeblog_editPost( QByteArray response )
+void EditingWindow::metaWeblog_editPost( QByteArray & response )
 {
   addToConsole( QString( response ) );
 
@@ -184,7 +184,7 @@ void EditingWindow::metaWeblog_editPost( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::metaWeblog_newMediaObject( QByteArray response )
+void EditingWindow::metaWeblog_newMediaObject( QByteArray & response )
 {
   QXmlInputSource xis;
   QXmlSimpleReader reader;
@@ -219,7 +219,7 @@ void EditingWindow::metaWeblog_newMediaObject( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::mt_publishPost( QByteArray response )
+void EditingWindow::mt_publishPost( QByteArray & response )
 {
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
   addToConsole( QString( response ) );
@@ -233,7 +233,7 @@ void EditingWindow::mt_publishPost( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::mt_getCategoryList( QByteArray response )
+void EditingWindow::mt_getCategoryList( QByteArray & response )
 {
   QXmlInputSource xis;
   QXmlSimpleReader reader;
@@ -337,7 +337,7 @@ void EditingWindow::mt_getCategoryList( QByteArray response )
     QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::mt_setPostCategories( QByteArray response )
+void EditingWindow::mt_setPostCategories( QByteArray & response )
 {
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
 
@@ -362,7 +362,7 @@ void EditingWindow::mt_setPostCategories( QByteArray response )
   QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::wp_newCategory( QByteArray response )
+void EditingWindow::wp_newCategory( QByteArray & response )
 {
   disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
 
@@ -384,8 +384,104 @@ void EditingWindow::wp_newCategory( QByteArray response )
   QApplication::restoreOverrideCursor();
 }
 
-void EditingWindow::wp_getCategories( QByteArray response );
+void EditingWindow::wp_getCategories( QByteArray  &response )
 {
+  QDomDocument doc;
+  QDomNodeList rpcstructs, members, mainCatList;
+  QDomElement mainCatElement, newCategory, newID, newParentID, newName, newDescr;
+  QList< QHash<QString, QString> > rcats;
+  QHash<QString, QTreeWidgetItem *> catItems;
+  QList<QTreeWidgetItem *> topLevelCatItems;
+  QTreeWidgetItem *catItem;
+  QHash<QString, QString> thiscat;
+  QString thisName, thisEntry, id, thisId;
+  QString responseString;
+  int i, j, a, b;
+  int catsToDisplay;
+
+  disconnect( this, SIGNAL( httpBusinessFinished() ), 0, 0 );
+
+  if( response.contains( "<fault>" ) ) {
+    statusBar()->showMessage( tr( "Could not connect; check account details and password" ), 2000 );
+  }
+  else {
+    responseString = response;
+
+    doc = QDomDocument( responseString );
+    rpcstructs = doc.elementsByTagName( "struct" );
+
+    i = rpcstructs.count();
+    if( i > 0 ) {
+      for( j = 0; j < i; j++ ) {
+        thiscat.clear();
+        members = rpcstructs.at( j ).toElement().elementsByTagName( "member" );
+        a = members.count();
+
+        if( a > 0 ) {
+          for( b = 0; b < a; b++ ) {
+            thisName = members.at( b ).firstChildElement( "name" ).text();
+            thisEntry = members.at( b ).firstChildElement( "int" ).text();
+            if( thisEntry.isNull() )
+              thisEntry = members.at( b ).firstChildElement( "string" ).text();
+            if( !thisName.isEmpty() && !thisEntry.isEmpty() )
+              thiscat[thisName] = thisEntry;
+          }
+        }
+        rcats.append( thiscat );
+      }
+      if( rcats.isEmpty() )
+        statusBar()->showMessage( tr( "There were no categories." ), 2000 );
+      else {
+        mainCatElement = accountsDom.createElement( "categories" );
+        for( b = 0; b < rcats.count(); b++ ) {
+          newCategory = accountsDom.createElement( "category" );
+          newID = accountsDom.createElement( "categoryId" );
+          newID.appendChild( accountsDom.createTextNode( rcats.value( b ).value( "categoryId" ) ) );
+          newName = accountsDom.createElement( "categoryName" );
+          newName.appendChild( accountsDom.createTextNode( rcats.value( b ).value( "categoryName" ) ) );
+          newParentID = accountsDom.createElement( "parentId" );
+          newParentID.appendChild( accountsDom.createTextNode( rcats.value( b ).value( "parentId" ) ) );
+          newDescr = accountsDom.createElement( "description" );
+          newDescr.appendChild( accountsDom.createTextNode( rcats.value( b ).value( "description" ) ) );
+
+          newCategory.appendChild( newID );
+          newCategory.appendChild( newName );
+          newCategory.appendChild( newParentID );
+          newCategory.appendChild( newDescr );
+          mainCatElement.appendChild( newCategory );
+        }
+
+        currentBlogElement.replaceChild( mainCatElement, currentBlogElement.firstChildElement( "categories" ) );
+
+        cw.twHierCats->clear();
+
+        mainCatList = mainCatElement.elementsByTagName( "category" );
+        catsToDisplay = mainCatList.count();
+        
+        // Now add all the categories into a big list
+        for( b = 0; b < catsToDisplay; b++ ) {
+          catItem = new QTreeWidgetItem;
+          id = mainCatList.at( b ).firstChildElement( "categoryId" ).text();
+          catItem->setText( 0, mainCatList.at( b ).firstChildElement( "categoryName" ).text() );
+          catItem->setData( 0, Qt::UserRole, QVariant( id ) );
+          catItems[id] = catItem;
+        }
+
+        // Now assign each category to its respective parent, and make a list of
+        // top-level items
+        Q_FOREACH( QTreeWidgetItem *item, catItems ) {
+          thisId = item->data( 0, Qt::UserRole ).toString();
+          if( thisId != "0" && catItems.contains( thisId ) )
+            catItems[thisId]->addChild( item );
+
+          if( thisId == "0" )
+            topLevelCatItems.append( item );
+        }
+
+        cw.twHierCats->addTopLevelItems( topLevelCatItems );
+      }
+    }
+  }
 
 }
 
